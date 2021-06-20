@@ -1,0 +1,186 @@
+version: "3.8"
+services:
+  gateway:
+    build: ./gateway
+    restart: always
+    hostname: gateway
+    container_name: Gateway
+    volumes:
+      - ./gateway:/app/gateway
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+      # - frontend
+    depends_on:
+      - redis
+      - database
+    command: yarn run start:debug
+
+  auth:
+    build: ./auth
+    restart: always
+    hostname: auth
+    container_name: Auth
+    volumes:
+      - ./auth:/app//auth
+    env_file:
+      - .env
+    # ports:
+    #   - "8001:8001"
+    networks:
+      - backend
+    depends_on:
+      - redis
+      - database
+    command: yarn run start:debug
+
+  company:
+    build: ./company
+    restart: always
+    hostname: company
+    container_name: Company
+    volumes:
+      - ./company:/app/company
+    env_file:
+      - .env
+    # ports:
+    #   - "8002:8002"
+    networks:
+      - backend
+    depends_on:
+      - redis
+      - database
+    command: yarn run start:debug
+
+  job:
+    build: ./job
+    restart: always
+    hostname: job
+    container_name: Job
+    volumes:
+      - ./job:/app/job
+    env_file:
+      - .env
+    # ports:
+    #   - "8003:8003"
+    networks:
+      - backend
+    depends_on:
+      - redis
+      - database
+    command: yarn run start:debug
+
+  language:
+    build: ./language
+    restart: always
+    hostname: language
+    container_name: Language
+    volumes:
+      - ./language:/app/language
+    env_file:
+      - .env
+    # ports:
+    #   - "8004:8004"
+    networks:
+      - backend
+    depends_on:
+      - redis
+      - database
+    command: yarn run start:debug
+
+  search:
+    build: ./search
+    restart: always
+    hostname: search
+    container_name: Search
+    volumes:
+      - ./search:/app/search
+    env_file:
+      - .env
+    # ports:
+    #   - "8005:8005"
+    networks:
+      - backend
+    depends_on:
+      - redis
+      - database
+    command: yarn run start:debug
+
+  # permission:
+  #   build: ./permission
+  #   restart: always
+  #   hostname: permission
+  #   container_name: Permisstion
+  #   volumes:
+  #     - ./permission:/app
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "8006:8006"
+  #   networks:
+  #     - backend
+  #   depends_on: 
+  #     - redis
+  #     - database
+  #   command: yarn run start:debug
+
+  # mailer:
+  #   build: ./mailer
+  #   restart: always
+  #   hostname: mailer
+  #   container_name: Mailer
+  #   volumes:
+  #     - ./mailer:/app
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "8007:8007"
+  #   networks:
+  #     - backend
+  #   depends_on: 
+  #     - redis
+  #     - database
+  #   command: yarn run start:debug
+
+  redis:
+    image: "redis:alpine"
+    container_name: Redis
+    hostname: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/data:/data
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    networks:
+      - backend
+
+  database:
+    image: "mongo"
+    restart: always
+    container_name: Database
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - "./database/data/db:/data/db"
+      - "./database/init/:/docker-entrypoint-initdb.d/"
+    ports:
+      - 27017:27017
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+  # frontend:
+  #   external:
+  #     name: infrastructure

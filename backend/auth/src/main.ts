@@ -10,7 +10,7 @@ async function bootstrap() {
       options: {
         retryAttempts: 5,
         retryDelay: 3000,
-        url: 'redis://localhost:6379',
+        url: 'redis://redis:6379',
       },
     },
   );

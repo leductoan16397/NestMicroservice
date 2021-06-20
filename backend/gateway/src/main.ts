@@ -12,7 +12,7 @@ async function bootstrap() {
   );
 
   // launch app
-  await app.listen(/* appConfig.port */ 8080, '0.0.0.0');
+  await app.listen(/* appConfig.port */ 8000, '0.0.0.0');
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();

@@ -1,21 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-
+import { AuthModule } from './auth/auth.module';
+import { JobModule } from './job/job.module';
+import { CompanyModule } from './company/company.module';
+import { LanguageModule } from './language/language.module';
+import { SearchModule } from './search/search.module';
+import { AppController } from './app.controllers';
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: 'MATH_SERVICE',
-        transport: Transport.REDIS,
-        options: {
-          url: 'redis://localhost:6379',
-        },
-      },
-    ]),
-  ],
+  imports: [AuthModule, JobModule, CompanyModule, LanguageModule, SearchModule],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
