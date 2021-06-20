@@ -41,6 +41,7 @@ build/Release
 node_modules/
 database/data/
 jspm_packages/
+redis/
 
 # TypeScript v1 declaration files
 typings/
