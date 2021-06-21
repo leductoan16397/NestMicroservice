@@ -5,8 +5,16 @@ import { CompanyModule } from './company/company.module';
 import { LanguageModule } from './language/language.module';
 import { SearchModule } from './search/search.module';
 import { AppController } from './app.controllers';
+import { CoreModule } from 'core/core.module';
 @Module({
-  imports: [AuthModule, JobModule, CompanyModule, LanguageModule, SearchModule],
+  imports: [
+    CoreModule,
+    AuthModule,
+    JobModule,
+    CompanyModule,
+    LanguageModule,
+    SearchModule,
+  ],
   controllers: [AppController],
 })
 export class AppModule {}

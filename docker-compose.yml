@@ -12,6 +12,7 @@ services:
       - ./backend/.env
     ports:
       - "8000:8000"
+      - "9230:9230"
     networks:
       - backend
       # - frontend
@@ -29,8 +30,8 @@ services:
       - ./backend/auth:/app//auth
     env_file:
       - ./backend/.env
-    # ports:
-    #   - "8001:8001"
+    ports:
+      - "9231:9231"
     networks:
       - backend
     depends_on:
@@ -47,8 +48,8 @@ services:
       - ./backend/company:/app/company
     env_file:
       - ./backend/.env
-    # ports:
-    #   - "8002:8002"
+    ports:
+      - "9232:9232"
     networks:
       - backend
     depends_on:
@@ -65,8 +66,8 @@ services:
       - ./backend/job:/app/job
     env_file:
       - ./backend/.env
-    # ports:
-    #   - "8003:8003"
+    ports:
+      - "9233:9233"
     networks:
       - backend
     depends_on:
@@ -83,8 +84,8 @@ services:
       - ./backend/language:/app/language
     env_file:
       - ./backend/.env
-    # ports:
-    #   - "8004:8004"
+    ports:
+      - "9234:9234"
     networks:
       - backend
     depends_on:
@@ -101,8 +102,8 @@ services:
       - ./backend/search:/app/search
     env_file:
       - ./backend/.env
-    # ports:
-    #   - "8005:8005"
+    ports:
+      - "9235:9235"
     networks:
       - backend
     depends_on:
@@ -120,7 +121,7 @@ services:
   #   env_file:
   #     - ./backend/.env
   #   ports:
-  #     - "8006:8006"
+  #     - "9236:9236"
   #   networks:
   #     - backend
   #   depends_on:
@@ -138,7 +139,7 @@ services:
   #   env_file:
   #     - ./backend/.env
   #   ports:
-  #     - "8007:8007"
+  #     - "9237:9237"
   #   networks:
   #     - backend
   #   depends_on:
@@ -164,6 +165,7 @@ services:
   database:
     image: "mongo"
     restart: always
+    hostname: mongo
     container_name: Database
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
@@ -172,7 +174,7 @@ services:
       MONGO_USER: ${MONGO_USER}
       MONGO_PASSWORD: ${MONGO_PASSWORD}
     volumes:
-      - "./database/db:/data/db"
+      - "./database/data/db:/data/db"
       - "./database/init/:/docker-entrypoint-initdb.d/"
     ports:
       - 27017:27017

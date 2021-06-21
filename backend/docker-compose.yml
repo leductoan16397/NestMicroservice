@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   gateway:
     build: ./gateway
@@ -11,6 +12,7 @@ services:
       - .env
     ports:
       - "8000:8000"
+      - "9230:9230"
     networks:
       - backend
       # - frontend
@@ -28,8 +30,8 @@ services:
       - ./auth:/app//auth
     env_file:
       - .env
-    # ports:
-    #   - "8001:8001"
+    ports:
+      - "9231:9231"
     networks:
       - backend
     depends_on:
@@ -46,8 +48,8 @@ services:
       - ./company:/app/company
     env_file:
       - .env
-    # ports:
-    #   - "8002:8002"
+    ports:
+      - "9232:9232"
     networks:
       - backend
     depends_on:
@@ -64,8 +66,8 @@ services:
       - ./job:/app/job
     env_file:
       - .env
-    # ports:
-    #   - "8003:8003"
+    ports:
+      - "9233:9233"
     networks:
       - backend
     depends_on:
@@ -82,8 +84,8 @@ services:
       - ./language:/app/language
     env_file:
       - .env
-    # ports:
-    #   - "8004:8004"
+    ports:
+      - "9234:9234"
     networks:
       - backend
     depends_on:
@@ -100,8 +102,8 @@ services:
       - ./search:/app/search
     env_file:
       - .env
-    # ports:
-    #   - "8005:8005"
+    ports:
+      - "9235:9235"
     networks:
       - backend
     depends_on:
@@ -115,14 +117,14 @@ services:
   #   hostname: permission
   #   container_name: Permisstion
   #   volumes:
-  #     - ./permission:/app
+  #     - ./permission:/app/permission
   #   env_file:
   #     - .env
   #   ports:
-  #     - "8006:8006"
+  #     - "9236:9236"
   #   networks:
   #     - backend
-  #   depends_on: 
+  #   depends_on:
   #     - redis
   #     - database
   #   command: yarn run start:debug
@@ -133,14 +135,14 @@ services:
   #   hostname: mailer
   #   container_name: Mailer
   #   volumes:
-  #     - ./mailer:/app
+  #     - ./mailer:/app/mailer
   #   env_file:
   #     - .env
   #   ports:
-  #     - "8007:8007"
+  #     - "9237:9237"
   #   networks:
   #     - backend
-  #   depends_on: 
+  #   depends_on:
   #     - redis
   #     - database
   #   command: yarn run start:debug
@@ -171,8 +173,8 @@ services:
       MONGO_USER: ${MONGO_USER}
       MONGO_PASSWORD: ${MONGO_PASSWORD}
     volumes:
-      - "./database/data/db:/data/db"
-      - "./database/init/:/docker-entrypoint-initdb.d/"
+      - "../database/data/db:/data/db"
+      - "../database/init/:/docker-entrypoint-initdb.d/"
     ports:
       - 27017:27017
     networks:

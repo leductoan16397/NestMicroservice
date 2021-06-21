@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { ConfigService } from 'core/config/config.service';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -10,7 +11,9 @@ async function bootstrap() {
       options: {
         retryAttempts: 5,
         retryDelay: 3000,
-        url: 'redis://redis:6379',
+        url: `redis://${new ConfigService().get(
+          'redis_host',
+        )}:${new ConfigService().get('redis_port')}`,
       },
     },
   );

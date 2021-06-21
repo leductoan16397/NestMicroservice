@@ -39,12 +39,11 @@ build/Release
 
 # Dependency directories
 node_modules/
-database/db
+database/
 db/
 jspm_packages/
 redis/
 data/
-mmm
 
 # TypeScript v1 declaration files
 typings/

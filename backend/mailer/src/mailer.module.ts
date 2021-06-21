@@ -3,9 +3,11 @@ import { MailerModule } from '@nest-modules/mailer';
 import { MailerController } from './mailer.controller';
 import { MailerConfigService } from './services/config/mailer-config.service';
 import { ConfigService } from './services/config/config.service';
+import { CoreModule } from 'core/core.module';
 
 @Module({
   imports: [
+    CoreModule,
     MailerModule.forRootAsync({
       useClass: MailerConfigService
     })
