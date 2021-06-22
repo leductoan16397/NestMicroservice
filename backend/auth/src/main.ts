@@ -4,6 +4,11 @@ import { ConfigService } from 'core/config/config.service';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
+  console.log(new ConfigService().get('mongo_host'));
+  console.log(new ConfigService().get('mongo_port'));
+  console.log(new ConfigService().get('mongo_root_user'));
+  console.log(new ConfigService().get('mongo_root_user_password'));
+
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {

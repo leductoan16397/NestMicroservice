@@ -12,7 +12,7 @@ services:
       - .env
     ports:
       - "8000:8000"
-      - "9230:9230"
+      - "9230:9229"
     networks:
       - backend
       # - frontend
@@ -27,11 +27,11 @@ services:
     hostname: auth
     container_name: Auth
     volumes:
-      - ./auth:/app//auth
+      - ./auth:/app/auth
     env_file:
       - .env
     ports:
-      - "9231:9231"
+      - "9231:9229"
     networks:
       - backend
     depends_on:
@@ -49,7 +49,7 @@ services:
     env_file:
       - .env
     ports:
-      - "9232:9232"
+      - "9232:9229"
     networks:
       - backend
     depends_on:
@@ -67,7 +67,7 @@ services:
     env_file:
       - .env
     ports:
-      - "9233:9233"
+      - "9233:9229"
     networks:
       - backend
     depends_on:
@@ -85,7 +85,7 @@ services:
     env_file:
       - .env
     ports:
-      - "9234:9234"
+      - "9234:9229"
     networks:
       - backend
     depends_on:
@@ -103,7 +103,7 @@ services:
     env_file:
       - .env
     ports:
-      - "9235:9235"
+      - "9235:9229"
     networks:
       - backend
     depends_on:
@@ -121,7 +121,7 @@ services:
   #   env_file:
   #     - .env
   #   ports:
-  #     - "9236:9236"
+  #     - "9236:9229"
   #   networks:
   #     - backend
   #   depends_on:
@@ -139,7 +139,7 @@ services:
   #   env_file:
   #     - .env
   #   ports:
-  #     - "9237:9237"
+  #     - "9237:9229"
   #   networks:
   #     - backend
   #   depends_on:
@@ -165,7 +165,10 @@ services:
   database:
     image: "mongo"
     restart: always
+    hostname: mongo
     container_name: Database
+    env_file:
+      - .env
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}

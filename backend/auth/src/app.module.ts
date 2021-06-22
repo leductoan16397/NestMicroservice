@@ -8,23 +8,24 @@ import { AppService } from './app.service';
 
 @Module({
   imports: [
-    CoreModule,
-    AuthModule,
-    MongooseModule.forRoot('mongodb://mongo:27017/nest-mern', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    }),
     MongooseModule.forRootAsync({
-      useFactory: (configService = new ConfigService()) => ({
-        uri: `mongodb://${configService.get('mongo_host')}:${configService.get(
-          'mongo_port',
-        )}/nest-mern`,
+      imports: [CoreModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: `mongodb://${configService.get(
+          'mongo_root_user',
+        )}:${configService.get('mongo_root_user_password')}@${configService.get(
+          'mongo_host',
+        )}:${configService.get('mongo_port')}/${configService.get(
+          'database',
+        )}?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false`,
         useNewUrlParser: true,
         useFindAndModify: false,
         useCreateIndex: true,
       }),
+      inject: [ConfigService],
     }),
+    CoreModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
