@@ -148,7 +148,7 @@ services:
   #   command: yarn run start:debug
 
   redis:
-    image: "redis:alpine"
+    image: redis:alpine
     container_name: Redis
     hostname: redis
     restart: always
@@ -163,10 +163,10 @@ services:
       - backend
 
   database:
-    image: "mongo"
+    image: mongo
     restart: always
     hostname: mongo
-    container_name: Database
+    container_name: NestJs_Database
     env_file:
       - .env
     environment:
