@@ -8,28 +8,43 @@ import { AppController } from './app.controllers';
 import { CoreModule } from 'core/core.module';
 import * as redisStore from 'cache-manager-redis-store';
 import { ConfigService } from 'core/config/config.service';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { CacheInterceptor } from '@nestjs/common';
+import { RolesGuard } from './auth/guards/roles.guard';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
     CoreModule,
+    ClientsModule.registerAsync([
+      {
+        name: 'AUTH_SERVICE',
+        imports: [CoreModule],
+        useFactory: async (configService: ConfigService) => ({
+          transport: Transport.REDIS,
+          options: {
+            url: `redis://${configService.get(
+              'redis_host',
+            )}:${configService.get('redis_port')}`,
+          },
+        }),
+        inject: [ConfigService],
+      },
+    ]),
     AuthModule,
     JobModule,
     CompanyModule,
     LanguageModule,
     SearchModule,
-    CacheModule.register({
-      useFactory: (configService = new ConfigService()) => {
-        console.log(configService.get('redis_host'));
-        console.log(configService.get('redis_port'));
-        return {
-          store: redisStore,
-          host: `${configService.get('redis_host')}`,
-          port: configService.get('redis_port'),
-          ttl: 10,
-        };
-      },
+    CacheModule.registerAsync({
+      imports: [CoreModule],
+      useFactory: async (configService: ConfigService) => ({
+        store: redisStore,
+        host: configService.get('redis_host'),
+        port: configService.get('redis_port'),
+        ttl: 10,
+      }),
+      inject: [ConfigService],
     }),
   ],
   controllers: [AppController],
@@ -37,6 +52,10 @@ import { CacheInterceptor } from '@nestjs/common';
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
 })

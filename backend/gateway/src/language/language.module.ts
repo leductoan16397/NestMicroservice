@@ -1,17 +1,25 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ConfigService } from 'core/config/config.service';
+import { CoreModule } from 'core/core.module';
 import { LanguageController } from './language.controller';
 import { LanguageService } from './language.service';
 
 @Module({
   imports: [
-    ClientsModule.register([
+    ClientsModule.registerAsync([
       {
         name: 'LANGUAGE_SERVICE',
-        transport: Transport.REDIS,
-        options: {
-          url: 'redis://redis:6379',
-        },
+        imports: [CoreModule],
+        useFactory: async (configService: ConfigService) => ({
+          transport: Transport.REDIS,
+          options: {
+            url: `redis://${configService.get(
+              'redis_host',
+            )}:${configService.get('redis_port')}`,
+          },
+        }),
+        inject: [ConfigService],
       },
     ]),
   ],
