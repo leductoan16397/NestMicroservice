@@ -53,6 +53,7 @@ export class UserService {
       fullName: user.fullName,
       email: user.email,
       verified: user.verified,
+      verification: user.verification,
     };
     return userRegistrationInfo;
   }

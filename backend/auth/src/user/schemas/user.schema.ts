@@ -1,7 +1,7 @@
 import { HookNextFunction, Document } from 'mongoose';
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
 import validator from 'validator';
-// import { hash } from 'bcrypt';
+import { hashSync } from 'bcrypt-nodejs';
 
 @Schema({
   timestamps: true,
@@ -93,8 +93,7 @@ UserSchema.pre('save', async function (next: HookNextFunction) {
     return next();
   }
 
-  // const hashed = await hash(this['password'], 10);
-  const hashed = await this['password'];
+  const hashed = hashSync(this['password']);
   // tslint:disable-next-line:no-string-literal
   this['password'] = hashed;
   return next();

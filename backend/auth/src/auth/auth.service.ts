@@ -19,7 +19,7 @@ import { lookup } from 'geoip-country';
 import Cryptr from 'cryptr';
 import { CreateUserDto } from 'user/dto/create-user.dto';
 import { UserService } from 'user/user.service';
-import { VerifyUuidDto } from 'user/dto/verify-uuid.dto';
+import { VerifyUuidDto } from 'auth/dto/verify-uuid.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { RefreshAccessTokenDto } from './dto/refresh-access-token.dto';
 import { CreateForgotPasswordDto } from './dto/create-forgot-password.dto';
@@ -31,6 +31,7 @@ import { ForgotPasswordInterFace } from 'forgot-password/interfaces/forgot-passw
 import { ForgotPasswordModel } from 'forgot-password/schemas/forgot-password.schema';
 import { RefreshToken } from 'refresh-token/interface/refresh-token.interface';
 import { ConfigService } from 'core/config/config.service';
+import { ReqInfo } from './interfaces/requestInfo.interface';
 
 @Injectable()
 export class AuthService {
@@ -54,13 +55,13 @@ export class AuthService {
     return this.encryptText(accessToken);
   }
 
-  private async createRefreshToken(@Req() req: FastifyRequest, userId: string) {
+  private async createRefreshToken(reqInfo: ReqInfo, userId: string) {
     const input: RefreshToken = {
       userId,
       refreshToken: v4(),
-      ip: this.getIp(req),
-      browser: this.getBrowserInfo(req),
-      country: this.getCountry(req),
+      ip: reqInfo.ip,
+      browser: reqInfo.browser,
+      country: reqInfo.country,
     };
     const refreshToken = await this.refreshTokenService.createRefreshToken(
       input,
@@ -137,28 +138,28 @@ export class AuthService {
   }
 
   async saveForgotPassword(
-    req: FastifyRequest,
+    req: ReqInfo,
     createForgotPasswordDto: CreateForgotPasswordDto,
   ) {
     const forgotPassword: ForgotPasswordInterFace = {
       email: createForgotPasswordDto.email,
       verification: v4(),
       expires: addHours(new Date(), this.userService.HOURS_TO_VERIFY),
-      ip: this.getIp(req),
-      browser: this.getBrowserInfo(req),
-      country: this.getCountry(req),
+      ip: req.ip,
+      browser: req.browser,
+      country: req.country,
     };
     await this.forgotPasswordService.createForgotPassword(forgotPassword);
   }
 
   async setForgotPasswordFirstUsed(
-    req: FastifyRequest,
+    req: ReqInfo,
     forgotPassword: ForgotPasswordModel,
   ) {
     forgotPassword.firstUsed = true;
-    forgotPassword.ipChanged = this.getIp(req);
-    forgotPassword.browserChanged = this.getBrowserInfo(req);
-    forgotPassword.countryChanged = this.getCountry(req);
+    forgotPassword.ipChanged = req.ip;
+    forgotPassword.browserChanged = req.browser;
+    forgotPassword.countryChanged = req.country;
     await forgotPassword.save();
   }
 
@@ -195,7 +196,7 @@ export class AuthService {
   // ┬  ┬┌─┐┬─┐┬┌─┐┬ ┬  ┌─┐┌┬┐┌─┐┬┬
   // └┐┌┘├┤ ├┬┘│├┤ └┬┘  ├┤ │││├─┤││
   //  └┘ └─┘┴└─┴└   ┴   └─┘┴ ┴┴ ┴┴┴─┘
-  async verifyEmail(req: FastifyRequest, verifyUuidDto: VerifyUuidDto) {
+  async verifyEmail(reqInfo: any, verifyUuidDto: VerifyUuidDto) {
     const user = await this.userService.findByVerification(
       verifyUuidDto.verification,
     );
@@ -204,14 +205,14 @@ export class AuthService {
       fullName: user.fullName,
       email: user.email,
       accessToken: await this.createAccessToken(user._id),
-      refreshToken: await this.createRefreshToken(req, user._id),
+      refreshToken: await this.createRefreshToken(reqInfo, user._id),
     };
   }
 
   // ┬  ┌─┐┌─┐┬┌┐┌
   // │  │ ││ ┬││││
   // ┴─┘└─┘└─┘┴┘└┘
-  async login(req: FastifyRequest, loginUserDto: LoginUserDto) {
+  async login(reqInfo: ReqInfo, loginUserDto: LoginUserDto) {
     const user = await this.userService.findUserByEmail(loginUserDto.email);
     this.userService.isUserBlocked(user);
     await this.userService.checkPassword(loginUserDto.password, user);
@@ -220,7 +221,7 @@ export class AuthService {
       fullName: user.fullName,
       email: user.email,
       accessToken: await this.createAccessToken(user._id),
-      refreshToken: await this.createRefreshToken(req, user._id),
+      refreshToken: await this.createRefreshToken(reqInfo, user._id),
     };
   }
 
@@ -244,7 +245,7 @@ export class AuthService {
   // ├┤ │ │├┬┘│ ┬│ │ │   ├─┘├─┤└─┐└─┐││││ │├┬┘ ││
   // └  └─┘┴└─└─┘└─┘ ┴   ┴  ┴ ┴└─┘└─┘└┴┘└─┘┴└──┴┘
   async forgotPassword(
-    req: FastifyRequest,
+    req: ReqInfo,
     createForgotPasswordDto: CreateForgotPasswordDto,
   ) {
     await this.userService.findByEmail(createForgotPasswordDto.email);
@@ -258,10 +259,7 @@ export class AuthService {
   // ┌─┐┌─┐┬─┐┌─┐┌─┐┌┬┐  ┌─┐┌─┐┌─┐┌─┐┬ ┬┌─┐┬─┐┌┬┐  ┬  ┬┌─┐┬─┐┬┌─┐┬ ┬
   // ├┤ │ │├┬┘│ ┬│ │ │   ├─┘├─┤└─┐└─┐││││ │├┬┘ ││  └┐┌┘├┤ ├┬┘│├┤ └┬┘
   // └  └─┘┴└─└─┘└─┘ ┴   ┴  ┴ ┴└─┘└─┘└┴┘└─┘┴└──┴┘   └┘ └─┘┴└─┴└   ┴
-  async forgotPasswordVerify(
-    req: FastifyRequest,
-    verifyUuidDto: VerifyUuidDto,
-  ) {
+  async forgotPasswordVerify(req: ReqInfo, verifyUuidDto: VerifyUuidDto) {
     const forgotPassword = await this.findForgotPasswordByUuid(verifyUuidDto);
     await this.setForgotPasswordFirstUsed(req, forgotPassword);
     return {
