@@ -8,6 +8,19 @@ import { CoreModule } from 'core/core.module';
   imports: [
     ClientsModule.registerAsync([
       {
+        name: 'AUTH_SERVICE',
+        imports: [CoreModule],
+        useFactory: async (configService: ConfigService) => ({
+          transport: Transport.REDIS,
+          options: {
+            url: `redis://${configService.get(
+              'redis_host',
+            )}:${configService.get('redis_port')}`,
+          },
+        }),
+        inject: [ConfigService],
+      },
+      {
         name: 'USER_SERVICE',
         imports: [CoreModule],
         useFactory: async (configService: ConfigService) => ({

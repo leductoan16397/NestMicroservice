@@ -3,6 +3,7 @@ export class ConfigService {
 
   constructor() {
     this.envConfig = {};
+    this.envConfig.encrypt_jwt_secret = process.env.ENCRYPT_JWT_SECRET;
     this.envConfig.port = process.env.API_GATEWAY_PORT;
     this.envConfig.appEnv = process.env.APP_ENV;
     this.envConfig.mongo_host = process.env.MONGO_HOST || 'mongo';

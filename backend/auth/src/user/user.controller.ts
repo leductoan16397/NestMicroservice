@@ -9,7 +9,7 @@ import { MessagePattern } from '@nestjs/microservices';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @MessagePattern('findAll')
+  @MessagePattern({ service: 'User', action: 'findAll' })
   async findAll(): Promise<unknown> {
     const users = await this.userService.findAll();
 

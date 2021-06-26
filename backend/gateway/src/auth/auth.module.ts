@@ -3,8 +3,10 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from 'core/config/config.service';
 import { CoreModule } from 'core/core.module';
 import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
 @Module({
   imports: [
+    CoreModule,
     ClientsModule.registerAsync([
       {
         name: 'AUTH_SERVICE',
@@ -22,6 +24,6 @@ import { AuthController } from './auth.controller';
     ]),
   ],
   controllers: [AuthController],
-  providers: [],
+  providers: [AuthService],
 })
 export class AuthModule {}

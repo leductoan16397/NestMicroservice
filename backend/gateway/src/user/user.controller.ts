@@ -16,23 +16,26 @@ import {
   ApiHeader,
   ApiOperation,
 } from '@nestjs/swagger';
-// import { Roles } from 'auth/auth/decorators/roles.decorator';
+import { Roles } from 'auth/decorators/roles.decorator';
 // import { RolesGuard } from 'auth/auth/guards/roles.guard';
 import { UserEntity } from './Entity/user.entity';
 import { classToPlain } from 'class-transformer';
 import { ClientProxy } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
+import { AuthGuard } from 'auth/guards/auth.guard';
+import { RolesGuard } from 'auth/guards/roles.guard';
+import { MessagePatternInterface } from 'interface/message-parten.interface';
 
 @ApiTags('User')
 @Controller('users')
-// @UseGuards(RolesGuard)
-@UseInterceptors(ClassSerializerInterceptor)
+@UseGuards(AuthGuard, RolesGuard)
+// @UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
   constructor(@Inject('USER_SERVICE') private UserService: ClientProxy) {}
 
   @Get('data')
   @ApiBearerAuth()
-  // @Roles('user')
+  @Roles('user')
   @ApiOperation({ summary: 'A private route for check the auth' })
   @ApiHeader({
     name: 'Bearer',
@@ -41,17 +44,10 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({})
   async findAll() {
-    const pattern = { cmd: 'hello' };
-    const payload = 'auth';
-    const users = await this.UserService.send<string>(
-      pattern,
-      payload,
-    ).toPromise();
-    return users;
-
-    // return classToPlain(
-    //   users.map((user) => new UserEntity(user.toJSON())),
-    //   { excludePrefixes: ['_'] },
-    // );
+    const message: MessagePatternInterface = {
+      service: 'User',
+      action: 'findAll',
+    };
+    return this.UserService.send(message, {});
   }
 }

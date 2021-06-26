@@ -4,13 +4,12 @@ import {
   UnauthorizedException,
   BadRequestException,
   Logger,
-  Req,
 } from '@nestjs/common';
 import { addHours } from 'date-fns';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import { UserInterface } from 'user/interfaces/user.interface';
 import { v4 } from 'uuid';
 import { FastifyRequest } from 'fastify';
@@ -36,6 +35,7 @@ import { ReqInfo } from './interfaces/requestInfo.interface';
 @Injectable()
 export class AuthService {
   cryptr: any;
+  jwt: any;
   private readonly logger = new Logger(AuthService.name);
   constructor(
     private readonly appConfig: ConfigService,
@@ -49,9 +49,7 @@ export class AuthService {
   }
 
   private async createAccessToken(userId: string) {
-    const accessToken = sign({ userId }, this.appConfig.get('jwt_sercret'), {
-      expiresIn: this.appConfig.get('jwt_expiration'),
-    });
+    const accessToken = this.jwtService.sign({ userId });
     return this.encryptText(accessToken);
   }
 
@@ -85,38 +83,26 @@ export class AuthService {
     return user;
   }
 
-  //   ┬┬ ┬┌┬┐  ┌─┐─┐ ┬┌┬┐┬─┐┌─┐┌─┐┌┬┐┌─┐┬─┐
-  //   ││││ │   ├┤ ┌┴┬┘ │ ├┬┘├─┤│   │ │ │├┬┘
-  //  └┘└┴┘ ┴   └─┘┴ └─ ┴ ┴└─┴ ┴└─┘ ┴ └─┘┴└─
-  private jwtExtractor(request) {
-    let token = null;
-    if (request.headers.authorization) {
-      token = request.headers.authorization
-        .replace('Bearer ', '')
-        .replace(' ', '');
-    } else if (request.headers.bearer) {
-      token = request.headers.bearer;
-    } else if (request.body.token) {
-      token = request.body.token.replace(' ', '');
-    } else if (request.query.token) {
-      token = request.body.token.replace(' ', '');
+  verifyToken = async (token: string): Promise<any> => {
+    try {
+      const jwtToken = this.jwtExtractor(token);
+      const jwtPayload = this.jwtService.verify(jwtToken);
+      const user = await this.validateUser(jwtPayload);
+      return user;
+    } catch (error) {
+      return null;
     }
-    const cryptr = new Cryptr(process.env.ENCRYPT_JWT_SECRET);
-    if (token) {
-      try {
-        token = cryptr.decrypt(token);
-      } catch (err) {
-        throw new BadRequestException('Bad request.');
-      }
+  };
+
+  private jwtExtractor(token: string): string {
+    try {
+      token = this.cryptr.decrypt(token);
+      return token;
+    } catch (err) {
+      throw err;
     }
-    return token;
   }
 
-  // ***********************
-  // ╔╦╗╔═╗╔╦╗╦ ╦╔═╗╔╦╗╔═╗
-  // ║║║║╣  ║ ╠═╣║ ║ ║║╚═╗
-  // ╩ ╩╚═╝ ╩ ╩ ╩╚═╝═╩╝╚═╝
-  // ***********************
   returnJwtExtractor() {
     return this.jwtExtractor;
   }
@@ -271,15 +257,15 @@ export class AuthService {
   // ┬─┐┌─┐┌─┐┌─┐┌┬┐  ┌─┐┌─┐┌─┐┌─┐┬ ┬┌─┐┬─┐┌┬┐
   // ├┬┘├┤ └─┐├┤  │   ├─┘├─┤└─┐└─┐││││ │├┬┘ ││
   // ┴└─└─┘└─┘└─┘ ┴   ┴  ┴ ┴└─┘└─┘└┴┘└─┘┴└──┴┘
-  // async resetPassword(resetPasswordDto: ResetPasswordDto) {
-  //   const forgotPassword = await this.findForgotPasswordByEmail(
-  //     resetPasswordDto,
-  //   );
-  //   await this.forgotPasswordService.setForgotPasswordFinalUsed(forgotPassword);
-  //   await this.userService.resetUserPassword(resetPasswordDto);
-  //   return {
-  //     email: resetPasswordDto.email,
-  //     message: 'password successfully changed.',
-  //   };
-  // }
+  async resetPassword(resetPasswordDto: ResetPasswordDto) {
+    const forgotPassword = await this.findForgotPasswordByEmail(
+      resetPasswordDto,
+    );
+    await this.forgotPasswordService.setForgotPasswordFinalUsed(forgotPassword);
+    await this.userService.resetUserPassword(resetPasswordDto);
+    return {
+      email: resetPasswordDto.email,
+      message: 'password successfully changed.',
+    };
+  }
 }

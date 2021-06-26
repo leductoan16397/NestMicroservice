@@ -60,7 +60,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerOptions, {
-    include: [UserModule, AuthModule],
+    include: [AuthModule, UserModule],
   });
 
   SwaggerModule.setup('api-docs', app, document, {

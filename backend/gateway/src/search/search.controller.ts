@@ -1,7 +1,9 @@
 import { Controller, Inject, Get } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 
+@ApiTags('Search')
 @Controller('search')
 export class SearchController {
   constructor(

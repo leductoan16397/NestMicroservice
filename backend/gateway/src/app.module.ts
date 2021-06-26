@@ -12,6 +12,8 @@ import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { CacheInterceptor } from '@nestjs/common';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { UserModule } from 'user/user.module';
+import { AuthGuard } from 'auth/guards/auth.guard';
 
 @Module({
   imports: [
@@ -32,6 +34,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       },
     ]),
     AuthModule,
+    UserModule,
     JobModule,
     CompanyModule,
     LanguageModule,
@@ -53,10 +56,14 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: RolesGuard,
+    // },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: AuthGuard,
+    // },
   ],
 })
 export class AppModule {}

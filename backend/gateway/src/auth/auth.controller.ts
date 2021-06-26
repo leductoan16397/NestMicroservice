@@ -24,28 +24,35 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { CreateForgotPasswordDto } from './dto/create-forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { RefreshAccessTokenDto } from './dto/refresh-access-token.dto';
+import { AuthService } from './auth.service';
+import { ApiTags } from '@nestjs/swagger';
+import { MessagePatternInterface } from 'interface/message-parten.interface';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(@Inject('AUTH_SERVICE') private AuthService: ClientProxy) {}
+  constructor(
+    @Inject('AUTH_SERVICE') private AuthClientService: ClientProxy,
+    private readonly authService: AuthService,
+  ) {}
 
   @Get()
   getHello(): Observable<string> {
     const message = { cmd: 'hello' };
     const payload = 'auth';
-    return this.AuthService.send(message, payload);
+    return this.AuthClientService.send(message, payload);
   }
 
   @Post('sign-up')
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Register user' })
   @ApiCreatedResponse({})
-  async register(/* @Body() createUserDto: SignUpDto */) {
-    const message = 'sign-up';
-    const payload = 'auth';
-    console.log('sign-up');
-    return this.AuthService.send(message, payload);
-    // return await this.AuthService.create(createUserDto);
+  async register(@Body() createUserDto: SignUpDto) {
+    const message: MessagePatternInterface = {
+      service: 'Auth',
+      action: 'sign-up',
+    };
+    return this.AuthClientService.send(message, createUserDto);
   }
 
   @Post('verify-email')
@@ -56,21 +63,28 @@ export class AuthController {
     @Req() request: FastifyRequest,
     @Body() verifyUuidDto: VerifyUuidDto,
   ) {
-    const message = 'verify-email';
-    const payload = 'auth';
-    return this.AuthService.send(message, payload);
-    // return await this.AuthService.verifyEmail(request, verifyUuidDto);
+    const message: MessagePatternInterface = {
+      service: 'Auth',
+      action: 'verify-email',
+    };
+    const reqInfo = this.authService.getReqInfo(request);
+    return this.AuthClientService.send(message, { reqInfo, verifyUuidDto });
   }
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Login User' })
   @ApiOkResponse({})
-  async login(@Req() req: FastifyRequest, @Body() loginUserDto: LoginUserDto) {
-    const message = 'login';
-    const payload = 'auth';
-    return this.AuthService.send(message, payload);
-    // return await this.AuthService.login(req, loginUserDto);
+  async login(
+    @Req() request: FastifyRequest,
+    @Body() loginUserDto: LoginUserDto,
+  ) {
+    const message: MessagePatternInterface = {
+      service: 'Auth',
+      action: 'login',
+    };
+    const reqInfo = this.authService.getReqInfo(request);
+    return this.AuthClientService.send(message, { reqInfo, loginUserDto });
   }
 
   @Post('refresh-access-token')
@@ -80,10 +94,11 @@ export class AuthController {
   async refreshAccessToken(
     @Body() refreshAccessTokenDto: RefreshAccessTokenDto,
   ) {
-    const message = 'refresh-access-token';
-    const payload = 'auth';
-    return this.AuthService.send(message, payload);
-    // return await this.AuthService.refreshAccessToken(refreshAccessTokenDto);
+    const message: MessagePatternInterface = {
+      service: 'Auth',
+      action: 'refresh-access-token',
+    };
+    return this.AuthClientService.send(message, refreshAccessTokenDto);
   }
 
   @Post('forgot-password')
@@ -94,10 +109,14 @@ export class AuthController {
     @Req() req: FastifyRequest,
     @Body() createForgotPasswordDto: CreateForgotPasswordDto,
   ) {
-    const message = 'forgot-password';
-    const payload = 'auth';
-    return this.AuthService.send(message, payload);
-    // return await this.AuthService.forgotPassword(req, createForgotPasswordDto);
+    const message: MessagePatternInterface = {
+      service: 'Auth',
+      action: 'forgot-password',
+    };
+    return this.AuthClientService.send(message, {
+      reqInfo: this.authService.getReqInfo(req),
+      createForgotPasswordDto,
+    });
   }
 
   @Post('forgot-password-verify')
@@ -108,10 +127,12 @@ export class AuthController {
     @Req() req: FastifyRequest,
     @Body() verifyUuidDto: VerifyUuidDto,
   ) {
-    const message = 'forgot-password-verify';
-    const payload = 'auth';
-    return this.AuthService.send(message, payload);
-    // return await this.AuthService.forgotPasswordVerify(req, verifyUuidDto);
+    const message: MessagePatternInterface = {
+      service: 'Auth',
+      action: 'forgot-password-verify',
+    };
+    const reqInfo = this.authService.getReqInfo(req);
+    return this.AuthClientService.send(message, { reqInfo, verifyUuidDto });
   }
 
   @Post('reset-password')
@@ -124,9 +145,10 @@ export class AuthController {
   })
   @ApiOkResponse({})
   async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
-    const message = 'reset-password';
-    const payload = 'auth';
-    return this.AuthService.send(message, payload);
-    // return await this.AuthService.resetPassword(resetPasswordDto);
+    const message: MessagePatternInterface = {
+      service: 'Auth',
+      action: 'reset-password',
+    };
+    return this.AuthClientService.send(message, resetPasswordDto);
   }
 }

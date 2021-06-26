@@ -11,6 +11,7 @@ import { addHours } from 'date-fns';
 // import * as bcrypt from 'bcrypt';
 // import { ResetPasswordDto } from 'auth/auth/dto/reset-password.dto';
 import { UserModel } from './schemas/user.schema';
+import { ResetPasswordDto } from 'auth/dto/reset-password.dto';
 
 @Injectable()
 export class UserService {
@@ -126,12 +127,12 @@ export class UserService {
     await user.save();
   }
 
-  // async resetUserPassword(resetPasswordDto: ResetPasswordDto) {
-  //   const user = await this.userModel.findOne({
-  //     email: resetPasswordDto.email,
-  //     verified: true,
-  //   });
-  //   user.password = resetPasswordDto.password;
-  //   await user.save();
-  // }
+  async resetUserPassword(resetPasswordDto: ResetPasswordDto) {
+    const user = await this.userModel.findOne({
+      email: resetPasswordDto.email,
+      verified: true,
+    });
+    user.password = resetPasswordDto.password;
+    await user.save();
+  }
 }
