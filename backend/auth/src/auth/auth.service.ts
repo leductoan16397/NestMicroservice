@@ -9,7 +9,6 @@ import { addHours } from 'date-fns';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { sign, verify } from 'jsonwebtoken';
 import { UserInterface } from 'user/interfaces/user.interface';
 import { v4 } from 'uuid';
 import { FastifyRequest } from 'fastify';
@@ -31,6 +30,7 @@ import { ForgotPasswordModel } from 'forgot-password/schemas/forgot-password.sch
 import { RefreshToken } from 'refresh-token/interface/refresh-token.interface';
 import { ConfigService } from 'core/config/config.service';
 import { ReqInfo } from './interfaces/requestInfo.interface';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class AuthService {
@@ -90,7 +90,7 @@ export class AuthService {
       const user = await this.validateUser(jwtPayload);
       return user;
     } catch (error) {
-      return null;
+      throw new RpcException(error);
     }
   };
 
@@ -98,8 +98,8 @@ export class AuthService {
     try {
       token = this.cryptr.decrypt(token);
       return token;
-    } catch (err) {
-      throw err;
+    } catch (error) {
+      throw { type: 'Auth', message: 'Token incorrect' };
     }
   }
 

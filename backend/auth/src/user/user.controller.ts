@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 
 import { UserEntity } from './Entity/user.entity';
 import { classToPlain } from 'class-transformer';
-import { MessagePattern } from '@nestjs/microservices';
+import { MessagePattern, RpcException } from '@nestjs/microservices';
 
 @Controller('user')
 export class UserController {
@@ -11,11 +11,15 @@ export class UserController {
 
   @MessagePattern({ service: 'User', action: 'findAll' })
   async findAll(): Promise<unknown> {
-    const users = await this.userService.findAll();
+    try {
+      const users = await this.userService.findAll();
 
-    return classToPlain(
-      users.map((user) => new UserEntity(user.toJSON())),
-      { excludePrefixes: ['_'] },
-    );
+      return classToPlain(
+        users.map((user) => new UserEntity(user.toJSON())),
+        { excludePrefixes: ['_'] },
+      );
+    } catch (error) {
+      throw new RpcException(error);
+    }
   }
 }

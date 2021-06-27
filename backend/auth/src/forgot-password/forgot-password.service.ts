@@ -12,12 +12,8 @@ export class ForgotPasswordService {
   ) {}
 
   async createForgotPassword(input: ForgotPasswordInterFace): Promise<void> {
-    try {
-      const forgotPassword = new this.forgotPasswordModel(input);
-      await forgotPassword.save();
-    } catch (error) {
-      console.log(error);
-    }
+    const forgotPassword = new this.forgotPasswordModel(input);
+    await forgotPassword.save();
   }
 
   async setForgotPasswordFinalUsed(forgotPassword: ForgotPasswordModel) {

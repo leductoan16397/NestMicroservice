@@ -5,6 +5,7 @@ import {
   ExecutionContext,
   HttpException,
   UnauthorizedException,
+  HttpStatus,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { MessagePatternInterface } from 'interface/message-parten.interface';
@@ -22,12 +23,27 @@ export class AuthGuard implements CanActivate {
       service: 'Auth',
       action: 'verify-token',
     };
-    const user = await this.authServiceClient.send(message, token).toPromise();
+    try {
+      const user = await this.authServiceClient
+        .send(message, token)
+        .toPromise();
 
-    if (!user) {
-      throw new UnauthorizedException();
+      if (!user) {
+        throw new UnauthorizedException();
+      }
+      request.user = user;
+      return true;
+    } catch (error) {
+      if (error.error?.name === 'TokenExpiredError') {
+        throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
+      }
+      if (error.error?.type === 'Auth') {
+        throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
+      }
+      throw new HttpException(
+        'Internal server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
-    request.user = user;
-    return true;
   }
 }
