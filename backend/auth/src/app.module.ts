@@ -32,12 +32,6 @@ import { AppService } from './app.service';
     UserModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: APP_FILTER,
-      useClass: ExceptionFilter,
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule {}
