@@ -26,7 +26,8 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { RefreshAccessTokenDto } from './dto/refresh-access-token.dto';
 import { AuthService } from './auth.service';
 import { ApiTags } from '@nestjs/swagger';
-import { MessagePatternInterface } from 'interface/message-parten.interface';
+import { MessagePatternInterface } from 'interface/messageParten.interface';
+import { SERVICE } from 'interface/service.enum';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -49,7 +50,7 @@ export class AuthController {
   @ApiCreatedResponse({})
   async register(@Body() createUserDto: SignUpDto) {
     const message: MessagePatternInterface = {
-      service: 'Auth',
+      service: SERVICE.AUTH,
       action: 'sign-up',
     };
     return this.AuthClientService.send(message, createUserDto);
@@ -64,7 +65,7 @@ export class AuthController {
     @Body() verifyUuidDto: VerifyUuidDto,
   ) {
     const message: MessagePatternInterface = {
-      service: 'Auth',
+      service: SERVICE.AUTH,
       action: 'verify-email',
     };
     const reqInfo = this.authService.getReqInfo(request);
@@ -80,7 +81,7 @@ export class AuthController {
     @Body() loginUserDto: LoginUserDto,
   ) {
     const message: MessagePatternInterface = {
-      service: 'Auth',
+      service: SERVICE.AUTH,
       action: 'login',
     };
     const reqInfo = this.authService.getReqInfo(request);
@@ -95,7 +96,7 @@ export class AuthController {
     @Body() refreshAccessTokenDto: RefreshAccessTokenDto,
   ) {
     const message: MessagePatternInterface = {
-      service: 'Auth',
+      service: SERVICE.AUTH,
       action: 'refresh-access-token',
     };
     return this.AuthClientService.send(message, refreshAccessTokenDto);
@@ -110,7 +111,7 @@ export class AuthController {
     @Body() createForgotPasswordDto: CreateForgotPasswordDto,
   ) {
     const message: MessagePatternInterface = {
-      service: 'Auth',
+      service: SERVICE.AUTH,
       action: 'forgot-password',
     };
     return this.AuthClientService.send(message, {
@@ -128,7 +129,7 @@ export class AuthController {
     @Body() verifyUuidDto: VerifyUuidDto,
   ) {
     const message: MessagePatternInterface = {
-      service: 'Auth',
+      service: SERVICE.AUTH,
       action: 'forgot-password-verify',
     };
     const reqInfo = this.authService.getReqInfo(req);
@@ -146,7 +147,7 @@ export class AuthController {
   @ApiOkResponse({})
   async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
     const message: MessagePatternInterface = {
-      service: 'Auth',
+      service: SERVICE.AUTH,
       action: 'reset-password',
     };
     return this.AuthClientService.send(message, resetPasswordDto);

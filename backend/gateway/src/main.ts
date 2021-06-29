@@ -16,6 +16,11 @@ import { ExceptionFactory } from 'core/exception/exceptionFactory';
 import { LoggerConfig } from 'logger/logger.config';
 import { contentParser } from 'fastify-multer';
 import { ConfigService } from 'core/config/config.service';
+import { JobModule } from 'job/job.module';
+import { CompanyModule } from 'company/company.module';
+import { LanguageModule } from 'language/language.module';
+import { SearchModule } from 'search/search.module';
+import { ReviewModule } from 'review/review.module';
 
 declare const module: any;
 
@@ -60,7 +65,15 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerOptions, {
-    include: [AuthModule, UserModule],
+    include: [
+      AuthModule,
+      UserModule,
+      JobModule,
+      CompanyModule,
+      ReviewModule,
+      LanguageModule,
+      SearchModule,
+    ],
   });
 
   SwaggerModule.setup('api-docs', app, document, {

@@ -14,6 +14,7 @@ import { RolesGuard } from './auth/guards/roles.guard';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { UserModule } from 'user/user.module';
 import { AuthGuard } from 'auth/guards/auth.guard';
+import { ReviewModule } from './review/review.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { AuthGuard } from 'auth/guards/auth.guard';
     JobModule,
     CompanyModule,
     LanguageModule,
+    ReviewModule,
     SearchModule,
     CacheModule.registerAsync({
       imports: [CoreModule],
@@ -49,6 +51,7 @@ import { AuthGuard } from 'auth/guards/auth.guard';
       }),
       inject: [ConfigService],
     }),
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [
@@ -56,14 +59,6 @@ import { AuthGuard } from 'auth/guards/auth.guard';
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: RolesGuard,
-    // },
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: AuthGuard,
-    // },
   ],
 })
 export class AppModule {}

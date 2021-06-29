@@ -9,7 +9,7 @@ import { TransformInterceptor } from './interceptors/transform.interceptor';
   providers: [
     { provide: APP_INTERCEPTOR, useClass: TransformInterceptor },
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
-    { provide: APP_FILTER, useClass: HttpExceptionFilter },
+    // { provide: APP_FILTER, useClass: HttpExceptionFilter },
     ConfigService,
   ],
   exports: [ConfigService],

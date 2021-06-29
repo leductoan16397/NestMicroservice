@@ -24,7 +24,8 @@ import { ClientProxy } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
 import { AuthGuard } from 'auth/guards/auth.guard';
 import { RolesGuard } from 'auth/guards/roles.guard';
-import { MessagePatternInterface } from 'interface/message-parten.interface';
+import { MessagePatternInterface } from 'interface/messageParten.interface';
+import { SERVICE } from 'interface/service.enum';
 
 @ApiTags('User')
 @Controller('users')
@@ -45,7 +46,7 @@ export class UserController {
   @ApiOkResponse({})
   async findAll() {
     const message: MessagePatternInterface = {
-      service: 'User',
+      service: SERVICE.USER,
       action: 'findAll',
     };
     return this.UserService.send(message, {});

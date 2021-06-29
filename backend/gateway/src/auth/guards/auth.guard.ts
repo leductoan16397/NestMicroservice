@@ -8,7 +8,8 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { MessagePatternInterface } from 'interface/message-parten.interface';
+import { MessagePatternInterface } from 'interface/messageParten.interface';
+import { SERVICE } from 'interface/service.enum';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -20,7 +21,7 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const token = request.headers.authorization || request.headers.bearer;
     const message: MessagePatternInterface = {
-      service: 'Auth',
+      service: SERVICE.AUTH,
       action: 'verify-token',
     };
     try {
