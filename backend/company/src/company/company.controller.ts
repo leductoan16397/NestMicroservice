@@ -15,4 +15,20 @@ export class CompanyController {
   create(@Payload() data: any) {
     return this.companyService.create(data);
   }
+
+  @MessagePattern({ service: 'Company', action: 'findById' })
+  findCompanyById(@Payload() id: any) {
+    return this.companyService.findById(id);
+  }
+
+  @MessagePattern({ service: 'Company', action: 'update' })
+  updateCompanyById(@Payload() data: any) {
+    const { id, input } = data;
+    return this.companyService.updateById(id, input);
+  }
+
+  @MessagePattern({ service: 'Company', action: 'deleteById' })
+  deleteCompanyById(@Payload() id: any) {
+    return this.companyService.deleteById(id);
+  }
 }

@@ -29,4 +29,33 @@ export class CompanyService {
       throw new RpcException(error);
     }
   };
+
+  findById = async (id) => {
+    try {
+      const job = await this.companyModel.findById(id);
+      return job;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  };
+
+  updateById = async (id, data: any) => {
+    try {
+      const job = await this.companyModel.findByIdAndUpdate(id, data, {
+        new: true,
+      });
+      return job;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  };
+
+  deleteById = async (id) => {
+    try {
+      const job = await this.companyModel.findByIdAndDelete(id);
+      return job;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  };
 }

@@ -67,10 +67,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerOptions, {
     include: [
       AuthModule,
-      UserModule,
-      JobModule,
       CompanyModule,
       ReviewModule,
+      JobModule,
+      UserModule,
       LanguageModule,
       SearchModule,
     ],

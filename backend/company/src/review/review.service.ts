@@ -29,4 +29,33 @@ export class ReviewService {
       throw new RpcException(error);
     }
   };
+
+  findById = async (id) => {
+    try {
+      const job = await this.reviewModel.findById(id);
+      return job;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  };
+
+  updateById = async (id, data: any) => {
+    try {
+      const job = await this.reviewModel.findByIdAndUpdate(id, data, {
+        new: true,
+      });
+      return job;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  };
+
+  deleteById = async (id) => {
+    try {
+      const job = await this.reviewModel.findByIdAndDelete(id);
+      return job;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  };
 }

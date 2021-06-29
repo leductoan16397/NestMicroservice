@@ -28,4 +28,33 @@ export class JobService {
       throw new RpcException(error);
     }
   };
+
+  findById = async (id) => {
+    try {
+      const job = await this.jobModel.findById(id);
+      return job;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  };
+
+  updateById = async (id, data: any) => {
+    try {
+      const job = await this.jobModel.findByIdAndUpdate(id, data, {
+        new: true,
+      });
+      return job;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  };
+
+  deleteById = async (id) => {
+    try {
+      const job = await this.jobModel.findByIdAndDelete(id);
+      return job;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  };
 }

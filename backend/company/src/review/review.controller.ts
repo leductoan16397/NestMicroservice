@@ -15,4 +15,20 @@ export class ReviewController {
   create(@Payload() data: any) {
     return this.reviewService.create(data);
   }
+
+  @MessagePattern({ service: 'Review', action: 'findById' })
+  findCompanyById(@Payload() id: any) {
+    return this.reviewService.findById(id);
+  }
+
+  @MessagePattern({ service: 'Review', action: 'update' })
+  updateCompanyById(@Payload() data: any) {
+    const { id, input } = data;
+    return this.reviewService.updateById(id, input);
+  }
+
+  @MessagePattern({ service: 'Review', action: 'deleteById' })
+  deleteCompanyById(@Payload() id: any) {
+    return this.reviewService.deleteById(id);
+  }
 }
