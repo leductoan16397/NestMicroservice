@@ -12,7 +12,7 @@ export class JobService {
 
   findAll = async () => {
     try {
-      const jobs = await this.jobModel.find();
+      const jobs = await this.jobModel.find().populate('author');
       return jobs;
     } catch (error) {
       throw new RpcException(error);

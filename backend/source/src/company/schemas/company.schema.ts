@@ -1,15 +1,15 @@
 import { Document } from 'mongoose';
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
 
-const dayOfWeek = [
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday',
-];
+// const dayOfWeek = [
+//   'Monday',
+//   'Tuesday',
+//   'Wednesday',
+//   'Thursday',
+//   'Friday',
+//   'Saturday',
+//   'Sunday',
+// ];
 enum DayOfWeek {
   MONDAY = 'Monday',
   TUESDAY = 'Tuesday',
@@ -24,13 +24,13 @@ enum DayOfWeek {
 class WorkTime extends Document {
   @Prop({
     type: String,
-    enum: dayOfWeek,
+    enum: DayOfWeek,
   })
   from: string;
 
   @Prop({
     type: String,
-    enum: dayOfWeek,
+    enum: DayOfWeek,
   })
   to: string;
 }

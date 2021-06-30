@@ -58,14 +58,14 @@ export class JobModel extends Document {
 
   @Prop({
     type: SchemaTypes.ObjectId,
-    ref: 'Company',
+    ref: 'CompanyModel',
     required: [true, 'company is required'],
   })
   company: CompanyModel;
 
   @Prop({
     type: SchemaTypes.ObjectId,
-    ref: 'User',
+    ref: 'UserModel',
     default: false,
     required: [true, 'author is required'],
   })

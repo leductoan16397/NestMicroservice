@@ -20,7 +20,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       timestamp: new Date().toISOString(),
       path: request.url,
       message: exception.message || null,
-      response: res.valueOf(),
+      data: res['message'],
     });
   }
 }

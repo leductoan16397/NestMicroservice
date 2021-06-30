@@ -8,12 +8,10 @@ import { AppController } from './app.controllers';
 import { CoreModule } from 'core/core.module';
 import * as redisStore from 'cache-manager-redis-store';
 import { ConfigService } from 'core/config/config.service';
-import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CacheInterceptor } from '@nestjs/common';
-import { RolesGuard } from './auth/guards/roles.guard';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { UserModule } from 'user/user.module';
-import { AuthGuard } from 'auth/guards/auth.guard';
 import { ReviewModule } from './review/review.module';
 
 @Module({
