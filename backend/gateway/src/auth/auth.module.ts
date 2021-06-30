@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from 'core/config/config.service';
 import { CoreModule } from 'core/core.module';
@@ -26,4 +26,8 @@ import { AuthService } from './auth.service';
   controllers: [AuthController],
   providers: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule implements OnModuleInit {
+  onModuleInit() {
+    console.log(`AuthModule has been initialized.`);
+  }
+}

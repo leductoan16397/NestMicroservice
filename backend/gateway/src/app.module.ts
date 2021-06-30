@@ -1,4 +1,4 @@
-import { CacheModule, Module } from '@nestjs/common';
+import { CacheModule, Module, OnModuleInit } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { JobModule } from './job/job.module';
 import { CompanyModule } from './company/company.module';
@@ -59,4 +59,8 @@ import { ReviewModule } from './review/review.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  onModuleInit() {
+    console.log(`AppModule has been initialized.`);
+  }
+}

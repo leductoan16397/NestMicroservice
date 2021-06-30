@@ -1,0 +1,680 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gateway documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">gateway documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   
+
+<ol class="breadcrumb">
+  <li>Miscellaneous</li>
+  <li>Variables</li>
+</ol>
+
+<section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#Cookies" title="src/core/decorator/cookie.decorator.ts"><b>Cookies</b>&nbsp;&nbsp;&nbsp;(src/.../cookie.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#createDailyRotate" title="src/logger/logger.config.ts"><b>createDailyRotate</b>&nbsp;&nbsp;&nbsp;(src/.../logger.config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ExceptionFactory" title="src/core/exception/exceptionFactory.ts"><b>ExceptionFactory</b>&nbsp;&nbsp;&nbsp;(src/.../exceptionFactory.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#generateValidation" title="src/core/exception/exceptionFactory.ts"><b>generateValidation</b>&nbsp;&nbsp;&nbsp;(src/.../exceptionFactory.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#LoggerConfig" title="src/logger/logger.config.ts"><b>LoggerConfig</b>&nbsp;&nbsp;&nbsp;(src/.../logger.config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#module" title="src/main.ts"><b>module</b>&nbsp;&nbsp;&nbsp;(src/.../main.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#RequestLogger" title="src/logger/request-logger.service.ts"><b>RequestLogger</b>&nbsp;&nbsp;&nbsp;(src/.../request-logger.service.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Roles" title="src/auth/decorators/roles.decorator.ts"><b>Roles</b>&nbsp;&nbsp;&nbsp;(src/.../roles.decorator.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#taskCreateRequestSuccess" title="test/mocks/task-create-request-success.mock.ts"><b>taskCreateRequestSuccess</b>&nbsp;&nbsp;&nbsp;(test/.../task-create-request-success.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#taskUpdateRequestSuccess" title="test/mocks/task-update-request-success.mock.ts"><b>taskUpdateRequestSuccess</b>&nbsp;&nbsp;&nbsp;(test/.../task-update-request-success.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#userLoginRequestFailWrongEmail" title="test/mocks/user-login-request-fail.mock.ts"><b>userLoginRequestFailWrongEmail</b>&nbsp;&nbsp;&nbsp;(test/.../user-login-request-fail.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#userLoginRequestFailWrongPw" title="test/mocks/user-login-request-fail.mock.ts"><b>userLoginRequestFailWrongPw</b>&nbsp;&nbsp;&nbsp;(test/.../user-login-request-fail.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#userSignupRequestFailInvalidEmail" title="test/mocks/user-signup-request-fail.mock.ts"><b>userSignupRequestFailInvalidEmail</b>&nbsp;&nbsp;&nbsp;(test/.../user-signup-request-fail.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#userSignupRequestFailNoPw" title="test/mocks/user-signup-request-fail.mock.ts"><b>userSignupRequestFailNoPw</b>&nbsp;&nbsp;&nbsp;(test/.../user-signup-request-fail.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#userSignupRequestFailShortPw" title="test/mocks/user-signup-request-fail.mock.ts"><b>userSignupRequestFailShortPw</b>&nbsp;&nbsp;&nbsp;(test/.../user-signup-request-fail.mock.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#userSignupRequestSuccess" title="test/mocks/user-signup-request-success.mock.ts"><b>userSignupRequestSuccess</b>&nbsp;&nbsp;&nbsp;(test/.../user-signup-request-success.mock.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/core/decorator/cookie.decorator.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="Cookies"></a>
+                        <span class="name">
+                            <b>
+                            Cookies</b>
+                            <a href="#Cookies"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>createParamDecorator(
+  (data: string, ctx: ExecutionContext) &#x3D;&gt; {
+    const request &#x3D; ctx.switchToHttp().getRequest();
+    return data ? request.cookies?.[data] : request.cookies;
+  },
+)</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/logger/logger.config.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="createDailyRotate"></a>
+                        <span class="name">
+                            <b>
+                            createDailyRotate</b>
+                            <a href="#createDailyRotate"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(
+  filename: string,
+  level: string,
+  folder: string,
+): DailyRotateFile &#x3D;&gt; {
+  return new DailyRotateFile({
+    dirname: &#x60;./src/logger/${folder}/%DATE%h/&#x60;,
+    filename: &#x60;${filename}.log&#x60;,
+    datePattern: &#x27;YYYY-MM-DD HH&#x27;,
+    level: level,
+    format: winston.format.combine(
+      winston.format.timestamp({
+        format: &#x27;MMM-DD-YYYY HH:mm:ss Z&#x27;,
+      }),
+      nestWinstonModuleUtilities.format.nestLike(),
+      winston.format.json({ space: 2 }),
+    ),
+  });
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="LoggerConfig"></a>
+                        <span class="name">
+                            <b>
+                            LoggerConfig</b>
+                            <a href="#LoggerConfig"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>WinstonModule.createLogger({
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.timestamp({
+          format: &#x27;MMM-DD-YYYY HH:mm:ss Z&#x27;,
+        }),
+        nestWinstonModuleUtilities.format.nestLike(),
+      ),
+    }),
+    createDailyRotate(&#x27;info&#x27;, &#x27;info&#x27;, &#x27;storage&#x27;),
+    createDailyRotate(&#x27;error&#x27;, &#x27;error&#x27;, &#x27;storage&#x27;),
+    createDailyRotate(&#x27;warn&#x27;, &#x27;warn&#x27;, &#x27;storage&#x27;),
+  ],
+})</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/core/exception/exceptionFactory.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ExceptionFactory"></a>
+                        <span class="name">
+                            <b>
+                            ExceptionFactory</b>
+                            <a href="#ExceptionFactory"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(errors: ValidationError[]) &#x3D;&gt; {
+  const mewErrors: ExceptionError[] &#x3D; errors.map((error) &#x3D;&gt; {
+    return generateValidation(error);
+  });
+  throw new BadRequestException(mewErrors);
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="generateValidation"></a>
+                        <span class="name">
+                            <b>
+                            generateValidation</b>
+                            <a href="#generateValidation"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(error: ValidationError): ExceptionError &#x3D;&gt; {
+  const err: ExceptionError &#x3D; {
+    key: error.property,
+  };
+  if (error.constraints) {
+    err.message &#x3D; Object.values(error.constraints);
+  }
+  if (error.children.length &gt; 0) {
+    err.children &#x3D; error.children.map(generateValidation);
+  }
+  return err;
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/main.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="module"></a>
+                        <span class="name">
+                            <b>
+                            module</b>
+                            <a href="#module"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/logger/request-logger.service.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="RequestLogger"></a>
+                        <span class="name">
+                            <b>
+                            RequestLogger</b>
+                            <a href="#RequestLogger"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>WinstonModule.createLogger({
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.timestamp({
+          format: &#x27;MMM-DD-YYYY HH:mm:ss Z&#x27;,
+        }),
+        utilities.format.nestLike(),
+      ),
+    }),
+    createDailyRotate(&#x27;info&#x27;, &#x27;info&#x27;, &#x27;request&#x27;),
+    createDailyRotate(&#x27;error&#x27;, &#x27;error&#x27;, &#x27;request&#x27;),
+    createDailyRotate(&#x27;warn&#x27;, &#x27;warn&#x27;, &#x27;request&#x27;),
+  ],
+})</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>src/auth/decorators/roles.decorator.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="Roles"></a>
+                        <span class="name">
+                            <b>
+                            Roles</b>
+                            <a href="#Roles"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(...roles: string[]) &#x3D;&gt; SetMetadata(&#x27;roles&#x27;, roles)</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>test/mocks/task-create-request-success.mock.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="taskCreateRequestSuccess"></a>
+                        <span class="name">
+                            <b>
+                            taskCreateRequestSuccess</b>
+                            <a href="#taskCreateRequestSuccess"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+  name: &#x27;test task&#x27;,
+  description: &#x27;some description for the test task&#x27;,
+  start_time: 1569357602567,
+  duration: 900000,
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>test/mocks/task-update-request-success.mock.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="taskUpdateRequestSuccess"></a>
+                        <span class="name">
+                            <b>
+                            taskUpdateRequestSuccess</b>
+                            <a href="#taskUpdateRequestSuccess"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+  name: &#x27;test task (updated)&#x27;,
+  description: &#x27;some description for the test task (updated)&#x27;,
+  start_time: 1569357602568,
+  duration: 900001,
+  is_solved: true,
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>test/mocks/user-login-request-fail.mock.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userLoginRequestFailWrongEmail"></a>
+                        <span class="name">
+                            <b>
+                            userLoginRequestFailWrongEmail</b>
+                            <a href="#userLoginRequestFailWrongEmail"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+  ...userSignupRequestSuccess,
+  email: &#x27;failed&#x27; + userSignupRequestSuccess.email,
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userLoginRequestFailWrongPw"></a>
+                        <span class="name">
+                            <b>
+                            userLoginRequestFailWrongPw</b>
+                            <a href="#userLoginRequestFailWrongPw"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+  ...userSignupRequestSuccess,
+  password: new Date(),
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>test/mocks/user-signup-request-fail.mock.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userSignupRequestFailInvalidEmail"></a>
+                        <span class="name">
+                            <b>
+                            userSignupRequestFailInvalidEmail</b>
+                            <a href="#userSignupRequestFailInvalidEmail"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+  email: &#x27;testdenrox.com&#x27;,
+  password: &#x27;test11&#x27;,
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userSignupRequestFailNoPw"></a>
+                        <span class="name">
+                            <b>
+                            userSignupRequestFailNoPw</b>
+                            <a href="#userSignupRequestFailNoPw"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+  email: &#x27;test@denrox.com&#x27;,
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userSignupRequestFailShortPw"></a>
+                        <span class="name">
+                            <b>
+                            userSignupRequestFailShortPw</b>
+                            <a href="#userSignupRequestFailShortPw"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+  email: &#x27;test@denrox.com&#x27;,
+  password: &#x27;test1&#x27;,
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>test/mocks/user-signup-request-success.mock.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userSignupRequestSuccess"></a>
+                        <span class="name">
+                            <b>
+                            userSignupRequestSuccess</b>
+                            <a href="#userSignupRequestSuccess"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+  email: &#x27;test@denrox.com&#x27;,
+  password: &#x27;test111&#x27;,
+}</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

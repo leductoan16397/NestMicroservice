@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from 'core/config/config.service';
 import { CoreModule } from 'core/core.module';
@@ -26,4 +26,8 @@ import { LanguageService } from './language.service';
   controllers: [LanguageController],
   providers: [LanguageService],
 })
-export class LanguageModule {}
+export class LanguageModule implements OnModuleInit {
+  onModuleInit() {
+    console.log(`LanguageModule has been initialized.`);
+  }
+}

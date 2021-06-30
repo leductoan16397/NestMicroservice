@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ConfigService } from './config/config.service';
 import { HttpExceptionFilter } from './exception/http-error.filter';
@@ -19,4 +19,8 @@ import { TransformInterceptor } from './interceptors/transform.interceptor';
   ],
   exports: [ConfigService],
 })
-export class CoreModule {}
+export class CoreModule implements OnModuleInit {
+  onModuleInit() {
+    console.log(`CoreModule has been initialized.`);
+  }
+}

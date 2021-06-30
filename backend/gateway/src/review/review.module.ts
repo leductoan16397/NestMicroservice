@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { ReviewController } from './review.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { CoreModule } from 'core/core.module';
@@ -24,4 +24,8 @@ import { ConfigService } from 'core/config/config.service';
   ],
   controllers: [ReviewController],
 })
-export class ReviewModule {}
+export class ReviewModule implements OnModuleInit {
+  onModuleInit() {
+    console.log(`ReviewModule has been initialized.`);
+  }
+}

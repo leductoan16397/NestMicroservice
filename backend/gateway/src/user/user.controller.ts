@@ -4,8 +4,6 @@ import {
   UseGuards,
   HttpCode,
   HttpStatus,
-  ClassSerializerInterceptor,
-  UseInterceptors,
   Inject,
 } from '@nestjs/common';
 
@@ -17,11 +15,7 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { Roles } from 'auth/decorators/roles.decorator';
-// import { RolesGuard } from 'auth/auth/guards/roles.guard';
-import { UserEntity } from './Entity/user.entity';
-import { classToPlain } from 'class-transformer';
 import { ClientProxy } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
 import { AuthGuard } from 'auth/guards/auth.guard';
 import { RolesGuard } from 'auth/guards/roles.guard';
 import { MessagePatternInterface } from 'interface/messageParten.interface';
@@ -30,7 +24,6 @@ import { SERVICE } from 'interface/service.enum';
 @ApiTags('User')
 @Controller('users')
 @UseGuards(AuthGuard, RolesGuard)
-// @UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
   constructor(@Inject('USER_SERVICE') private UserService: ClientProxy) {}
 

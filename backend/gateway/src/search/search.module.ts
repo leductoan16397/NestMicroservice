@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from 'core/config/config.service';
 import { CoreModule } from 'core/core.module';
@@ -26,4 +26,8 @@ import { SearchService } from './search.service';
   controllers: [SearchController],
   providers: [SearchService],
 })
-export class SearchModule {}
+export class SearchModule implements OnModuleInit {
+  onModuleInit() {
+    console.log(`SearchModule has been initialized.`);
+  }
+}
