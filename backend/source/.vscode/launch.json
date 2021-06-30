@@ -7,11 +7,11 @@
         {
             "type": "node",
             "request": "attach",
-            "name": "Company",
+            "name": "Source",
             "port": 9232,
             "restart": true,
             "stopOnEntry": false,
-            "remoteRoot": "/app/company",
+            "remoteRoot": "/app/source",
             "localRoot": "${workspaceFolder}/",
             "protocol": "inspector",
         }

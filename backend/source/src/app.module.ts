@@ -2,9 +2,11 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from 'core/config/config.service';
 import { CoreModule } from 'core/core.module';
+import { JobModule } from 'job/job.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { JobModule } from './job/job.module';
+import { CompanyModule } from './company/company.module';
+import { ReviewModule } from './review/review.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { JobModule } from './job/job.module';
       }),
       inject: [ConfigService],
     }),
+    CompanyModule,
+    ReviewModule,
     JobModule,
   ],
   controllers: [AppController],

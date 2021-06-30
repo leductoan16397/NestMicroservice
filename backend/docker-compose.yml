@@ -39,35 +39,17 @@ services:
       - database
     command: yarn run start:debug
 
-  company:
-    build: ./company
+  source:
+    build: ./source
     restart: always
-    hostname: company
-    container_name: Company
+    hostname: source
+    container_name: Source
     volumes:
-      - ./company:/app/company
+      - ./source:/app/source
     env_file:
       - .env
     ports:
       - "9232:9229"
-    networks:
-      - backend
-    depends_on:
-      - redis
-      - database
-    command: yarn run start:debug
-
-  job:
-    build: ./job
-    restart: always
-    hostname: job
-    container_name: Job
-    volumes:
-      - ./job:/app/job
-    env_file:
-      - .env
-    ports:
-      - "9233:9229"
     networks:
       - backend
     depends_on:
