@@ -19,6 +19,7 @@ services:
     depends_on:
       - redis
       - database
+      - elasticsearch
     command: yarn run start:debug
 
   auth:
@@ -37,6 +38,7 @@ services:
     depends_on:
       - redis
       - database
+      - elasticsearch
     command: yarn run start:debug
 
   source:
@@ -55,6 +57,7 @@ services:
     depends_on:
       - redis
       - database
+      - elasticsearch
     command: yarn run start:debug
 
   language:
@@ -73,6 +76,7 @@ services:
     depends_on:
       - redis
       - database
+      - elasticsearch
     command: yarn run start:debug
 
   search:
@@ -91,6 +95,7 @@ services:
     depends_on:
       - redis
       - database
+      - elasticsearch
     command: yarn run start:debug
 
   # permission:
@@ -128,6 +133,27 @@ services:
   #     - redis
   #     - database
   #   command: yarn run start:debug
+  
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
+    container_name: ElasticSearch
+    hostname: elasticsearch
+    environment:
+      - node.name=nestjs-elasticsearch
+      - cluster.name=es-docker-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - backend
 
   redis:
     image: redis:alpine

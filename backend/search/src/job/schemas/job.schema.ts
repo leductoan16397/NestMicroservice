@@ -3,11 +3,41 @@ import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
 import { UserModel } from 'user/schemas/user.schema';
 import { CompanyModel } from 'company/schemas/company.schema';
 
+@Schema({ _id: false })
+class Salary extends Document {
+  @Prop({
+    type: Number,
+    required: true,
+    min: 0,
+    validate: {
+      validator: Number.isInteger,
+      message: '{VALUE} is not an integer value',
+    },
+  })
+  min: number;
+
+  @Prop({
+    type: Number,
+    required: true,
+    min: 0,
+    validate: {
+      validator: Number.isInteger,
+      message: '{VALUE} is not an integer value',
+    },
+  })
+  max: number;
+}
 @Schema({
   timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
   collection: 'jobs',
 })
 export class JobModel extends Document {
+  @Prop({
+    type: Salary,
+    required: true,
+  })
+  salary: Salary;
+
   @Prop({
     type: Date,
   })
@@ -63,7 +93,7 @@ export class JobModel extends Document {
   @Prop({
     type: [SchemaTypes.ObjectId],
     ref: 'User',
-    default: false,
+    default: [],
   })
   apply: UserModel[];
 
@@ -77,7 +107,6 @@ export class JobModel extends Document {
   @Prop({
     type: SchemaTypes.ObjectId,
     ref: 'UserModel',
-    default: false,
     required: [true, 'author is required'],
   })
   author: UserModel;

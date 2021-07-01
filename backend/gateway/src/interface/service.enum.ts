@@ -4,4 +4,5 @@ export enum SERVICE {
   COMPANY = 'Company',
   USER = 'User',
   REVIEW = 'Review',
+  JOBSEARCH = 'JobSearch',
 }

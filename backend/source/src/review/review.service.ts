@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
+import { ReviewInterface } from './interface/review.interface';
 import { ReviewModel } from './schemas/review.schema';
 
 @Injectable()
@@ -11,49 +12,52 @@ export class ReviewService {
     private readonly reviewModel: Model<ReviewModel>,
   ) {}
 
-  findAll = async () => {
+  findAll = async (): Promise<ReviewModel[]> => {
     try {
-      const jobs = await this.reviewModel.find();
-      return jobs;
+      const reviews = await this.reviewModel.find();
+      return reviews;
     } catch (error) {
       throw new RpcException(error);
     }
   };
 
-  create = async (data: any) => {
+  create = async (data: any): Promise<ReviewModel> => {
     try {
-      const job = new this.reviewModel(data);
-      await job.save();
-      return job;
+      const review = new this.reviewModel(data);
+      await review.save();
+      return review;
     } catch (error) {
       throw new RpcException(error);
     }
   };
 
-  findById = async (id) => {
+  findById = async (id: string | ObjectId): Promise<ReviewModel> => {
     try {
-      const job = await this.reviewModel.findById(id);
-      return job;
+      const review = await this.reviewModel.findById(id);
+      return review;
     } catch (error) {
       throw new RpcException(error);
     }
   };
 
-  updateById = async (id, data: any) => {
+  updateById = async (
+    id: string | ObjectId,
+    data: Partial<ReviewInterface>,
+  ): Promise<ReviewModel> => {
     try {
-      const job = await this.reviewModel.findByIdAndUpdate(id, data, {
+      const review = await this.reviewModel.findByIdAndUpdate(id, data, {
         new: true,
       });
-      return job;
+      return review;
     } catch (error) {
       throw new RpcException(error);
     }
   };
 
-  deleteById = async (id) => {
+  deleteById = async (id: string | ObjectId): Promise<any> => {
     try {
-      const job = await this.reviewModel.findByIdAndDelete(id);
-      return job;
+      const review = await this.reviewModel.findByIdAndDelete(id);
+      return review;
     } catch (error) {
       throw new RpcException(error);
     }

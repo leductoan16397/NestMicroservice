@@ -7,7 +7,7 @@ export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
   @MessagePattern({ service: 'Company', action: 'findAll' })
-  findAll(@Payload() data: any) {
+  findAll() {
     return this.companyService.findAll();
   }
 

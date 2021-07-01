@@ -1,24 +1,6 @@
 import { Document } from 'mongoose';
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
-
-// const dayOfWeek = [
-//   'Monday',
-//   'Tuesday',
-//   'Wednesday',
-//   'Thursday',
-//   'Friday',
-//   'Saturday',
-//   'Sunday',
-// ];
-enum DayOfWeek {
-  MONDAY = 'Monday',
-  TUESDAY = 'Tuesday',
-  WEDNESDAY = 'Wednesday',
-  THURSDAY = 'Thursday',
-  FRIDAY = 'Friday',
-  SATURDAY = 'Saturday',
-  SUNDAY = 'Sunday',
-}
+import { DayOfWeek } from 'company/enum/dayOfWeek.enum';
 
 @Schema({ _id: false })
 class WorkTime extends Document {
@@ -125,7 +107,7 @@ export class CompanyModel extends Document {
     type: String,
     default: '',
   })
-  avater: string;
+  avatar: string;
 
   @Prop({
     type: [String],

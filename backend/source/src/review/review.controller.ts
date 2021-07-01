@@ -7,7 +7,7 @@ export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
   @MessagePattern({ service: 'Review', action: 'findAll' })
-  findAll(@Payload() data: any) {
+  findAll() {
     return this.reviewService.findAll();
   }
 
@@ -17,7 +17,7 @@ export class ReviewController {
   }
 
   @MessagePattern({ service: 'Review', action: 'findById' })
-  findCompanyById(@Payload() id: any) {
+  findCompanyById(@Payload() id: string) {
     return this.reviewService.findById(id);
   }
 
@@ -28,7 +28,7 @@ export class ReviewController {
   }
 
   @MessagePattern({ service: 'Review', action: 'deleteById' })
-  deleteCompanyById(@Payload() id: any) {
+  deleteCompanyById(@Payload() id: string) {
     return this.reviewService.deleteById(id);
   }
 }

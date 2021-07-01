@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { CompanyInterface } from './interfaces/company.interface';
 import { CompanyModel } from './schemas/company.schema';
 
 @Injectable()
@@ -11,7 +12,7 @@ export class CompanyService {
     private readonly companyModel: Model<CompanyModel>,
   ) {}
 
-  findAll = async () => {
+  findAll = async (): Promise<CompanyModel[]> => {
     try {
       const companys = await this.companyModel.find();
       return companys;
@@ -20,7 +21,7 @@ export class CompanyService {
     }
   };
 
-  create = async (data: any) => {
+  create = async (data: CompanyInterface): Promise<CompanyModel> => {
     try {
       const company = new this.companyModel(data);
       await company.save();
@@ -30,7 +31,7 @@ export class CompanyService {
     }
   };
 
-  findById = async (id) => {
+  findById = async (id: string): Promise<any> => {
     try {
       const job = await this.companyModel.findById(id);
       return job;
@@ -39,7 +40,10 @@ export class CompanyService {
     }
   };
 
-  updateById = async (id, data: any) => {
+  updateById = async (
+    id: string,
+    data: Partial<CompanyInterface>,
+  ): Promise<CompanyModel> => {
     try {
       const job = await this.companyModel.findByIdAndUpdate(id, data, {
         new: true,
@@ -50,7 +54,7 @@ export class CompanyService {
     }
   };
 
-  deleteById = async (id) => {
+  deleteById = async (id: string): Promise<any> => {
     try {
       const job = await this.companyModel.findByIdAndDelete(id);
       return job;

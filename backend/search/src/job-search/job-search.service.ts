@@ -13,6 +13,7 @@ export class JobSearchService {
     return {
       id: job.id,
       name: job.name,
+      salary: job.salary,
       location: job.location,
       title: job.title,
       skill: job.skill,

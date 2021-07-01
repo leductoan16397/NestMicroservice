@@ -7,7 +7,7 @@ export class JobController {
   constructor(private readonly jobService: JobService) {}
 
   @MessagePattern({ service: 'Job', action: 'findAll' })
-  findAll(@Payload() data: any) {
+  findAll() {
     return this.jobService.findAll();
   }
 
@@ -17,7 +17,7 @@ export class JobController {
   }
 
   @MessagePattern({ service: 'Job', action: 'findById' })
-  findJobById(@Payload() id: any) {
+  findJobById(@Payload() id: string) {
     return this.jobService.findById(id);
   }
 
@@ -28,7 +28,7 @@ export class JobController {
   }
 
   @MessagePattern({ service: 'Job', action: 'deleteById' })
-  deleteJobById(@Payload() id: any) {
+  deleteJobById(@Payload() id: string) {
     return this.jobService.deleteById(id);
   }
 }
