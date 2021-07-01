@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "attach",
-            "name": "Search Container",
+            "name": "Search ",
             "port": 9235,
             "restart": true,
             "stopOnEntry": false,

@@ -21,6 +21,10 @@ export class ConfigService {
 
     this.envConfig.redis_host = process.env.REDIS_HOST || 'redis';
     this.envConfig.redis_port = process.env.REDIS_PORT || 6379;
+
+    this.envConfig.elasticsearch_host =
+      process.env.ELASTICSEARCH_HOST || 'elasticsearch';
+    this.envConfig.elasticsearch_port = process.env.ELASTICSEARCH_PORT || 9200;
   }
 
   get(key: string): any {
