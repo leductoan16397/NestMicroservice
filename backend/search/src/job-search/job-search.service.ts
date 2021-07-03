@@ -5,7 +5,7 @@ import { JobSearchBody } from './interfaces/job-search-body.interface';
 
 @Injectable()
 export class JobSearchService {
-  index = 'jobs';
+  readonly index = 'jobs';
 
   constructor(private readonly searchService: SearchService) {}
 
