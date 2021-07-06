@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Result, Button } from 'antd';
-import { Home } from 'constants/path';
+import { HomePath } from 'constants/path';
 import React from 'react';
 
 const Unauthorized: React.FC = () => (
@@ -8,7 +8,7 @@ const Unauthorized: React.FC = () => (
     status="403"
     title="403"
     subTitle="Sorry, you are not authorized to access this page."
-    extra={<Link to={`/${Home}`}><Button type="primary">Back Home </Button></Link>}
+    extra={<Link to={`/${HomePath}`}><Button type="primary">Back Home </Button></Link>}
   />
 );
 export default Unauthorized;

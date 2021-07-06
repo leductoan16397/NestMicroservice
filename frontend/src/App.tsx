@@ -1,4 +1,6 @@
-import { Home, User } from 'constants/path';
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { HomePath, UserPath } from 'constants/path';
 import React, { Suspense } from 'react';
 // import { IntlProvider } from 'react-intl';
 import {
@@ -20,28 +22,39 @@ const App: React.FC = () => (
         messages={currentAppLocale.messages}
       > */}
     <>
-      <Suspense fallback={<SpinComponent />}>
-        <BrowserRouter>
-          <Switch>
-            {/* <ProtectedRoute
+      <BrowserRouter>
+        <Switch>
+          {/* <ProtectedRoute
                 path={adminRoot}
                 component={ViewApp}
                 roles={[UserRole.admin, UserRole.user]}
               /> */}
-            <Route
-              path={`/${Home}`}
-              component={ViewApp}
-            />
-            <Route
-              path={`/${User}`}
-              component={ViewUser}
-            />
-            <Route
-              component={ViewError}
-            />
-          </Switch>
-        </BrowserRouter>
-      </Suspense>
+          <Route
+            path={`/${HomePath}`}
+            render={(props) => (
+              <Suspense fallback={<SpinComponent />}>
+                <ViewApp {...props} />
+              </Suspense>
+            )}
+          />
+          {/* <Route
+            path={`/${UserPath}`}
+            render={(props) => (
+              <Suspense fallback={<SpinComponent />}>
+                <ViewUser {...props} />
+              </Suspense>
+            )}
+          /> */}
+          <Route
+            render={(props) => (
+              <Suspense fallback={<SpinComponent />}>
+                <ViewError {...props} />
+              </Suspense>
+            )}
+          // component={ViewError}
+          />
+        </Switch>
+      </BrowserRouter>
     </>
     {/* </IntlProvider> */}
   </div>

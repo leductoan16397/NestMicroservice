@@ -1,6 +1,8 @@
 /* eslint-disable import/no-unresolved */
 import SpinComponent from 'components/spin/spin';
-import { ForgotPassword, Login, ResetPassword } from 'constants/path';
+import {
+  ForgotPasswordPath, LoginPath, ResetPasswordPath,
+} from 'constants/path';
 import React, { Suspense } from 'react';
 import {
   Route, Switch, Redirect, RouteComponentProps,
@@ -16,18 +18,30 @@ const ViewError = React.lazy(() => import('views/error404'));
 const User: React.FC<RouteComponentProps> = ({ match }) => (
   <Suspense fallback={<SpinComponent />}>
     <Switch>
-      <Redirect exact from={`${match.url}/`} to={`${match.url}/${Login}`} />
+      <Redirect exact from={`${match.url}/`} to={`${match.url}/${LoginPath}`} />
       <Route
-        path={`${match.url}/${Login}`}
-        component={LoginView}
+        path={`${match.url}/${LoginPath}`}
+        render={(props) => (
+          <Suspense fallback={<SpinComponent />}>
+            <LoginView {...props} />
+          </Suspense>
+        )}
       />
       <Route
-        path={`${match.url}/${ForgotPassword}`}
-        component={ForgotPasswordView}
+        path={`${match.url}/${ForgotPasswordPath}`}
+        render={(props) => (
+          <Suspense fallback={<SpinComponent />}>
+            <ForgotPasswordView {...props} />
+          </Suspense>
+        )}
       />
       <Route
-        path={`${match.url}/${ResetPassword}`}
-        component={ResetPasswordView}
+        path={`${match.url}/${ResetPasswordPath}`}
+        render={(props) => (
+          <Suspense fallback={<SpinComponent />}>
+            <ResetPasswordView {...props} />
+          </Suspense>
+        )}
       />
       <Route
         component={ViewError}

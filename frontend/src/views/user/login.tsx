@@ -1,4 +1,5 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
-const Login:React.FC = () => <h1>login</h1>;
+const Login:React.FC<RouteComponentProps> = () => <h1>login</h1>;
 export default Login;
