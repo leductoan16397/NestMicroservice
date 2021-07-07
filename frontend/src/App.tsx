@@ -37,14 +37,14 @@ const App: React.FC = () => (
               </Suspense>
             )}
           />
-          {/* <Route
+          <Route
             path={`/${UserPath}`}
             render={(props) => (
               <Suspense fallback={<SpinComponent />}>
                 <ViewUser {...props} />
               </Suspense>
             )}
-          /> */}
+          />
           <Route
             render={(props) => (
               <Suspense fallback={<SpinComponent />}>

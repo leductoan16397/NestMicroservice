@@ -10,3 +10,4 @@ export const JobTitlePath = 'job-title-index';
 export const JobCompanyPath = 'job-company-index';
 export const JobCityPath = 'job-city-index';
 export const AllJobPath = 'it-Jobs';
+export const PostJobPath = 'post_jobs';

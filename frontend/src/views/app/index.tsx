@@ -1,6 +1,7 @@
 import SpinComponent from 'components/spin/spin';
 import {
   AllJobPath,
+  HomePath,
   JobCityPath, JobCompanyPath, JobSkillPath, JobTitlePath,
 } from 'constants/path';
 import React, { ReactElement, Suspense } from 'react';
@@ -20,7 +21,7 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
   <AppLayout>
     <Switch>
       <Route
-        path={`${match.url}/`}
+        path={[`${match.url}/`, `${match.url}/${HomePath}/`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
             <HomeView {...props} />
@@ -28,7 +29,8 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         )}
       />
       <Route
-        path={`/${AllJobPath}`}
+        // path={`/${AllJobPath}`}
+        path={[`/${AllJobPath}`, `${match.url}/${AllJobPath}`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
             <AllJobView {...props} />
@@ -36,7 +38,8 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         )}
       />
       <Route
-        path={`/${JobCityPath}`}
+        // path={`/${JobCityPath}`}
+        path={[`/${JobCityPath}`, `${match.url}/${JobCityPath}`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
             <JobCityIndexView {...props} />
@@ -44,7 +47,8 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         )}
       />
       <Route
-        path={`/${JobCompanyPath}`}
+        // path={`/${JobCompanyPath}`}
+        path={[`/${JobCompanyPath}`, `${match.url}/${JobCompanyPath}`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
             <JobCompanyIndexView {...props} />
@@ -52,7 +56,8 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         )}
       />
       <Route
-        path={`/${JobSkillPath}`}
+        // path={`/${JobSkillPath}`}
+        path={[`/${JobSkillPath}`, `${match.url}/${JobSkillPath}`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
             <JobSkillIndexView {...props} />
@@ -60,7 +65,8 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         )}
       />
       <Route
-        path={`/${JobTitlePath}`}
+        // path={`/${JobTitlePath}`}
+        path={[`/${JobTitlePath}`, `${match.url}/${JobTitlePath}`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
             <JobTitleIndexView {...props} />

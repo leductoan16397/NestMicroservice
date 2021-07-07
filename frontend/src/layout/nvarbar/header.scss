@@ -1,3 +1,18 @@
 .ant-dropdown-link {
     text-decoration: none !important;
 }
+
+.submenu-skills {
+    ul {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+
+        li{
+            min-width: 150px;
+        }
+    }
+}
+
+.ant-dropdown-menu-item{
+    text-align: start;
+}

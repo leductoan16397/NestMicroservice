@@ -1,0 +1,19 @@
+.language-switch {
+    border: 1px solid #e3e3e3;
+
+    .ant-switch-handle {
+        top: 1px;
+    }
+}
+
+.auth-rows {
+    min-width: 200px;
+}
+
+.text-link {
+    color: rgba(255, 255, 255, 0.65);
+
+    &:hover {
+        color: #fff;
+    }
+}
