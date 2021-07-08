@@ -1,9 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { CaretDownOutlined, UserOutlined } from '@ant-design/icons';
 import {
-  Avatar,
-  Col,
-  Dropdown, Menu, Row, Switch,
+  Avatar, Col, Dropdown, Menu, Row, Switch,
 } from 'antd';
 import { JobCityPath, PostJobPath } from 'constants/path';
 import React from 'react';
@@ -28,16 +26,29 @@ const menu = (
 const AuthComponent: React.FC = () => (
   <Row align="middle" justify="end" className="auth-rows">
     <Col>
-      <Dropdown overlay={menu} arrow className="text-link" placement="bottomCenter">
+      <Dropdown
+        overlay={menu}
+        arrow
+        className="text-link"
+        placement="bottomCenter"
+      >
         <a className="ant-dropdown-link ">
           <span>Toan</span>
           <CaretDownOutlined />
-          <Avatar size={40} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+          <Avatar
+            size={40}
+            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+          />
         </a>
       </Dropdown>
     </Col>
     <Col offset={2}>
-      <Switch className="language-switch" checkedChildren="EN" unCheckedChildren="VN" defaultChecked />
+      <Switch
+        className="language-switch"
+        checkedChildren="EN"
+        unCheckedChildren="VN"
+        defaultChecked
+      />
     </Col>
     <Col offset={1}>
       <Link className="ant-dropdown-link text-link" to={`/${PostJobPath}`}>

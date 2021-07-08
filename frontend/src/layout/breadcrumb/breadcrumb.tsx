@@ -1,8 +1,9 @@
+import React from 'react';
 import { Breadcrumb } from 'antd';
 import { useRouteMatch } from 'react-router-dom';
 import './breadcrumb.scss';
 
-const IBreadcrumb = () => {
+const IBreadcrumb: React.FC = () => {
   const match = useRouteMatch();
   console.log(match);
 

@@ -3,7 +3,7 @@ import { Spin } from 'antd';
 import React from 'react';
 import './spin.scss';
 
-const SpinComponent:React.FC = () => (
+const SpinComponent: React.FC = () => (
   <div className="spinner align-items-center d-flex row">
     <Spin />
   </div>

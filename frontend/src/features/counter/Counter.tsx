@@ -1,3 +1,5 @@
+/* eslint-disable react/button-has-type */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useState } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';

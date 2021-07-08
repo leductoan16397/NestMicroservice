@@ -4,15 +4,14 @@ import React, { ReactElement } from 'react';
 import { Container } from 'reactstrap';
 import IFooter from './footer/footer';
 import IHeader from './nvarbar/header';
+import './appLayout.scss';
 
 const AppLayout: React.FC = ({ children }): ReactElement => (
   <Layout>
     <IHeader />
     <Container>
-      <Content className="site-layout " style={{ padding: '40px 0', marginTop: 60 }}>
-        <div className="site-layout-background bg-white row" style={{ minHeight: 700 }}>
-          {children}
-        </div>
+      <Content className="site-layout">
+        <div className="site-layout-background bg-white row">{children}</div>
       </Content>
     </Container>
     <IFooter />

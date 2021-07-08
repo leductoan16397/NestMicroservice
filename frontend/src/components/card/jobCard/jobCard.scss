@@ -1,0 +1,63 @@
+.job-item {
+    width: 100%;
+    text-align: center;
+
+    &:hover {
+        .job-name-item {
+            color: red;
+        }
+
+        button {
+            color: red;
+        }
+    }
+
+    .job-titles button {
+        &:hover {
+            border-color: red;
+        }
+    }
+}
+
+.job-list-pagination {
+    width: 100%;
+    text-align: center;
+}
+
+.job-name-salary {
+    display: flex;
+    flex-direction: column;
+
+    .salary {
+        color: #60ec60;
+    }
+}
+
+.job-info,
+.job-times-location {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.job-times-location {
+    font-size: 13px;
+    color: #a6a8ab;
+
+    .new {
+        color: #00a2ff
+    }
+
+    .feature {
+        color: white;
+
+        .feature-btn.hot {
+            background-color: orange;
+        }
+
+        .feature-btn.new {
+            background-color: aqua;
+        }
+    }
+}

@@ -1,8 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import SpinComponent from 'components/spin/spin';
-import {
-  ForgotPasswordPath, LoginPath, ResetPasswordPath,
-} from 'constants/path';
+import { ForgotPasswordPath, LoginPath, ResetPasswordPath } from 'constants/path';
 import React, { Suspense } from 'react';
 import {
   Route, Switch, Redirect, RouteComponentProps,
@@ -43,9 +41,7 @@ const User: React.FC<RouteComponentProps> = ({ match }) => (
           </Suspense>
         )}
       />
-      <Route
-        component={ViewError}
-      />
+      <Route component={ViewError} />
     </Switch>
   </Suspense>
 );

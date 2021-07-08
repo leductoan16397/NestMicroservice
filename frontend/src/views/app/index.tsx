@@ -2,7 +2,10 @@ import SpinComponent from 'components/spin/spin';
 import {
   AllJobPath,
   HomePath,
-  JobCityPath, JobCompanyPath, JobSkillPath, JobTitlePath,
+  JobCityPath,
+  JobCompanyPath,
+  JobSkillPath,
+  JobTitlePath,
 } from 'constants/path';
 import React, { ReactElement, Suspense } from 'react';
 

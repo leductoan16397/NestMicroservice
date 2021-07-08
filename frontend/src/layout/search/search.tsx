@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import {
-  Button,
-  Col, Input, Row, Select,
+  Button, Col, Input, Row, Select,
 } from 'antd';
 import React from 'react';
 import { SearchOutlined } from '@ant-design/icons';
@@ -15,11 +14,26 @@ export const SearchJob: React.FC = () => {
   return (
     <Row justify="space-around" className="search-rows">
       <Col>
-        <Input className="search-rows" size="middle" placeholder="Keywork skill, Job Title, Company..." prefix={<SearchOutlined />} />
+        <Input
+          className="search-rows"
+          size="middle"
+          placeholder="Keywork skill, Job Title, Company..."
+          prefix={<SearchOutlined />}
+        />
       </Col>
       <Col>
-        <Select defaultValue={Locations[0].value} style={{ width: 120 }} onChange={handleChange}>
-          {Locations.map((item, index) => (<Select.Option key={`searchLocation${index + 1}`} value={item.value}>{item.name}</Select.Option>
+        <Select
+          defaultValue={Locations[0].value}
+          style={{ width: 120 }}
+          onChange={handleChange}
+        >
+          {Locations.map((item, index) => (
+            <Select.Option
+              key={`searchLocation${index + 1}`}
+              value={item.value}
+            >
+              {item.name}
+            </Select.Option>
           ))}
         </Select>
       </Col>
