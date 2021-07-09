@@ -24,13 +24,26 @@
         "jsx-a11y",
         "prettier"
     ],
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
+    },
     "rules": {
         "react/jsx-props-no-spreading": "off",
+        "react/prop-types": "off",
+        "import/prefer-default-export": "off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
-        "import/prefer-default-export": "off",
-        "react/prop-types": "off",
+        "react/jsx-max-props-per-line": "error",
         "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "max-len": [
+            "error",
+            {
+                "code": 100
+            }
+        ],
         "@typescript-eslint/explicit-function-return-type": [
             "error",
             {
@@ -41,19 +54,6 @@
         "@typescript-eslint/no-shadow": [
             "error"
         ],
-        "react/jsx-filename-extension": [
-            "warn",
-            {
-                "extensions": [
-                    ".tsx",
-                    ".ts"
-                ]
-            }
-        ],
-        "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": [
-            "error"
-        ],
         "import/extensions": [
             "error",
             "ignorePackages",
@@ -61,11 +61,18 @@
                 "ts": "never",
                 "tsx": "never"
             }
+        ],
+        "react/jsx-filename-extension": [
+            "warn",
+            {
+                "extensions": [
+                    ".tsx"
+                ]
+            }
+        ],
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": [
+            "error"
         ]
-    },
-    "settings": {
-        "import/resolver": {
-            "typescript": {}
-        }
     }
 }

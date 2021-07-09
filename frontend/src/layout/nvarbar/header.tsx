@@ -80,13 +80,7 @@ const IHeader: React.FC = () => (
       <Row justify="space-between">
         <Col span={2}>
           <Link to={`/${HomePath}`}>
-            <img
-              className="logo"
-              alt="logo"
-              src="/logohome.png"
-              width={120}
-              height={60}
-            />
+            <img className="logo" alt="logo" src="/logohome.png" width={120} height={60} />
           </Link>
         </Col>
         <Col span={6}>

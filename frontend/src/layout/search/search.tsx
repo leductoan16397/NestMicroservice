@@ -22,16 +22,9 @@ export const SearchJob: React.FC = () => {
         />
       </Col>
       <Col>
-        <Select
-          defaultValue={Locations[0].value}
-          style={{ width: 120 }}
-          onChange={handleChange}
-        >
+        <Select defaultValue={Locations[0].value} style={{ width: 120 }} onChange={handleChange}>
           {Locations.map((item, index) => (
-            <Select.Option
-              key={`searchLocation${index + 1}`}
-              value={item.value}
-            >
+            <Select.Option key={`searchLocation${index + 1}`} value={item.value}>
               {item.name}
             </Select.Option>
           ))}

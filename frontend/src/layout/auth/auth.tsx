@@ -26,12 +26,7 @@ const menu = (
 const AuthComponent: React.FC = () => (
   <Row align="middle" justify="end" className="auth-rows">
     <Col>
-      <Dropdown
-        overlay={menu}
-        arrow
-        className="text-link"
-        placement="bottomCenter"
-      >
+      <Dropdown overlay={menu} arrow className="text-link" placement="bottomCenter">
         <a className="ant-dropdown-link ">
           <span>Toan</span>
           <CaretDownOutlined />
