@@ -2,11 +2,11 @@ import {
   Card, Col, Row, Image, Tooltip, Button, Space, Pagination,
 } from 'antd';
 import React from 'react';
-import JobTitleComponet from '../jobTitle/jobTitle';
-import Salary from '../salary/salary';
+import JobTitleComponet from 'components/job/jobTitle/jobTitle';
+import Salary from 'components/job/salary/salary';
 import './jobCard.scss';
-import JobCreatedTime from '../jobTime/jobTime';
-import { JobLocations } from '../jobLocation/jobLocation';
+import JobCreatedTime from 'components/job/jobTime/jobTime';
+import { JobLocations } from 'components/job/jobLocation/jobLocation';
 
 const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
 
@@ -17,9 +17,9 @@ const JobList: React.FC = () => {
   return (
     <Card title="All Job">
       {arr.map((item, index) => (
-        <Card.Grid className="job-item" key={`job_${index + 1}`}>
+        <Card.Grid className={`job-item ${index === 5 && 'selected'}`} key={`job_${index + 1}`}>
           <Row>
-            <Col span={4} className="company-image">
+            <Col span={4} className="company-image d-flex align-items-center">
               <Tooltip placement="bottom" title="toan le" trigger="hover">
                 <Image
                   width={80}
@@ -43,7 +43,7 @@ const JobList: React.FC = () => {
                   </Button>
                 </div>
                 <JobLocations locations={['Other', 'Ha Noi', 'Ho Chi Minh']} />
-                <JobCreatedTime />
+                <JobCreatedTime time="12m" />
               </Space>
             </Col>
           </Row>

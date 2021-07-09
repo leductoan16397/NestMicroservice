@@ -26,6 +26,16 @@
     ],
     "settings": {
         "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".ts",
+                    ".tsx"
+                ],
+                "moduleDirectory": [
+                    "node_modules",
+                    "src/"
+                ]
+            },
             "typescript": {}
         }
     },
@@ -56,8 +66,10 @@
         ],
         "import/extensions": [
             "error",
-            "ignorePackages",
+            "always",
             {
+                "js":"nerver",
+                "jsx":"nerver",
                 "ts": "never",
                 "tsx": "never"
             }
@@ -71,8 +83,6 @@
             }
         ],
         "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": [
-            "error"
-        ]
+        "@typescript-eslint/no-use-before-define": "off"
     }
 }

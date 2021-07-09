@@ -4,6 +4,7 @@ import {
   HomePath,
   JobCityPath,
   JobCompanyPath,
+  JobDetailPath,
   JobSkillPath,
   JobTitlePath,
 } from 'constants/path';
@@ -14,6 +15,7 @@ import AppLayout from 'layout/appLayout';
 
 const HomeView = React.lazy(() => import('./home'));
 const AllJobView = React.lazy(() => import('./allJob'));
+const JobDetailView = React.lazy(() => import('./jobDetail'));
 const JobCityIndexView = React.lazy(() => import('./jobCity'));
 const JobCompanyIndexView = React.lazy(() => import('./jobCompany'));
 const JobSkillIndexView = React.lazy(() => import('./jobSkill'));
@@ -32,7 +34,6 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         )}
       />
       <Route
-        // path={`/${AllJobPath}`}
         path={[`/${AllJobPath}`, `${match.url}/${AllJobPath}`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
@@ -41,7 +42,14 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         )}
       />
       <Route
-        // path={`/${JobCityPath}`}
+        path={[`/${JobDetailPath}`, `${match.url}/${JobDetailPath}`]}
+        render={(props) => (
+          <Suspense fallback={<SpinComponent />}>
+            <JobDetailView {...props} />
+          </Suspense>
+        )}
+      />
+      <Route
         path={[`/${JobCityPath}`, `${match.url}/${JobCityPath}`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
@@ -50,7 +58,6 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         )}
       />
       <Route
-        // path={`/${JobCompanyPath}`}
         path={[`/${JobCompanyPath}`, `${match.url}/${JobCompanyPath}`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
@@ -59,7 +66,6 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         )}
       />
       <Route
-        // path={`/${JobSkillPath}`}
         path={[`/${JobSkillPath}`, `${match.url}/${JobSkillPath}`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
@@ -68,7 +74,6 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         )}
       />
       <Route
-        // path={`/${JobTitlePath}`}
         path={[`/${JobTitlePath}`, `${match.url}/${JobTitlePath}`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>

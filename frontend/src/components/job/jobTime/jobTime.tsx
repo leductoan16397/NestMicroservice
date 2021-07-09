@@ -4,11 +4,11 @@ import React from 'react';
 import './jobTime.scss';
 
 interface JobTimeProps {
-  time?: string | Date;
+  time: string | Date;
   icon?: boolean;
 }
 
-const JobCreatedTime: React.FC<JobTimeProps> = ({ time = '3h', icon }) => (
+const JobCreatedTime: React.FC<JobTimeProps> = ({ time, icon }) => (
   <Space className="createdAt new">
     {icon && <CalendarOutlined className="createdAt-icon" />}
     <span>{time}</span>

@@ -9,5 +9,6 @@ export const JobSkillPath = 'job-skill-index';
 export const JobTitlePath = 'job-title-index';
 export const JobCompanyPath = 'job-company-index';
 export const JobCityPath = 'job-city-index';
-export const AllJobPath = 'it-Jobs';
+export const AllJobPath = 'it-jobs';
+export const JobDetailPath = 'it-job';
 export const PostJobPath = 'post_jobs';

@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import SpinComponent from 'components/spin/spin';
 import { HomePath, UserPath } from 'constants/path';
 import React, { Suspense } from 'react';
 // import { IntlProvider } from 'react-intl';
@@ -9,7 +8,6 @@ import {
   Switch,
   // RouteComponentProps,
 } from 'react-router-dom';
-import SpinComponent from './components/spin/spin';
 
 const ViewError = React.lazy(() => import('views/error404'));
 const ViewUser = React.lazy(() => import('views/user'));

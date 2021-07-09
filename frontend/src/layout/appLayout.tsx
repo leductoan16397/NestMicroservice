@@ -11,7 +11,7 @@ const AppLayout: React.FC = ({ children }): ReactElement => (
     <IHeader />
     <Container>
       <Content className="site-layout">
-        <div className="site-layout-background bg-white row">{children}</div>
+        {children}
       </Content>
     </Container>
     <IFooter />

@@ -17,7 +17,7 @@ import SubMenu from 'antd/lib/menu/SubMenu';
 import React from 'react';
 import { SearchJob } from 'layout/search/search';
 import { Locations, JobSkills, JobTitles } from 'constants/header';
-import AuthComponent from '../auth/auth';
+import AuthComponent from 'layout/auth/auth';
 
 const menu = (
   <Menu mode="vertical">

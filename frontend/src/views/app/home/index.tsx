@@ -6,13 +6,15 @@ import JobList from 'components/job/jobCard/jobCard';
 import JobPreview from 'components/job/sumaryJob/jobPreview';
 
 const Home: React.FC<RouteComponentProps> = () => (
-  <Row className="job-dashboard">
-    <Col className="list-job" span={12}>
-      <JobList />
-    </Col>
-    <Col className="job-preview" span={12}>
-      <JobPreview />
-    </Col>
-  </Row>
+  <div className="site-layout-background bg-white row">
+    <Row className="job-dashboard">
+      <Col className="list-job" span={12}>
+        <JobList />
+      </Col>
+      <Col className="job-preview" span={12}>
+        <JobPreview />
+      </Col>
+    </Row>
+  </div>
 );
 export default Home;

@@ -1,39 +1,55 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Button, Divider, Space } from 'antd';
+import {
+  Col, Row, Image,
+} from 'antd';
 import React from 'react';
 import './jobPreview.scss';
-import Salary from '../salary/salary';
-import JobTitleComponet from '../jobTitle/jobTitle';
-import JobCreatedTime from '../jobTime/jobTime';
-import { JobLocations } from '../jobLocation/jobLocation';
+import CompanyInfoGrid from 'components/company/companyInfoGrid/companyInfoGrd';
+import ViewComapayBtn from 'components/company/viewCompanyBtn/viewCompanyBtn';
+import JobHeader from 'components/job/jobheader/jobHeader';
+import JobInfo from 'components/job/jobInfo/jobInfo';
 
 const JobPreview: React.FC = () => (
   <div className="h-100">
     <div className="job-detail">
-      <div className="job-detail-header w-100">
-        <h1>job name</h1>
-        <p>company name</p>
-        <Button type="primary" className="apply-btn" block>
-          Primary
-        </Button>
-      </div>
+      <JobHeader jobName="job name" companyName="company name" />
+      <JobInfo icon salary="1000$" locations={['location', 'ho chi minh']} />
 
-      <div className="job-info">
-        <Space direction="vertical" className="job-overview">
-          <JobTitleComponet item={1} />
-          <Salary salary="1000$" />
-          <JobLocations icon locations={['location', 'ho chi minh']} />
-          <JobCreatedTime icon />
-        </Space>
-        <Divider />
-      </div>
       <div className="job-reasons">Top 3 Reasons To Join Us</div>
       <div className="job-description">JD</div>
       <div className="job-skill">Your Skills and Experience</div>
       <div className="job-love-working">Why You'll Love Working Here</div>
     </div>
 
-    <div className="employer-overview">company</div>
+    <div className="employer-overview">
+      <div className="employer-overview-inner">
+        <div className="employer-overview-header">
+          <Row>
+            <Col span={4} className="d-flex justify-content-center align-items-center">
+              <Image
+                width={80}
+                preview={false}
+                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+              />
+            </Col>
+            <Col span={20}>
+              <div className="company-name">company Name</div>
+              <p className="company-description">company description</p>
+            </Col>
+          </Row>
+        </div>
+        <div className="employer-overview-body">
+          <Row>
+            <Col span={16}>
+              <CompanyInfoGrid />
+            </Col>
+            <Col span={8}>
+              <ViewComapayBtn text="View company profile" />
+            </Col>
+          </Row>
+        </div>
+      </div>
+    </div>
   </div>
 );
 

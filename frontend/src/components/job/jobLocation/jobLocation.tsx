@@ -1,4 +1,4 @@
-import { EnvironmentOutlined } from '@ant-design/icons';
+import { EnvironmentFilled } from '@ant-design/icons';
 import { Space } from 'antd';
 import React from 'react';
 import './jobLocation.scss';
@@ -9,7 +9,7 @@ interface JobLocationProps {
 }
 export const JobLocation: React.FC<JobLocationProps> = ({ icon, location }) => (
   <Space className="job-location">
-    {icon && <EnvironmentOutlined className="location-icon" />}
+    {icon && <EnvironmentFilled className="location-icon" />}
     <span>{location}</span>
   </Space>
 );

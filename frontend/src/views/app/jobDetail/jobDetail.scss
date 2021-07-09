@@ -1,0 +1,28 @@
+.job {
+    padding-right: 3px;
+
+}
+
+.jobDetail-component {
+    padding: 0 50px;
+}
+
+.company-component {
+    background-color: white;
+    margin-left: 5px;
+    padding: 20px;
+
+    .company-header {
+        align-items: center;
+
+        .company-name {
+            font-size: xx-large;
+            font-weight: bold;
+        }
+
+        .company-description {
+            font-size: 14px;
+        }
+    }
+
+}
