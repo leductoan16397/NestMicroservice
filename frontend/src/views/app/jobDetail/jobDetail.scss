@@ -7,10 +7,17 @@
     padding: 0 50px;
 }
 
+.job-detail-header {
+    position: sticky;
+    top: 65px;
+}
+
 .company-component {
     background-color: white;
     margin-left: 5px;
     padding: 20px;
+    position: sticky;
+    top: 65px;
 
     .company-header {
         align-items: center;

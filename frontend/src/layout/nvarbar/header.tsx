@@ -19,6 +19,8 @@ import { SearchJob } from 'layout/search/search';
 import { Locations, JobSkills, JobTitles } from 'constants/header';
 import AuthComponent from 'layout/auth/auth';
 
+const headerJobSkill = JobSkills.splice(0, 20);
+
 const menu = (
   <Menu mode="vertical">
     <SubMenu
@@ -30,7 +32,7 @@ const menu = (
       key="sub1"
       popupClassName="submenu-skills"
     >
-      {JobSkills.map((item, index) => (
+      {headerJobSkill.map((item, index) => (
         <Menu.Item key={`sub1-${index + 1}`}>{item}</Menu.Item>
       ))}
     </SubMenu>

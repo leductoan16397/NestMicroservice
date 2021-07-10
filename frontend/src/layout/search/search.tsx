@@ -15,7 +15,7 @@ export const SearchJob: React.FC = () => {
     <Row justify="space-around" className="search-rows">
       <Col>
         <Input
-          className="search-rows"
+          className="search-input"
           size="middle"
           placeholder="Keywork skill, Job Title, Company..."
           prefix={<SearchOutlined />}

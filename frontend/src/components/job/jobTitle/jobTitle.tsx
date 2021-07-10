@@ -5,9 +5,9 @@ import './jobTitle.scss';
 const JobTitleComponet: React.FC<any> = ({ item }: any) => (
   <Row className="job-titles">
     <Space>
-      <Button size="small">{item}</Button>
-      <Button size="small">{item}</Button>
-      <Button size="small">{item}</Button>
+      <Button className="job-title-btn" size="small">{item}</Button>
+      <Button className="job-title-btn" size="small">{item}</Button>
+      <Button className="job-title-btn" size="small">{item}</Button>
     </Space>
   </Row>
 );

@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import {
-  Col, Row, Image,
+  Col, Row, Image, Space,
 } from 'antd';
 import React from 'react';
 import './jobPreview.scss';
@@ -11,16 +11,67 @@ import JobInfo from 'components/job/jobInfo/jobInfo';
 
 const JobPreview: React.FC = () => (
   <div className="h-100">
-    <div className="job-detail">
-      <JobHeader jobName="job name" companyName="company name" />
-      <JobInfo icon salary="1000$" locations={['location', 'ho chi minh']} />
+    <Space direction="vertical" className="w-100">
 
-      <div className="job-reasons">Top 3 Reasons To Join Us</div>
-      <div className="job-description">JD</div>
-      <div className="job-skill">Your Skills and Experience</div>
-      <div className="job-love-working">Why You'll Love Working Here</div>
-    </div>
+      <div className="job-detail">
+        <JobHeader jobName="job name" companyName="company name" />
+        <JobInfo icon salary="1000$" locations={['location', 'ho chi minh']} />
 
+        <div className="job-reasons">Top 3 Reasons To Join Us</div>
+        <div className="job-description">JD</div>
+        <div className="job-skill">Your Skills and Experience</div>
+        <div className="job-love-working">Why You'll Love Working Here</div>
+        <div className="job-reasons">Top 3 Reasons To Join Us</div>
+        <div className="job-description">JD</div>
+        <div className="job-skill">Your Skills and Experience</div>
+        <div className="job-love-working">Why You'll Love Working Here</div>
+        <div className="job-reasons">Top 3 Reasons To Join Us</div>
+        <div className="job-description">JD</div>
+        <div className="job-skill">Your Skills and Experience</div>
+        <div className="job-love-working">Why You'll Love Working Here</div>
+        <div className="job-reasons">Top 3 Reasons To Join Us</div>
+        <div className="job-description">JD</div>
+        <div className="job-skill">Your Skills and Experience</div>
+        <div className="job-love-working">Why You'll Love Working Here</div>
+        <div className="job-reasons">Top 3 Reasons To Join Us</div>
+        <div className="job-description">JD</div>
+        <div className="job-skill">Your Skills and Experience</div>
+        <div className="job-love-working">Why You'll Love Working Here</div>
+        <div className="job-reasons">Top 3 Reasons To Join Us</div>
+        <div className="job-description">JD</div>
+        <div className="job-skill">Your Skills and Experience</div>
+        <div className="job-love-working">Why You'll Love Working Here</div>
+        <div className="job-reasons">Top 3 Reasons To Join Us</div>
+        <div className="job-description">JD</div>
+        <div className="job-skill">Your Skills and Experience</div>
+        <div className="job-love-working">Why You'll Love Working Here</div>
+        <div className="job-reasons">Top 3 Reasons To Join Us</div>
+        <div className="job-description">JD</div>
+        <div className="job-skill">Your Skills and Experience</div>
+        <div className="job-love-working">Why You'll Love Working Here</div>
+        <div className="job-reasons">Top 3 Reasons To Join Us</div>
+        <div className="job-description">JD</div>
+        <div className="job-skill">Your Skills and Experience</div>
+        <div className="job-love-working">Why You'll Love Working Here</div>
+        <div className="job-reasons">Top 3 Reasons To Join Us</div>
+        <div className="job-description">JD</div>
+        <div className="job-skill">Your Skills and Experience</div>
+        <div className="job-love-working">Why You'll Love Working Here</div>
+        <div className="job-reasons">Top 3 Reasons To Join Us</div>
+        <div className="job-description">JD</div>
+        <div className="job-skill">Your Skills and Experience</div>
+        <div className="job-love-working">Why You'll Love Working Here</div>
+        <div className="job-reasons">Top 3 Reasons To Join Us</div>
+        <div className="job-description">JD</div>
+        <div className="job-skill">Your Skills and Experience</div>
+        <div className="job-love-working">Why You'll Love Working Here</div>
+        <div className="job-reasons">Top 3 Reasons To Join Us</div>
+        <div className="job-description">JD</div>
+        <div className="job-skill">Your Skills and Experience</div>
+        <div className="job-love-working">Why You'll Love Working Here</div>
+      </div>
+
+    </Space>
     <div className="employer-overview">
       <div className="employer-overview-inner">
         <div className="employer-overview-header">
