@@ -1,0 +1,19 @@
+.overall-rating {
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #d3d3d3;
+    padding: 15px;
+}
+
+.star-icon {
+    float: left;
+}
+
+.view-rating-btn {
+    margin-top: 2em;
+    border-radius: 4px;
+}
+
+.ant-rate-disabled .ant-rate-star {
+    cursor: pointer;
+}

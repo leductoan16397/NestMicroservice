@@ -20,12 +20,14 @@ const JobCityIndexView = React.lazy(() => import('./jobCity'));
 const JobCompanyIndexView = React.lazy(() => import('./jobCompany'));
 const JobSkillIndexView = React.lazy(() => import('./jobSkill'));
 const JobTitleIndexView = React.lazy(() => import('./jobTitle'));
+const CompanyDetailView = React.lazy(() => import('./cpmpanyDetail'));
 const ViewError = React.lazy(() => import('views/error404'));
 
 const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
   <AppLayout>
     <Switch>
       <Route
+        exact
         path={[`${match.url}/`, `${match.url}/${HomePath}/`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
@@ -58,6 +60,7 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         )}
       />
       <Route
+        exact
         path={[`/${JobCompanyPath}`, `${match.url}/${JobCompanyPath}`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
@@ -66,6 +69,15 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         )}
       />
       <Route
+        path={[`/${JobCompanyPath}/detail`, `${match.url}/${JobCompanyPath}/detail`]}
+        render={(props) => (
+          <Suspense fallback={<SpinComponent />}>
+            <CompanyDetailView {...props} />
+          </Suspense>
+        )}
+      />
+      <Route
+        exact
         path={[`/${JobSkillPath}`, `${match.url}/${JobSkillPath}`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
@@ -74,6 +86,7 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         )}
       />
       <Route
+        exact
         path={[`/${JobTitlePath}`, `${match.url}/${JobTitlePath}`]}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>

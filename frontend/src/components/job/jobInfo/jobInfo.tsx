@@ -7,15 +7,15 @@ import JobCreatedTime from 'components/job/jobTime/jobTime';
 import './jobInfo.scss';
 
 interface JobInfoProps {
-    salary: string | number;
-    locations: string[] | any[];
-    icon?: boolean;
+  salary: string | number;
+  locations: string[] | any[];
+  icon?: boolean;
 }
 
 const JobInfo: React.FC<JobInfoProps> = ({ salary, locations, icon }) => (
   <div className="job-info">
     <Space direction="vertical" className="job-overview">
-      <JobTitleComponet item={1} />
+      <JobTitleComponet jobTitles={['1']} />
       <Salary salary={salary} />
       <JobLocations icon={icon} locations={locations || ['location', 'ho chi minh']} />
       <JobCreatedTime time="3h" icon={icon} />

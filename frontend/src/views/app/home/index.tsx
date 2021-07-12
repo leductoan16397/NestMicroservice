@@ -9,7 +9,7 @@ const Home: React.FC<RouteComponentProps> = () => (
   <div className="site-layout-background bg-white row">
     <Row className="job-dashboard">
       <Col className="list-job" span={12}>
-        <JobList />
+        <JobList title="All jobs" />
       </Col>
       <Col className="job-preview" span={12}>
         <JobPreview />

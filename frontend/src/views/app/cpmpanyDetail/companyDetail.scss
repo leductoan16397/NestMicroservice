@@ -1,0 +1,37 @@
+.company_detail_body {
+    padding: 10px 0;
+
+    .tab-body {
+        padding: 15px;
+        background-color: white;
+    }
+}
+
+.ant-tabs-tab-active {
+    border-top: 3px solid red !important;
+    border-left: 1px solid red !important;
+    border-right: 1px solid red !important;
+
+    .ant-tabs-tab-btn {
+        color: red !important;
+    }
+}
+
+.ant-tabs-tab {
+    color: #838383 !important;
+    font-weight: 500 !important;
+}
+
+.ant-tabs-nav {
+    margin: unset !important;
+}
+
+.ant-tabs {
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.right-col-company-detail{
+    margin-left: 10px;
+}

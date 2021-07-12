@@ -40,11 +40,20 @@
         }
     },
     "rules": {
+        "react/no-unescaped-entities": [
+            "error",
+            {
+                "forbid": [
+                    ">",
+                    "}"
+                ]
+            }
+        ],
         "react/jsx-props-no-spreading": "off",
         "react/prop-types": "off",
         "import/prefer-default-export": "off",
         "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
+        "react-hooks/exhaustive-deps": "error",
         "react/jsx-max-props-per-line": "error",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
@@ -68,8 +77,8 @@
             "error",
             "always",
             {
-                "js":"nerver",
-                "jsx":"nerver",
+                "js": "nerver",
+                "jsx": "nerver",
                 "ts": "never",
                 "tsx": "never"
             }

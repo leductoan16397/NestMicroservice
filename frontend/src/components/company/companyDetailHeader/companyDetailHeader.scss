@@ -1,0 +1,40 @@
+.company-detail-header {
+    background-color: white;
+}
+
+.company-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.company-header-info {
+    padding: 1em;
+
+    .company-name {
+        padding: 0.25em 0;
+        font-size: 3em;
+        font-weight: 700;
+    }
+
+    .location-icon {
+        float: left;
+    }
+}
+
+.company-actions {
+    padding: 4em;
+    button{
+        // border: 1px solid;
+        border-radius: 4px;
+    }
+
+    .follow-btn {
+        color: #9a9c9e;
+
+        &:hover {
+            color: red;
+            border-color: red;
+        }
+    }
+}
