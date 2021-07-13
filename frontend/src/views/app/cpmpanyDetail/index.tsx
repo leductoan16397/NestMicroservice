@@ -23,7 +23,6 @@ const CompanyDetail: React.FC<RouteComponentProps> = () => {
       <div className="company_detail_header">
         <CompanyDetailHeader />
       </div>
-
       <div className="company_detail_body">
         <Row justify="space-between">
           <Col span={16}>

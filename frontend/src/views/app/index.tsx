@@ -7,12 +7,14 @@ import {
   JobDetailPath,
   JobSkillPath,
   JobTitlePath,
+  PostReviewPath,
 } from 'constants/path';
 import React, { ReactElement, Suspense } from 'react';
 
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import AppLayout from 'layout/appLayout';
 
+const PostReviewView = React.lazy(() => import('./review'));
 const HomeView = React.lazy(() => import('./home'));
 const AllJobView = React.lazy(() => import('./allJob'));
 const JobDetailView = React.lazy(() => import('./jobDetail'));
@@ -73,6 +75,14 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
             <CompanyDetailView {...props} />
+          </Suspense>
+        )}
+      />
+      <Route
+        path={[`/${PostReviewPath}`, `${match.url}/${PostReviewPath}`]}
+        render={(props) => (
+          <Suspense fallback={<SpinComponent />}>
+            <PostReviewView {...props} />
           </Suspense>
         )}
       />

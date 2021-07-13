@@ -1,0 +1,19 @@
+.recommend {
+    color: #d3d3d3;
+    cursor: pointer;
+    .ant-space-item {
+        text-align: center;
+    }
+
+    .like-icon {
+        font-size: xxx-large;
+    }
+}
+
+.liked.select {
+    color: #52c41a;
+}
+
+.not-liked.select {
+    color: #e34343;
+}
