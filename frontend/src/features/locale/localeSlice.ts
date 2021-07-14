@@ -1,19 +1,19 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-vars */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getLocaleFromLocalStorage, setLocaleToLocalStorage } from 'lang/Utils';
 import { RootState } from '../../app/store';
 
 export enum Locale {
   EN = 'en',
   VI = 'vi'
 }
-
 export interface LocaleState {
   value: Locale;
 }
 
 const initialState: LocaleState = {
-  value: Locale.EN,
+  value: getLocaleFromLocalStorage() as Locale || Locale.EN,
 };
 
 export const localeSlice = createSlice({
@@ -23,6 +23,7 @@ export const localeSlice = createSlice({
   reducers: {
     switchLocale: (state, action: PayloadAction<Locale>) => {
       state.value = action.payload;
+      setLocaleToLocalStorage(action.payload);
     },
   },
 });
