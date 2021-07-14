@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import React from 'react';
 import './rating.scss';
+import { FormattedMessage } from 'react-intl';
 
 interface ProgressRatingProps {
   starName: string;
@@ -14,7 +15,7 @@ export const ProgressRating: React.FC<ProgressRatingProps> = ({ starName, percen
     <Col span={3}>
       <span>
         {starName}
-        star
+        <FormattedMessage id="review.star" />
       </span>
     </Col>
     <Col span={14}>
@@ -35,7 +36,9 @@ interface CicleRatingProps {
 export const CicleRating: React.FC<CicleRatingProps> = ({ star }) => (
   <Space className="rating-circle-progress">
     <Progress type="circle" percent={parseFloat(((star / 5) * 100).toFixed(2))} />
-    <p>Recommend working here to a friend</p>
+    <p>
+      <FormattedMessage id="review.recommend" />
+    </p>
   </Space>
 );
 
@@ -62,23 +65,33 @@ export const Rating: React.FC<RatingProps> = ({
 const menu = (
   <Menu selectable={false}>
     <Menu.Item disabled key="salary">
-      <span>Salary & benefits</span>
+      <span>
+        <FormattedMessage id="review.salaryBenefits" />
+      </span>
       <Rating star={4} showNumber={false} />
     </Menu.Item>
     <Menu.Item disabled key="training">
-      <span>Training & learning</span>
+      <span>
+        <FormattedMessage id="review.trainingLearning" />
+      </span>
       <Rating star={4} showNumber={false} />
     </Menu.Item>
     <Menu.Item disabled key="care">
-      <span>Management cares about me</span>
+      <span>
+        <FormattedMessage id="review.managerCare" />
+      </span>
       <Rating star={4} showNumber={false} />
     </Menu.Item>
     <Menu.Item disabled key="fun">
-      <span>Culture & fun</span>
+      <span>
+        <FormattedMessage id="review.cultureFun" />
+      </span>
       <Rating star={4} showNumber={false} />
     </Menu.Item>
     <Menu.Item disabled key="office">
-      <span>Office & workspace</span>
+      <span>
+        <FormattedMessage id="review.officeWorkspace" />
+      </span>
       <Rating star={4} showNumber={false} />
     </Menu.Item>
   </Menu>

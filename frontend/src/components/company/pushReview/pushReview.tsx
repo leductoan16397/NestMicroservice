@@ -1,18 +1,21 @@
 import './pushReview.scss';
 import React from 'react';
 import { Button } from 'antd';
+import { FormattedMessage } from 'react-intl';
 
 const PushReview: React.FC = () => (
   <div className="push-review">
     <div className="push-review-header">
-      <h2>Let your voice be heard</h2>
+      <h2>
+        <FormattedMessage id="company.pushReviewHeader" />
+      </h2>
     </div>
     <div className="push-review-body">
       <div>
-        review company name now
+        <FormattedMessage id="company.reviewCompanyByName" values={{ companyName: 'fpt' }} />
       </div>
       <Button type="primary" size="large" block danger className="push-review-btn">
-        Write a review
+        <FormattedMessage id="company.writeReview" />
       </Button>
     </div>
   </div>

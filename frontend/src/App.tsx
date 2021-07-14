@@ -11,6 +11,7 @@ import {
   Switch,
   // RouteComponentProps,
 } from 'react-router-dom';
+import flatten from 'flat';
 
 const ViewError = React.lazy(() => import('views/error404'));
 const ViewUser = React.lazy(() => import('views/user'));
@@ -24,7 +25,7 @@ const App: React.FC = () => {
     <div className="App App-header">
       <IntlProvider
         locale={locale}
-        messages={messages}
+        messages={flatten(messages)}
         defaultLocale={Locale.EN}
       >
         <>

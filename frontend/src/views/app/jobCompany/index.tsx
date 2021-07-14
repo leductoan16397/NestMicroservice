@@ -6,6 +6,7 @@ import {
 import CompanySearch from 'components/company/searchCompany/companySearch';
 import './jobCompany.scss';
 import CompanyGrid from 'components/company/companyGrid/companyGrid';
+import { FormattedMessage } from 'react-intl';
 
 const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -26,7 +27,9 @@ const JobCompany: React.FC<RouteComponentProps> = () => {
         <CompanyGrid companies={companies} />
         <Row className="pt-5 pb-5">
           <Col span={10} offset={7}>
-            <Button onClick={pushCompany} block>Show More Companies</Button>
+            <Button onClick={pushCompany} block>
+              <FormattedMessage id="jobCompany.showMore" />
+            </Button>
           </Col>
         </Row>
       </Space>

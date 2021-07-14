@@ -2,6 +2,7 @@ import { JobCard } from 'components/job/jobCard/jobCard';
 import React from 'react';
 import './jobs.scss';
 import { Divider } from 'antd';
+import { FormattedMessage } from 'react-intl';
 
 const Jobs: React.FC = () => {
   const jobs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
@@ -9,7 +10,9 @@ const Jobs: React.FC = () => {
   return (
     <div className="job-list-review">
       <div className="job-list-review-header">
-        <h2>Jobs</h2>
+        <h2>
+          <FormattedMessage id="company.jobs" />
+        </h2>
         <Divider />
       </div>
       <div className="job-list-review-body">

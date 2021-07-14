@@ -6,6 +6,7 @@ import {
 import { JobCityPath, PostJobPath } from 'constants/path';
 import SwitchLocale from 'features/locale/Locale';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import './auth.scss';
 
@@ -40,16 +41,10 @@ const AuthComponent: React.FC = () => (
     </Col>
     <Col offset={2}>
       <SwitchLocale />
-      {/* <Switch
-        className="language-switch"
-        checkedChildren="EN"
-        unCheckedChildren="VN"
-        defaultChecked
-      /> */}
     </Col>
     <Col offset={1}>
       <Link className="ant-dropdown-link text-link" to={`/${PostJobPath}`}>
-        Employers
+        <FormattedMessage id="header.Employers" />
       </Link>
     </Col>
   </Row>

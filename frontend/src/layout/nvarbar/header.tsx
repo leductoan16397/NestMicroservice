@@ -27,7 +27,7 @@ const menu = (
     <SubMenu
       title={(
         <Link className="ant-dropdown-link text-dark" to={`/${JobSkillPath}`}>
-          Jobs by Skills
+          <FormattedMessage id="header.JobBySkills" />
         </Link>
       )}
       key="sub1"
@@ -40,7 +40,7 @@ const menu = (
     <SubMenu
       title={(
         <Link className="ant-dropdown-link text-dark" to={`/${JobTitlePath}`}>
-          Jobs by Title
+          <FormattedMessage id="header.JobByTitle" />
         </Link>
       )}
       popupClassName="submenu-skills"
@@ -53,7 +53,7 @@ const menu = (
     <SubMenu
       title={(
         <Link className="ant-dropdown-link text-dark" to={`/${JobCompanyPath}`}>
-          Jobs by Company
+          <FormattedMessage id="header.JobByCompany" />
         </Link>
       )}
       popupClassName="submenu-skills"
@@ -65,7 +65,7 @@ const menu = (
     <SubMenu
       title={(
         <Link className="ant-dropdown-link text-dark" to={`/${JobCityPath}`}>
-          Jobs by City
+          <FormattedMessage id="header.JobByCity" />
         </Link>
       )}
       key="sub4"
@@ -91,12 +91,13 @@ const IHeader: React.FC = () => (
             <Menu.Item key="nav1">
               <Dropdown overlay={menu} arrow>
                 <Link className="ant-dropdown-link" to={`/${AllJobPath}`}>
-                  <FormattedMessage id="appName" />
-                  {/* All Job */}
+                  <FormattedMessage id="header.AllJob" />
                 </Link>
               </Dropdown>
             </Menu.Item>
-            <Menu.Item key="nav2">Company Review</Menu.Item>
+            <Menu.Item key="nav2">
+              <FormattedMessage id="header.CompanyReview" />
+            </Menu.Item>
           </Menu>
         </Col>
         <Col span={10}>

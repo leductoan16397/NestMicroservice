@@ -6,8 +6,10 @@ import React from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import './search.scss';
 import { Locations } from 'constants/header';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 export const SearchJob: React.FC = () => {
+  const intl = useIntl();
   const handleChange = (value: string): void => {
     console.log(`selected ${value}`);
   };
@@ -17,7 +19,7 @@ export const SearchJob: React.FC = () => {
         <Input
           className="search-input"
           size="middle"
-          placeholder="Keywork skill, Job Title, Company..."
+          placeholder={intl.formatMessage({ id: 'header.SearchJobPlaceholder' })}
           prefix={<SearchOutlined />}
         />
       </Col>
@@ -25,13 +27,15 @@ export const SearchJob: React.FC = () => {
         <Select defaultValue={Locations[0].value} style={{ width: 120 }} onChange={handleChange}>
           {Locations.map((item, index) => (
             <Select.Option key={`searchLocation${index + 1}`} value={item.value}>
-              {item.name}
+              {intl.formatMessage({ id: `header.${item.id}` })}
             </Select.Option>
           ))}
         </Select>
       </Col>
       <Col>
-        <Button type="primary">Search</Button>
+        <Button type="primary">
+          <FormattedMessage id="header.Search" />
+        </Button>
       </Col>
     </Row>
   );

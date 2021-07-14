@@ -2,6 +2,7 @@ import {
   Button, Space, Divider, Pagination,
 } from 'antd';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import Review from '../review/review';
 import './employeeReview.scss';
 
@@ -14,13 +15,18 @@ const EmployeeReview: React.FC = () => {
   return (
     <div className="employee-reviews">
       <Space className="filter">
-        <span> Filter by</span>
+        <span>
+          <FormattedMessage id="company.filter" />
+        </span>
         <Button shape="round" size="small">
           OT
         </Button>
       </Space>
       <div className="total-reviews-headline">
-        <h3>1094 Employee Reviews</h3>
+        <h3>
+          1094
+          <FormattedMessage id="company.reviews" />
+        </h3>
       </div>
       <Divider />
       {reviews.map((item, index) => <Review key={`review_${index + 1}`} />)}

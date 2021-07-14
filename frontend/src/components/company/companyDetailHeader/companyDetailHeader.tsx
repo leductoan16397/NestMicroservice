@@ -6,6 +6,7 @@ import './companyDetailHeader.scss';
 import { ImageFallback } from 'constants/values';
 import { EnvironmentFilled } from '@ant-design/icons';
 import CompanyInfoGrid from 'components/company/companyInfoGrid/companyInfoGrd';
+import { FormattedMessage } from 'react-intl';
 
 const CompanyDetailHeader: React.FC = () => (
   <Row className="company-detail-header w-100" justify="space-between">
@@ -32,10 +33,10 @@ const CompanyDetailHeader: React.FC = () => (
     <Col span={6}>
       <Space direction="vertical" className="w-100 h-100 company-actions">
         <Button type="primary" danger block className="write-review-btn">
-          Write a review
+          <FormattedMessage id="company.writeReview" />
         </Button>
         <Button block className="follow-btn">
-          Follow
+          <FormattedMessage id="company.follow" />
         </Button>
       </Space>
     </Col>

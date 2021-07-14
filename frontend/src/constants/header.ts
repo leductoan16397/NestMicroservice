@@ -1,21 +1,26 @@
 export const Locations = [
   {
+    id: 'allCity',
     name: 'All Cities',
     value: 'all',
   },
   {
+    id: 'HCM',
     name: 'Ho Chi Minh',
     value: 'HCM',
   },
   {
+    id: 'HN',
     name: 'Ha Noi',
     value: 'HN',
   },
   {
+    id: 'DN',
     name: 'Da Nang',
     value: 'DN',
   },
   {
+    id: 'other',
     name: 'Other',
     value: 'other',
   },

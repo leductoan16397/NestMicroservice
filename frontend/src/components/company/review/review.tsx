@@ -3,6 +3,7 @@ import {
   Divider, Space,
 } from 'antd';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { RatingDropdown } from '../rating/rating';
 import './review.scss';
 
@@ -15,16 +16,22 @@ const Review: React.FC = () => (
           <RatingDropdown />
           <Space>
             <LikeTwoTone className="like-icon" twoToneColor="#52c41a" />
-            <span>Recommend </span>
+            <span>
+              <FormattedMessage id="review.recommendBtn" />
+            </span>
             <DislikeTwoTone className="like-icon" twoToneColor="#e34343" />
-            <span>Does't recommend </span>
+            <span>
+              <FormattedMessage id="review.notRecommendBtn" />
+            </span>
           </Space>
         </Space>
         <span className="created-review-time">created time</span>
       </Space>
       <div className="review-content">
         <div className="what-you-liked">
-          <h4>What I liked</h4>
+          <h4>
+            <FormattedMessage id="review.whatLike" />
+          </h4>
           <div className="panel-paragraph pb-15">
             <p>
               Thích nhất cách decor văn phòng của fsoft rất khoa học và hiện đại,
@@ -39,7 +46,9 @@ const Review: React.FC = () => (
           </div>
         </div>
         <div className="what-you-liked">
-          <h4>Suggestions for improvement</h4>
+          <h4>
+            <FormattedMessage id="review.whatImprovement" />
+          </h4>
           <div className="panel-paragraph pb-15">
             <p>
               Mong các sếp đọc được đề xuất để nâng khoản lương lậu của anh em lên cạnh tranh hơn,

@@ -12,8 +12,10 @@ import GeneralRating from 'components/company/generalRating/generalRating';
 import EmployeeReview from 'components/company/employeeRevew/employeeReview';
 import PushReview from 'components/company/pushReview/pushReview';
 import Jobs from 'components/company/jobInReview/jobs';
+import { useIntl } from 'react-intl';
 
 const CompanyDetail: React.FC<RouteComponentProps> = () => {
+  const intl = useIntl();
   const [tabActive, setTabActive] = useState(1);
   const onChange = (activeKey: string): void => {
     setTabActive(parseInt(activeKey, 10));
@@ -27,12 +29,12 @@ const CompanyDetail: React.FC<RouteComponentProps> = () => {
         <Row justify="space-between">
           <Col span={16}>
             <Tabs type="card" onChange={onChange}>
-              <Tabs.TabPane tab="Jobs" key="1">
+              <Tabs.TabPane tab={intl.formatMessage({ id: 'CompanyDetail.tabJobs' })} key="1">
                 <div className="tab-body">
                   <JobList pagination={false} title="Company Name" />
                 </div>
               </Tabs.TabPane>
-              <Tabs.TabPane tab="Reviews" key="2">
+              <Tabs.TabPane tab={intl.formatMessage({ id: 'CompanyDetail.tabReview' })} key="2">
                 <div className="tab-body">
                   <GeneralRating />
                 </div>

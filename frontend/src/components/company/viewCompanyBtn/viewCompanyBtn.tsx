@@ -2,12 +2,12 @@ import { Button } from 'antd';
 import React from 'react';
 import './viewCompanyBtn.scss';
 
-interface ViewComapayBtnProps {
+interface ViewCompanyBtnProps {
     text: string;
     className?: string;
 }
 
-const ViewComapayBtn: React.FC<ViewComapayBtnProps> = ({ text, className }) => (
+const ViewCompanyBtn: React.FC<ViewCompanyBtnProps> = ({ text, className }) => (
   <div className={className}>
     <Button className="view-company-profile-btn " danger>
       {text}
@@ -15,4 +15,4 @@ const ViewComapayBtn: React.FC<ViewComapayBtnProps> = ({ text, className }) => (
   </div>
 );
 
-export default ViewComapayBtn;
+export default ViewCompanyBtn;

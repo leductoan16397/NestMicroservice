@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import { ImageFallback } from 'constants/values';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import './companyCard.scss';
 
@@ -46,7 +47,8 @@ const CompanyCard: React.FC = () => (
         <Row justify="center" className="d-flex justify-content-between">
           <Col>Ho Chi Minh</Col>
           <Col className="jobs d-flex align-items-center">
-            8 jobs
+            8
+            <FormattedMessage id="company.jobs" />
             <CaretRightOutlined />
           </Col>
         </Row>

@@ -2,8 +2,8 @@
 import { Switch } from 'antd';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import React, { useState } from 'react';
-import './Locale.module.scss';
 import { selectLocale, Locale, switchLocale } from './localeSlice';
+import './Locale.scss';
 
 const SwitchLocale: React.FC = () => {
   const locale = useAppSelector(selectLocale);
@@ -15,13 +15,15 @@ const SwitchLocale: React.FC = () => {
     dispatch(switchLocale(checked ? Locale.VI : Locale.EN));
   };
   return (
-    <Switch
-      onChange={onChange}
-      className="language-switch"
-      checkedChildren="EN"
-      unCheckedChildren="VN"
-      defaultChecked={isChecked}
-    />
+    <>
+      <Switch
+        onChange={onChange}
+        className="language-switch"
+        checkedChildren="EN"
+        unCheckedChildren="VN"
+        defaultChecked={isChecked}
+      />
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import { Col, Row, Image } from 'antd';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import './postReview.scss';
 import ReviewForm from './reviewForm';
 
@@ -10,7 +11,7 @@ const PostReview: React.FC = () => (
         <Col span={18}>
           <div className="text">
             <h1>
-              Đánh giá
+              <FormattedMessage id="review.title" />
             </h1>
           </div>
           <div className="company-name">
@@ -30,9 +31,9 @@ const PostReview: React.FC = () => (
     </div>
     <div className="review-body">
       <p>
-        Bạn chỉ mất 1 phút để hoàn thành bảng đánh giá này.
+        <FormattedMessage id="review.body1" />
         <br />
-        Ý kiến của bạn sẽ giúp ích rất nhiều cho cộng đồng Developer đang tìm việc.
+        <FormattedMessage id="review.body2" />
       </p>
       <ReviewForm />
     </div>
