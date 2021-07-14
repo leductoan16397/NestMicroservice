@@ -18,6 +18,7 @@ import React from 'react';
 import { SearchJob } from 'layout/search/search';
 import { Locations, JobSkills, JobTitles } from 'constants/header';
 import AuthComponent from 'layout/auth/auth';
+import { FormattedMessage } from 'react-intl';
 
 const headerJobSkill = JobSkills.splice(0, 20);
 
@@ -90,7 +91,8 @@ const IHeader: React.FC = () => (
             <Menu.Item key="nav1">
               <Dropdown overlay={menu} arrow>
                 <Link className="ant-dropdown-link" to={`/${AllJobPath}`}>
-                  All Job
+                  <FormattedMessage id="appName" />
+                  {/* All Job */}
                 </Link>
               </Dropdown>
             </Menu.Item>

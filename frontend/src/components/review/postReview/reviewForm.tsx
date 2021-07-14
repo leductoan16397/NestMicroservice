@@ -135,7 +135,6 @@ interface OTProps {
 
 const OT: React.FC<OTProps> = ({ value, onChange }) => {
   const [select, setSelect] = useState(value);
-  console.log(value, onChange);
 
   const changSelect = (val: boolean): void => {
     setSelect(val);
@@ -171,7 +170,6 @@ interface RecommentedProps {
 
 const Recommented: React.FC<RecommentedProps> = ({ value, onChange }) => {
   const [select, setSelect] = useState(value);
-  console.log(value, onChange);
 
   const changSelect = (val: boolean): void => {
     setSelect(val);

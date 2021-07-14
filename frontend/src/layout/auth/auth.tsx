@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { CaretDownOutlined, UserOutlined } from '@ant-design/icons';
 import {
-  Avatar, Col, Dropdown, Menu, Row, Switch,
+  Avatar, Col, Dropdown, Menu, Row,
 } from 'antd';
 import { JobCityPath, PostJobPath } from 'constants/path';
+import SwitchLocale from 'features/locale/Locale';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './auth.scss';
@@ -38,12 +39,13 @@ const AuthComponent: React.FC = () => (
       </Dropdown>
     </Col>
     <Col offset={2}>
-      <Switch
+      <SwitchLocale />
+      {/* <Switch
         className="language-switch"
         checkedChildren="EN"
         unCheckedChildren="VN"
         defaultChecked
-      />
+      /> */}
     </Col>
     <Col offset={1}>
       <Link className="ant-dropdown-link text-link" to={`/${PostJobPath}`}>
