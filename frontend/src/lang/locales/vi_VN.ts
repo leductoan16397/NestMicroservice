@@ -28,6 +28,10 @@ const ViTranlate: Tranlate = {
     HN: 'Hà Nội',
     DN: 'Đà Nẵng',
     other: 'Khác',
+    myAccount: 'Tài khoản',
+    myJobRobot: 'Thông báo việc làm',
+    savedJobs: 'Đã lưu',
+    appliedjob: 'Đã ứng tuyển',
   },
   CompanyDetail: {
     tabJobs: 'Công việc',

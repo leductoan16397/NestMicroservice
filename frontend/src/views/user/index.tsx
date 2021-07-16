@@ -1,23 +1,23 @@
-/* eslint-disable import/no-unresolved */
+import ProtectedRoute from 'components/ProtectedRoute/authHelper';
 import SpinComponent from 'components/spin/spin';
 import { ForgotPasswordPath, LoginPath, ResetPasswordPath } from 'constants/path';
+import AppLayout from 'layout/appLayout';
 import React, { Suspense } from 'react';
 import {
   Route, Switch, Redirect, RouteComponentProps,
 } from 'react-router-dom';
 
-// import UserLayout from 'layout/UserLayout';
-
-const LoginView = React.lazy(() => import('./login'));
+const LoginView = React.lazy(() => import('./login/login'));
 const ForgotPasswordView = React.lazy(() => import('./forgotPassword'));
 const ResetPasswordView = React.lazy(() => import('./resetPassword'));
 const ViewError = React.lazy(() => import('views/error404'));
 
 const User: React.FC<RouteComponentProps> = ({ match }) => (
-  <Suspense fallback={<SpinComponent />}>
+  <AppLayout>
     <Switch>
-      <Redirect exact from={`${match.url}/`} to={`${match.url}/${LoginPath}`} />
-      <Route
+      <Redirect exact from={`${match.url}`} to={`${match.url}/${LoginPath}`} />
+      <ProtectedRoute
+        nonLogin
         path={`${match.url}/${LoginPath}`}
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
@@ -41,9 +41,15 @@ const User: React.FC<RouteComponentProps> = ({ match }) => (
           </Suspense>
         )}
       />
-      <Route component={ViewError} />
+      <Route
+        render={(props) => (
+          <Suspense fallback={<SpinComponent />}>
+            <ViewError {...props} />
+          </Suspense>
+        )}
+      />
     </Switch>
-  </Suspense>
+  </AppLayout>
 );
 
 export default User;

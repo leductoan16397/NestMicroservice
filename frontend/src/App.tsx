@@ -37,18 +37,18 @@ const App: React.FC = () => {
                 roles={[UserRole.admin, UserRole.user]}
               /> */}
               <Route
-                path={`/${HomePath}`}
-                render={(props) => (
-                  <Suspense fallback={<SpinComponent />}>
-                    <ViewApp {...props} />
-                  </Suspense>
-                )}
-              />
-              <Route
                 path={`/${UserPath}`}
                 render={(props) => (
                   <Suspense fallback={<SpinComponent />}>
                     <ViewUser {...props} />
+                  </Suspense>
+                )}
+              />
+              <Route
+                path={`/${HomePath}`}
+                render={(props) => (
+                  <Suspense fallback={<SpinComponent />}>
+                    <ViewApp {...props} />
                   </Suspense>
                 )}
               />
@@ -58,7 +58,6 @@ const App: React.FC = () => {
                     <ViewError {...props} />
                   </Suspense>
                 )}
-              // component={ViewError}
               />
             </Switch>
           </BrowserRouter>

@@ -16,6 +16,10 @@ interface Header {
     HN: string,
     DN: string,
     other: string,
+    myAccount: string,
+    myJobRobot: string,
+    savedJobs: string,
+    appliedjob: string,
 }
 
 interface CompanyDetail {

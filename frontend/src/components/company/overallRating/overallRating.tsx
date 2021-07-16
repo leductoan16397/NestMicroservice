@@ -1,11 +1,26 @@
 import {
   Button,
-  Divider, Space,
+  Divider, notification, Space,
 } from 'antd';
 import { FormattedMessage, useIntl } from 'react-intl';
 import React from 'react';
-import { CicleRating, Rating } from '../rating/rating';
+// import { SmileOutlined } from '@ant-design/icons';
+import { CicleRating, Rating } from 'components/company/rating/rating';
 import './overallRating.scss';
+
+const openNotification = (): void => {
+  // notification.open({
+  //   message: 'Notification Title',
+  //   description:
+  //     'This is the content of the notification. ',
+  //   icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+  // });
+  notification.info({
+    message: 'Notification Title',
+    description:
+      'This is the content of the notification. ',
+  });
+};
 
 const OverallRating: React.FC = () => {
   const inlt = useIntl();
@@ -40,7 +55,7 @@ const OverallRating: React.FC = () => {
             star={4.5}
           />
         </Space>
-        <Button type="primary" block danger className="view-rating-btn">
+        <Button type="primary" block danger className="view-rating-btn" onClick={openNotification}>
           <FormattedMessage id="company.seeAllRatingAndReview" />
         </Button>
       </div>

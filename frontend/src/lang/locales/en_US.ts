@@ -28,6 +28,10 @@ const EnTranlate: Tranlate = {
     HN: 'Ha Noi',
     DN: 'Da Nang',
     other: 'Other',
+    myAccount: 'My Account',
+    myJobRobot: 'My Job robot',
+    savedJobs: 'Saved jobs',
+    appliedjob: 'Applied jobs',
   },
   CompanyDetail: {
     tabJobs: 'Jobs',
