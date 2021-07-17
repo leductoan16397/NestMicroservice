@@ -2,7 +2,7 @@
 import React from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { useAppSelector } from 'app/hooks';
-import { selectUser } from 'features/auth/authSlice';
+import { selectUser } from 'features/user/userSlice';
 
 interface ProtectedRouteProps extends RouteProps {
   roles?: string[],

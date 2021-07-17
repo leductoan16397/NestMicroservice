@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
   JobCityPath, LoginPath, PostJobPath, UserPath,
 } from 'constants/path';
-import { selectUser, signOut } from 'features/auth/authSlice';
+import { selectUser, selectUserStatus, signOut } from 'features/user/userSlice';
 import SwitchLocale from 'features/locale/Locale';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -20,6 +20,7 @@ import './auth.scss';
 
 const AuthComponent: React.FC = () => {
   const user = useAppSelector(selectUser);
+  const status = useAppSelector(selectUserStatus);
   const dispatch = useAppDispatch();
 
   const MenuComponent = (
@@ -55,7 +56,7 @@ const AuthComponent: React.FC = () => {
   return (
     <Row align="middle" justify="end" className="auth-rows">
       <Col>
-        {user
+        {status === 'idle' && (user
           ? (
             <Dropdown overlay={MenuComponent} arrow className="text-link" placement="bottomCenter">
               <a className="ant-dropdown-link ">
@@ -72,12 +73,12 @@ const AuthComponent: React.FC = () => {
             <Link className="ant-dropdown-link text-link" to={`/${UserPath}/${LoginPath}`}>
               <FormattedMessage id="header.SignIn" />
             </Link>
-          )}
+          ))}
       </Col>
       <Col offset={2}>
         <SwitchLocale />
       </Col>
-      {!user
+      {(!user && status === 'idle')
         && (
           <Col offset={1}>
             <Link className="ant-dropdown-link text-link" to={`/${PostJobPath}`}>

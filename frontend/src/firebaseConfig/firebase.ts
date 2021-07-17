@@ -15,9 +15,18 @@ const firebaseConfig = {
   measurementId: 'G-9EZ0D96F4H',
 };
 
+export const uiConfig = {
+  signInFlow: 'popup',
+  signInSuccessUrl: '/',
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+  ],
+};
+
 firebase.initializeApp(firebaseConfig);
 
-export const auth = firebase.auth();
+export const firebaseAuth = firebase.auth();
 export const firestore = firebase.firestore();
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
