@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getLocaleFromLocalStorage, setLocaleToLocalStorage } from 'lang/Utils';
-import { RootState } from '../../app/store';
+import { RootState } from 'app/store';
 
 export enum Locale {
   EN = 'en',

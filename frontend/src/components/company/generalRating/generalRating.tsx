@@ -6,7 +6,7 @@ import {
 import React, { useState } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { CicleRating, ProgressRating, Rating } from '../rating/rating';
+import { CicleRating, ProgressRating, Rating } from 'components/company/rating/rating';
 import './generalRating.scss';
 
 const GeneralRating: React.FC = () => {

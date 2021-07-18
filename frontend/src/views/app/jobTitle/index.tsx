@@ -8,7 +8,6 @@ import { FormattedMessage } from 'react-intl';
 const JobTitle: React.FC<RouteComponentProps> = () => (
   <div className="site-layout-background bg-white row">
     <div className="job-title-indices">
-      <h1>Job TItle Index</h1>
       <h1>
         <FormattedMessage id="jobTitle.title" />
       </h1>

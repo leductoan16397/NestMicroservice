@@ -1,16 +1,16 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import userSlice from 'features/user/userSlice';
+// import userSlice from 'features/user/userSlice';
 import localeSlice from 'features/locale/localeSlice';
 import createSagaMiddleware from 'redux-saga';
-import counterReducer from 'features/counter/counterSlice';
+import counterReducer from '../features/counter/counterSlice';
 import rootSaga from './rootSaga';
 
 const sagaMiddleware = createSagaMiddleware();
-export const AppStore = configureStore({
+export const AdminStore = configureStore({
   reducer: {
     counter: counterReducer,
     locale: localeSlice,
-    user: userSlice,
+    // user: userSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     thunk: true,
@@ -18,9 +18,9 @@ export const AppStore = configureStore({
   }).concat(sagaMiddleware),
 });
 sagaMiddleware.run(rootSaga);
-export type AppDispatch = typeof AppStore.dispatch;
-export type RootState = ReturnType<typeof AppStore.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<
+export type AdminDispatch = typeof AdminStore.dispatch;
+export type RootState = ReturnType<typeof AdminStore.getState>;
+export type AdminThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,
   unknown,

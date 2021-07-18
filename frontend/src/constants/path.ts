@@ -1,4 +1,5 @@
 export const HomePath = '';
+export const AdminPath = 'admin';
 export const UserPath = 'user';
 export const NotFoundPath = 'not-found';
 export const UnauthorizedPath = 'unauthorized';
@@ -11,5 +12,6 @@ export const JobCompanyPath = 'companies';
 export const JobCityPath = 'job-city-index';
 export const AllJobPath = 'it-jobs';
 export const JobDetailPath = 'it-job';
-export const PostJobPath = 'post_jobs';
+export const PostJobPath = 'post-jobs';
 export const PostReviewPath = 'post-review';
+export const PostCompanyPath = 'post-company';

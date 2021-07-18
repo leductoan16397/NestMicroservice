@@ -1,7 +1,7 @@
 import Card from 'antd/lib/card';
 import React from 'react';
 import './companyGrd.scss';
-import CompanyCard from '../companyCard/companyCard';
+import CompanyCard from 'components/company/companyCard/companyCard';
 
 interface CompanyGridProps {
   companies: number[];

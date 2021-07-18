@@ -1,7 +1,7 @@
 import { Button, Divider, Space } from 'antd';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Rating } from '../rating/rating';
+import { Rating } from 'components/company/rating/rating';
 import './topReview.scss';
 
 const Review: React.FC = () => (

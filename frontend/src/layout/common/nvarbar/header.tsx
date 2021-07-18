@@ -15,9 +15,9 @@ import { Container } from 'reactstrap';
 import './header.scss';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import React from 'react';
-import { SearchJob } from 'layout/search/search';
+import { SearchJob } from 'layout/common/search/search';
 import { Locations, JobSkills, JobTitles } from 'constants/header';
-import AuthComponent from 'layout/auth/auth';
+import AuthComponent from 'layout/common/auth/auth';
 import { FormattedMessage } from 'react-intl';
 
 const headerJobSkill = JobSkills.splice(0, 20);

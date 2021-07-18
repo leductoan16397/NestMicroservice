@@ -3,7 +3,7 @@ import {
 } from 'antd';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Review from '../review/review';
+import Review from 'components/company/review/review';
 import './employeeReview.scss';
 
 const EmployeeReview: React.FC = () => {

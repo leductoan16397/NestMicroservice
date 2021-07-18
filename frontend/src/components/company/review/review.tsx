@@ -4,7 +4,7 @@ import {
 } from 'antd';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { RatingDropdown } from '../rating/rating';
+import { RatingDropdown } from 'components/company/rating/rating';
 import './review.scss';
 
 const Review: React.FC = () => (
