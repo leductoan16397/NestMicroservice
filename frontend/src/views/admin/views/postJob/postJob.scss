@@ -1,0 +1,29 @@
+.post-new-job {
+    background-color: white;
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    padding: 30px;
+
+    .post-job-form {
+        padding: 20px;
+
+        .label {
+            font-size: 14px;
+            // display: flex;
+            // align-items: center;
+        }
+
+        .nested-group {
+            padding: 15px 0;
+        }
+
+        .nested-field {
+            margin-bottom: unset;
+        }
+
+        .rdw-dropdown-selectedtext {
+            text-decoration: none;
+            color: black;
+        }
+    }
+}

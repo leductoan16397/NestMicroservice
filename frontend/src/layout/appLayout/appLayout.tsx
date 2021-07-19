@@ -7,7 +7,7 @@ import IHeader from 'layout/common//nvarbar/header';
 import './appLayout.scss';
 
 const AppLayout: React.FC = ({ children }): ReactElement => (
-  <Layout>
+  <Layout className="layout">
     <IHeader />
     <Container>
       <Content className="site-layout">

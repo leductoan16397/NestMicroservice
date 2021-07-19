@@ -7,7 +7,7 @@ import './adminLayout.scss';
 import AdminHeader from 'layout/common/adminHeader/header';
 
 const AdminLayout: React.FC = ({ children }): ReactElement => (
-  <Layout>
+  <Layout className="layout">
     <AdminHeader />
     <Container>
       <Content className="site-layout">

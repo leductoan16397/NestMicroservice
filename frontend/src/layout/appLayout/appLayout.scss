@@ -1,8 +1,15 @@
 .site-layout {
   padding: 40px 0;
   margin-top: 60px;
+  background-color: #f0f2f5;
+  height: 100%;
 
   .site-layout-background {
     min-height: 600px;
   }
+}
+
+.layout {
+  height: 100%;
+  justify-content: space-between;
 }

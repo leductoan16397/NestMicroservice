@@ -11,39 +11,37 @@ const AdminVew = React.lazy(() => import('views/admin'));
 const ViewApp = React.lazy(() => import('views/app'));
 
 const App: React.FC = () => (
-  <div className="App App-header">
-    <BrowserRouter>
-      <Switch>
-        <Route
-          path={`/${AdminPath}`}
-          render={(props) => (
-            <Provider store={AppStore}>
-              <Suspense fallback={<SpinComponent />}>
-                <AdminVew {...props} />
-              </Suspense>
-            </Provider>
-          )}
-        />
-        <Route
-          path={`/${HomePath}`}
-          render={(props) => (
-            <Provider store={AdminStore}>
-              <Suspense fallback={<SpinComponent />}>
-                <ViewApp {...props} />
-              </Suspense>
-            </Provider>
-          )}
-        />
-        <Route
-          render={(props) => (
+  <BrowserRouter>
+    <Switch>
+      <Route
+        path={`/${AdminPath}`}
+        render={(props) => (
+          <Provider store={AdminStore}>
             <Suspense fallback={<SpinComponent />}>
-              <ViewError {...props} />
+              <AdminVew {...props} />
             </Suspense>
-          )}
-        />
-      </Switch>
-    </BrowserRouter>
-  </div>
+          </Provider>
+        )}
+      />
+      <Route
+        path={`/${HomePath}`}
+        render={(props) => (
+          <Provider store={AppStore}>
+            <Suspense fallback={<SpinComponent />}>
+              <ViewApp {...props} />
+            </Suspense>
+          </Provider>
+        )}
+      />
+      <Route
+        render={(props) => (
+          <Suspense fallback={<SpinComponent />}>
+            <ViewError {...props} />
+          </Suspense>
+        )}
+      />
+    </Switch>
+  </BrowserRouter>
 );
 
 export default App;
