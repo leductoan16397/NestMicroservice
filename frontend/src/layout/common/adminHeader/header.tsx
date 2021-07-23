@@ -4,7 +4,7 @@ import {
 } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
 import {
-  AdminPath, LoginPath, PostCompanyPath, PostJobPath,
+  AdminPath, LoginPath, PostCompanyPath, PostJobPath, PostRecruiterManagerPath, PostRecruiterPath,
 } from 'constants/path';
 import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
@@ -41,7 +41,7 @@ const AdminHeader: React.FC = () => (
             <img className="logo" alt="logo" src="/logohome.png" width={120} height={60} />
           </Link>
         </Col>
-        <Col span={6}>
+        <Col span={16}>
           <Menu theme="dark" mode="horizontal" selectable={false}>
             <Menu.Item key="nav1">
               {/* <Dropdown overlay={menu} arrow>
@@ -63,10 +63,17 @@ const AdminHeader: React.FC = () => (
                 login
               </Link>
             </Menu.Item>
+            <Menu.Item key="nav4">
+              <Link className="ant-dropdown-link" to={`/${AdminPath}/${PostRecruiterManagerPath}`}>
+                post Recruiter Manager
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="nav5">
+              <Link className="ant-dropdown-link" to={`/${AdminPath}/${PostRecruiterPath}`}>
+                post Recruiter
+              </Link>
+            </Menu.Item>
           </Menu>
-        </Col>
-        <Col span={10}>
-          {/* <SearchJob /> */}
         </Col>
         <Col span={6}>
           {/* <AuthComponent /> */}

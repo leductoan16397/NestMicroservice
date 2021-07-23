@@ -25,3 +25,9 @@ export interface Job {
 
 export type onFinishHandler = (values: any) => void;
 export type onFinishFailedHandler = (errors: any) => void;
+
+export interface JobFormPropos {
+  initialValues: Job;
+  onFinish: onFinishHandler;
+  onFinishFailed?: onFinishFailedHandler;
+}

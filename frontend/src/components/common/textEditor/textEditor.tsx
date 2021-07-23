@@ -7,11 +7,9 @@ import draftToHtml from 'draftjs-to-html';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './textEditor.scss';
 
-type OnChangeHandler = (e: any) => void;
-
 interface TextEditorProps {
   value: string;
-  onChange: OnChangeHandler;
+  onChange: (val: string | string[]) => void;
 }
 
 const TextEditor: React.FC<TextEditorProps> = ({ value = '', onChange }) => {

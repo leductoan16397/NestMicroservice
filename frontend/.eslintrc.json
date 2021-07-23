@@ -41,6 +41,9 @@
         }
     },
     "rules": {
+        "@typescript-eslint/no-unused-vars": [
+            2
+        ],
         "formatjs/no-offset": "error",
         "react/no-unescaped-entities": [
             "error",

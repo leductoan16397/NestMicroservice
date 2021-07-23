@@ -15,3 +15,5 @@ export const JobDetailPath = 'it-job';
 export const PostJobPath = 'post-jobs';
 export const PostReviewPath = 'post-review';
 export const PostCompanyPath = 'post-company';
+export const PostRecruiterManagerPath = 'post-recruiter-manager';
+export const PostRecruiterPath = 'post-recruiter';

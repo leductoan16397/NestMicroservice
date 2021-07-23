@@ -1,32 +1,12 @@
 import { Space } from 'antd';
-import CompanyForm from 'components/form/companyForm/companyForm';
-import { DayOfWeek } from 'components/form/companyForm/interface';
+import RecruiterManagerForm from 'components/form/recruiterManagerForm/recruiterManagerForm';
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import './postCompany.scss';
+import './postRecruiterManager.scss';
 
 const initialValues = {
-  companyName: 'string',
-  locations: [{
-    city: 'xcz',
-    district: 'ava',
-    ward: '1312',
-    address: '123',
-  }],
-  workTime: {
-    from: DayOfWeek.MONDAY,
-    to: DayOfWeek.FRIDAY,
-  },
-  companySize: {
-    min: 1,
-    max: 50,
-  },
-  originCountry: 'Việt Nam',
-
-  avatar: '',
-  images: [''],
-  descriptioin: '',
-  ot: true,
+  email: '',
+  company: '',
 };
 
 const PostCompany: React.FC<RouteComponentProps> = () => {
@@ -39,11 +19,11 @@ const PostCompany: React.FC<RouteComponentProps> = () => {
   };
 
   return (
-    <div className="post-new-company">
+    <div className="post-new-recruiter-manager">
       <Space direction="vertical" className="w-100">
-        <h3 className="text-center">New Company</h3>
-        <div className="post-company-form">
-          <CompanyForm
+        <h3 className="text-center">New Hiring Manager</h3>
+        <div className="post-recruiter-manager-form">
+          <RecruiterManagerForm
             initialValues={initialValues}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}

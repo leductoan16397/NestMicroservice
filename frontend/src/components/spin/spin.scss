@@ -1,3 +1,19 @@
 .spinner {
   border-radius: 4px;
 }
+
+
+.loading {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  // border: 2px solid rgba($theme-color-1, 0.2);
+  border-radius: 50%;
+  // border-top-color: $theme-color-1;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+  left: calc(50% - 15px);
+  top: calc(50% - 15px);
+  position: absolute;
+  z-index: 1;
+}

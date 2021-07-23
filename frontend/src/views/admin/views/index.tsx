@@ -1,5 +1,7 @@
 import SpinComponent from 'components/spin/spin';
-import { PostCompanyPath, PostJobPath } from 'constants/path';
+import {
+  PostCompanyPath, PostJobPath, PostRecruiterManagerPath, PostRecruiterPath,
+} from 'constants/path';
 import AdminLayout from 'layout/adminLayout/adminLayout';
 import React, { ReactElement, Suspense } from 'react';
 import {
@@ -9,6 +11,8 @@ import {
 const AdminHomeView = React.lazy(() => import('views/admin/views/home'));
 const PostJobView = React.lazy(() => import('views/admin/views/postJob'));
 const PostCompanyView = React.lazy(() => import('views/admin/views/postCompany'));
+const PostRecruiterView = React.lazy(() => import('views/admin/views/postRecruiter'));
+const PostRecruiterManagerView = React.lazy(() => import('views/admin/views/postRecruiterManager'));
 const ViewError = React.lazy(() => import('views/error404'));
 
 const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
@@ -37,6 +41,22 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => (
         render={(props) => (
           <Suspense fallback={<SpinComponent />}>
             <PostCompanyView {...props} />
+          </Suspense>
+        )}
+      />
+      <Route
+        path={[`${match.url}/${PostRecruiterManagerPath}`]}
+        render={(props) => (
+          <Suspense fallback={<SpinComponent />}>
+            <PostRecruiterManagerView {...props} />
+          </Suspense>
+        )}
+      />
+      <Route
+        path={[`${match.url}/${PostRecruiterPath}`]}
+        render={(props) => (
+          <Suspense fallback={<SpinComponent />}>
+            <PostRecruiterView {...props} />
           </Suspense>
         )}
       />

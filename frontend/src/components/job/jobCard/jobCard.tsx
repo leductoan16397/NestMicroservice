@@ -65,7 +65,7 @@ interface JobListProps {
 }
 
 const JobList: React.FC<JobListProps> = ({ title, pagination = true }) => {
-  const onchange = (page: any): void => {
+  const onChange = (page: any): void => {
     console.log(page);
   };
   return (
@@ -92,7 +92,7 @@ const JobList: React.FC<JobListProps> = ({ title, pagination = true }) => {
               showSizeChanger={false}
               showQuickJumper={false}
               showLessItems
-              onChange={onchange}
+              onChange={onChange}
             />
           </Card.Grid>
         )}

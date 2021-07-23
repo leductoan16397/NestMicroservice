@@ -8,7 +8,7 @@ import './employeeReview.scss';
 
 const EmployeeReview: React.FC = () => {
   const reviews = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-  const onchange = (page: any): void => {
+  const onChange = (page: any): void => {
     console.log(page);
   };
   return (
@@ -38,7 +38,7 @@ const EmployeeReview: React.FC = () => {
         showSizeChanger={false}
         showQuickJumper={false}
         showLessItems
-        onChange={onchange}
+        onChange={onChange}
       />
     </div>
   );
