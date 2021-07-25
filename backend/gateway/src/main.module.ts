@@ -12,7 +12,7 @@ import { AppModule } from 'app/app.module';
 @Module({
   imports: [
     CoreModule,
-    // AppModule,
+    AppModule,
     AdminModule,
     ClientsModule.registerAsync([
       {
