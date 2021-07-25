@@ -8,13 +8,13 @@ import { TransformInterceptor } from './interceptors/transform.interceptor';
 
 @Module({
   providers: [
-    { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
-    { provide: APP_INTERCEPTOR, useClass: TransformInterceptor },
-    { provide: APP_FILTER, useClass: HttpExceptionFilter },
-    {
-      provide: APP_FILTER,
-      useClass: AllExceptionsFilter,
-    },
+    // { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
+    // { provide: APP_INTERCEPTOR, useClass: TransformInterceptor },
+    // { provide: APP_FILTER, useClass: HttpExceptionFilter },
+    // {
+    //   provide: APP_FILTER,
+    //   useClass: AllExceptionsFilter,
+    // },
     ConfigService,
   ],
   exports: [ConfigService],

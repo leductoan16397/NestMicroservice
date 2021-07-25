@@ -1,14 +1,15 @@
 import { Module, OnModuleInit } from '@nestjs/common';
-import { ReviewController } from './review.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { CoreModule } from 'core/core.module';
-import { ConfigService } from 'core/config/config.service';
-
+import { ConfigService } from 'core-modules/core/config/config.service';
+import { CoreModule } from 'core-modules/core/core.module';
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
 @Module({
   imports: [
+    CoreModule,
     ClientsModule.registerAsync([
       {
-        name: 'REVIEW_SERVICE',
+        name: 'AUTH_SERVICE',
         imports: [CoreModule],
         useFactory: async (configService: ConfigService) => ({
           transport: Transport.REDIS,
@@ -22,10 +23,11 @@ import { ConfigService } from 'core/config/config.service';
       },
     ]),
   ],
-  controllers: [ReviewController],
+  controllers: [AuthController],
+  providers: [AuthService],
 })
-export class ReviewModule implements OnModuleInit {
+export class AuthModule implements OnModuleInit {
   onModuleInit() {
-    console.log(`ReviewModule has been initialized.`);
+    console.log(`AuthModule has been initialized.`);
   }
 }

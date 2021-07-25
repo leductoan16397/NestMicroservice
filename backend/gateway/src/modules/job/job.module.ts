@@ -1,15 +1,15 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ConfigService } from 'core/config/config.service';
-import { CoreModule } from 'core/core.module';
-import { SearchController } from './search.controller';
-import { SearchService } from './search.service';
+import { ConfigService } from 'core-modules/core/config/config.service';
+import { CoreModule } from 'core-modules/core/core.module';
+import { JobController } from './job.controller';
+import { JobService } from './job.service';
 
 @Module({
   imports: [
     ClientsModule.registerAsync([
       {
-        name: 'SEARCH_SERVICE',
+        name: 'JOB_SERVICE',
         imports: [CoreModule],
         useFactory: async (configService: ConfigService) => ({
           transport: Transport.REDIS,
@@ -23,11 +23,11 @@ import { SearchService } from './search.service';
       },
     ]),
   ],
-  controllers: [SearchController],
-  providers: [SearchService],
+  controllers: [JobController],
+  providers: [JobService],
 })
-export class SearchModule implements OnModuleInit {
+export class JobModule implements OnModuleInit {
   onModuleInit() {
-    console.log(`SearchModule has been initialized.`);
+    console.log(`JobModule has been initialized.`);
   }
 }

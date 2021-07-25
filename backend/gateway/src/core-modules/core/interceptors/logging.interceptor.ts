@@ -7,7 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { v4 as uuidV4 } from 'uuid';
-import { RequestLogger } from 'logger/request-logger.service';
+import { RequestLogger } from 'core-modules/logger/request-logger.service';
 import Cryptr from 'cryptr';
 import { decode } from 'jsonwebtoken';
 

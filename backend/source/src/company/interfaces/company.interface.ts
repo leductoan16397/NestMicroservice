@@ -19,8 +19,8 @@ interface StartNumber {
 }
 
 export interface CompanyInterface {
-  name: string;
-  location: string;
+  companyName: string;
+  locations: Location[];
   workTime: WorkTime;
   companySize: CompanySize;
   originCountry: string;
@@ -29,11 +29,12 @@ export interface CompanyInterface {
   images?: string[];
   descriptioin?: string;
   ot?: boolean;
+
   totalReview?: number;
   overallStart?: StartNumber;
-  salary?: StartNumber;
-  training?: StartNumber;
-  managermentCare?: StartNumber;
-  culture?: StartNumber;
-  office?: StartNumber;
+  salaryStart?: StartNumber;
+  trainingStart?: StartNumber;
+  managermentCareStart?: StartNumber;
+  cultureStart?: StartNumber;
+  officeStart?: StartNumber;
 }

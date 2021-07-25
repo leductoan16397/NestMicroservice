@@ -1,7 +1,7 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ConfigService } from 'core/config/config.service';
-import { CoreModule } from 'core/core.module';
+import { ConfigService } from 'core-modules/core/config/config.service';
+import { CoreModule } from 'core-modules/core/core.module';
 import { CompanyController } from './company.controller';
 import { CompanyService } from './company.service';
 

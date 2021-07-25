@@ -7,26 +7,27 @@ import {
 import fastifyCsrf from 'fastify-csrf';
 import fastifyCookie from 'fastify-cookie';
 import compression from 'fastify-compress';
-import { AppModule } from './app.module';
+import { MainModule } from 'main.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { UserModule } from 'user/user.module';
-import { AuthModule } from 'auth/auth.module';
+import { UserModule } from 'modules/user/user.module';
+import { AuthModule } from 'modules/auth/auth.module';
 import { ValidationPipe } from '@nestjs/common';
-import { ExceptionFactory } from 'core/exception/exceptionFactory';
-import { LoggerConfig } from 'logger/logger.config';
+import { ExceptionFactory } from 'core-modules/core/exception/exceptionFactory';
+import { LoggerConfig } from 'core-modules/logger/logger.config';
 import { contentParser } from 'fastify-multer';
-import { ConfigService } from 'core/config/config.service';
-import { JobModule } from 'job/job.module';
-import { CompanyModule } from 'company/company.module';
-import { LanguageModule } from 'language/language.module';
-import { SearchModule } from 'search/search.module';
-import { ReviewModule } from 'review/review.module';
+import { ConfigService } from 'core-modules/core/config/config.service';
+import { JobModule } from 'modules/job/job.module';
+import { CompanyModule } from 'modules/company/company.module';
+import { LanguageModule } from 'modules/language/language.module';
+import { SearchModule } from 'modules/search/search.module';
+import { ReviewModule } from 'modules/review/review.module';
+import { AdminModule } from 'admin/admin.module';
 
 declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
+    MainModule,
     new FastifyAdapter(),
   );
 
@@ -54,7 +55,7 @@ async function bootstrap() {
 
   app.register(contentParser);
 
-  const appConfig: ConfigService = app.get('ConfigService');
+  // const appConfig: ConfigService = app.get('ConfigService');
 
   // swagger
   const swaggerOptions = new DocumentBuilder()
@@ -93,7 +94,7 @@ async function bootstrap() {
   app.useLogger(LoggerConfig);
 
   // launch app
-  await app.listen(appConfig.get('port'), '0.0.0.0');
+  await app.listen(/* appConfig.get('port') */ 8000, '0.0.0.0');
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();

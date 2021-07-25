@@ -1,15 +1,14 @@
 import { Module, OnModuleInit } from '@nestjs/common';
+import { ReviewController } from './review.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ConfigService } from 'core/config/config.service';
-import { CoreModule } from 'core/core.module';
-import { LanguageController } from './language.controller';
-import { LanguageService } from './language.service';
+import { CoreModule } from 'core-modules/core/core.module';
+import { ConfigService } from 'core-modules/core/config/config.service';
 
 @Module({
   imports: [
     ClientsModule.registerAsync([
       {
-        name: 'LANGUAGE_SERVICE',
+        name: 'REVIEW_SERVICE',
         imports: [CoreModule],
         useFactory: async (configService: ConfigService) => ({
           transport: Transport.REDIS,
@@ -23,11 +22,10 @@ import { LanguageService } from './language.service';
       },
     ]),
   ],
-  controllers: [LanguageController],
-  providers: [LanguageService],
+  controllers: [ReviewController],
 })
-export class LanguageModule implements OnModuleInit {
+export class ReviewModule implements OnModuleInit {
   onModuleInit() {
-    console.log(`LanguageModule has been initialized.`);
+    console.log(`ReviewModule has been initialized.`);
   }
 }

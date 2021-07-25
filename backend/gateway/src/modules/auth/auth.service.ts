@@ -3,7 +3,7 @@ import { FastifyRequest } from 'fastify';
 import { getClientIp } from 'request-ip';
 import { lookup } from 'geoip-country';
 import Cryptr from 'cryptr';
-import { ConfigService } from 'core/config/config.service';
+import { ConfigService } from 'core-modules/core/config/config.service';
 
 @Injectable()
 export class AuthService {

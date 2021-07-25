@@ -1,22 +1,19 @@
 import { CacheModule, Module, OnModuleInit } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
-import { JobModule } from './job/job.module';
-import { CompanyModule } from './company/company.module';
-import { LanguageModule } from './language/language.module';
-import { SearchModule } from './search/search.module';
-import { AppController } from './app.controllers';
-import { CoreModule } from 'core/core.module';
+import { AppController } from './main.controllers';
+import { CoreModule } from 'core-modules/core/core.module';
 import * as redisStore from 'cache-manager-redis-store';
-import { ConfigService } from 'core/config/config.service';
+import { ConfigService } from 'core-modules/core/config/config.service';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CacheInterceptor } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { UserModule } from 'user/user.module';
-import { ReviewModule } from './review/review.module';
+import { AdminModule } from 'admin/admin.module';
+import { AppModule } from 'app/app.module';
 
 @Module({
   imports: [
     CoreModule,
+    // AppModule,
+    AdminModule,
     ClientsModule.registerAsync([
       {
         name: 'AUTH_SERVICE',
@@ -32,13 +29,6 @@ import { ReviewModule } from './review/review.module';
         inject: [ConfigService],
       },
     ]),
-    AuthModule,
-    UserModule,
-    JobModule,
-    CompanyModule,
-    LanguageModule,
-    ReviewModule,
-    SearchModule,
     CacheModule.registerAsync({
       imports: [CoreModule],
       useFactory: async (configService: ConfigService) => ({
@@ -49,7 +39,6 @@ import { ReviewModule } from './review/review.module';
       }),
       inject: [ConfigService],
     }),
-    ReviewModule,
   ],
   controllers: [AppController],
   providers: [
@@ -59,8 +48,8 @@ import { ReviewModule } from './review/review.module';
     },
   ],
 })
-export class AppModule implements OnModuleInit {
+export class MainModule implements OnModuleInit {
   onModuleInit() {
-    console.log(`AppModule has been initialized.`);
+    console.log(`MainModule has been initialized.`);
   }
 }

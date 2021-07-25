@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import * as mongoose from 'mongoose';
-import { AppModule } from './../src/app.module';
+import { MainModule } from '../src/main.module';
 import { userSignupRequestSuccess } from './mocks/user-signup-request-success.mock';
 import {
   userLoginRequestFailWrongPw,
@@ -18,7 +18,7 @@ describe('Users Sign In (e2e)', () => {
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [MainModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();

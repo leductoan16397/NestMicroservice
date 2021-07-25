@@ -1,8 +1,8 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ConfigService } from 'core/config/config.service';
-import { CoreModule } from 'core/core.module';
+import { ConfigService } from 'core-modules/core/config/config.service';
+import { CoreModule } from 'core-modules/core/core.module';
 
 @Module({
   imports: [
