@@ -4,6 +4,7 @@ import { AuthModule } from 'auth/auth.module';
 import { ConfigService } from 'core/config/config.service';
 import { CoreModule } from 'core/core.module';
 import { UserModule } from 'user/user.module';
+import { ManagerUserModule } from './manager-user/manager-user.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { UserModule } from 'user/user.module';
     CoreModule,
     AuthModule,
     UserModule,
+    ManagerUserModule,
   ],
 })
 export class AppModule {}

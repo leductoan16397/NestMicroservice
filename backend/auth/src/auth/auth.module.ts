@@ -9,6 +9,8 @@ import { CoreModule } from 'core/core.module';
 import { UserModule } from 'user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModel, UserSchema } from 'user/schemas/user.schema';
+import { ManagerUserModule } from 'manager-user/manager-user.module';
+import { AdminRefreshTokenModule } from 'admin-refresh-token/admin-refresh-token.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { UserModel, UserSchema } from 'user/schemas/user.schema';
     RefreshTokenModule,
     PassportModule,
     UserModule,
+    ManagerUserModule,
+    AdminRefreshTokenModule,
     MongooseModule.forFeature([{ name: UserModel.name, schema: UserSchema }]),
     JwtModule.register({
       secret: process.env.JWT_SECRET,

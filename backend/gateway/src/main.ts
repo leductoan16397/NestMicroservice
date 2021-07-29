@@ -11,6 +11,9 @@ import { MainModule } from 'main.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { UserModule } from 'modules/user/user.module';
 import { AuthModule } from 'modules/auth/auth.module';
+import { AuthModule as AdminAuthModule } from 'admin/auth/auth.module';
+import { UserModule as UserAdminModule } from 'admin/user/user.module';
+import { CompanyhModule as AdminCompanyhModule } from 'admin/company/company.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ExceptionFactory } from 'core-modules/core/exception/exceptionFactory';
 import { LoggerConfig } from 'core-modules/logger/logger.config';
@@ -21,7 +24,6 @@ import { CompanyModule } from 'modules/company/company.module';
 import { LanguageModule } from 'modules/language/language.module';
 import { SearchModule } from 'modules/search/search.module';
 import { ReviewModule } from 'modules/review/review.module';
-import { AdminModule } from 'admin/admin.module';
 
 declare const module: any;
 
@@ -55,7 +57,7 @@ async function bootstrap() {
 
   app.register(contentParser);
 
-  // const appConfig: ConfigService = app.get('ConfigService');
+  const appConfig: ConfigService = app.get(ConfigService);
 
   // swagger
   const swaggerOptions = new DocumentBuilder()
@@ -67,6 +69,9 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, swaggerOptions, {
     include: [
+      AdminAuthModule,
+      UserAdminModule,
+      AdminCompanyhModule,
       AuthModule,
       CompanyModule,
       ReviewModule,
@@ -94,7 +99,7 @@ async function bootstrap() {
   app.useLogger(LoggerConfig);
 
   // launch app
-  await app.listen(/* appConfig.get('port') */ 8000, '0.0.0.0');
+  await app.listen(appConfig.get('port'), '0.0.0.0');
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();

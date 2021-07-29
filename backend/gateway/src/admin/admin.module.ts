@@ -1,45 +1,46 @@
 import { Module, OnModuleInit } from '@nestjs/common';
-import { AddModule } from './add/add.module';
-import { AdminController } from './admin.controllers';
-import { MemeModule } from './meme/meme.module';
 import { RouterModule } from '@nestjs/core';
+import { AuthModule } from 'admin/auth/auth.module';
+import { UserModule } from 'admin/user/user.module';
+import { JobModule } from 'admin/job/job.module';
+import { ReviewModule } from 'admin/review/review.module';
+import { CompanyhModule } from 'admin/company/company.module';
 
 @Module({
   imports: [
-    // RouterModule.forRoutes([
-    //   {
-    //     path: '/admin',
-    //     children: [
-    //       {
-    //         path: '/add',
-    //         module: AddModule,
-    //       },
-    //       {
-    //         path: '/meme',
-    //         module: MemeModule,
-    //       },
-    //     ],
-    //   },
-    // ]),
-    AddModule,
-    MemeModule,
     RouterModule.register([
       {
         path: 'admin',
         children: [
           {
-            path: 'add',
-            module: AddModule,
+            path: 'auth',
+            module: AuthModule,
           },
           {
-            path: 'meme',
-            module: MemeModule,
+            path: 'user',
+            module: UserModule,
+          },
+          {
+            path: 'company',
+            module: CompanyhModule,
+          },
+          {
+            path: 'job',
+            module: JobModule,
+          },
+          {
+            path: 'review',
+            module: ReviewModule,
           },
         ],
       },
     ]),
+    AuthModule,
+    UserModule,
+    ReviewModule,
+    CompanyhModule,
+    JobModule,
   ],
-  controllers: [AdminController],
 })
 export class AdminModule implements OnModuleInit {
   onModuleInit() {

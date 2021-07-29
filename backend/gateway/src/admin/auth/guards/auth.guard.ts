@@ -1,0 +1,51 @@
+import {
+  Injectable,
+  Inject,
+  CanActivate,
+  ExecutionContext,
+  HttpException,
+  UnauthorizedException,
+  HttpStatus,
+} from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
+import { MessagePatternInterface } from 'interface/messageParten.interface';
+import { SERVICE } from 'interface/service.enum';
+import { lastValueFrom } from 'rxjs';
+
+@Injectable()
+export class AdminAuthGuard implements CanActivate {
+  constructor(
+    @Inject('AUTH_SERVICE') private readonly authServiceClient: ClientProxy, // @Inject('USER_SERVICE') private readonly userServiceClient: ClientProxy,
+  ) {}
+
+  public async canActivate(context: ExecutionContext): Promise<boolean> {
+    const request = context.switchToHttp().getRequest();
+    const token = request.headers.authorization || request.headers.bearer;
+    const message: MessagePatternInterface = {
+      service: SERVICE.AUTH,
+      action: 'admin-verify-token',
+    };
+    try {
+      const user = await lastValueFrom(
+        this.authServiceClient.send(message, token),
+      );
+
+      if (!user) {
+        throw new UnauthorizedException();
+      }
+      request.user = user;
+      return true;
+    } catch (error) {
+      if (error.error?.name === 'TokenExpiredError') {
+        throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
+      }
+      if (error.error?.type === 'Auth') {
+        throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
+      }
+      throw new HttpException(
+        'Internal server error',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+}

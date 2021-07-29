@@ -31,6 +31,11 @@ import { RefreshToken } from 'refresh-token/interface/refresh-token.interface';
 import { ConfigService } from 'core/config/config.service';
 import { ReqInfo } from './interfaces/requestInfo.interface';
 import { RpcException } from '@nestjs/microservices';
+import { ManagerUserService } from 'manager-user/manager-user.service';
+import { AdminRefreshTokenService } from 'admin-refresh-token/admin-refresh-token.service';
+import { AdminRefreshToken } from 'admin-refresh-token/interface/admin-refresh-token.interface';
+import { LoginInfo } from './interfaces/adminInterface';
+import { ManagerUserModel } from 'manager-user/schemas/manager-user.schema';
 
 @Injectable()
 export class AuthService {
@@ -42,13 +47,15 @@ export class AuthService {
     @InjectModel(UserModel.name) private readonly userModel: Model<UserModel>,
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
+    private readonly managerUserService: ManagerUserService,
+    private readonly adminRefreshTokenService: AdminRefreshTokenService,
     private readonly refreshTokenService: RefreshTokenService,
     private readonly forgotPasswordService: ForgotPasswordService,
   ) {
     this.cryptr = new Cryptr(appConfig.get('encrypt_jwt_secret'));
   }
 
-  private async createAccessToken(userId: string) {
+  private async createAccessToken(userId: string): Promise<string> {
     const accessToken = this.jwtService.sign({ userId });
     return this.encryptText(accessToken);
   }
@@ -99,7 +106,8 @@ export class AuthService {
       token = this.cryptr.decrypt(token);
       return token;
     } catch (error) {
-      throw { type: 'Auth', message: 'Token incorrect' };
+      throw new RpcException('Token incorrect');
+      // throw { type: 'Auth', message: 'Token incorrect' };
     }
   }
 
@@ -168,9 +176,7 @@ export class AuthService {
       );
     return forgotPassword;
   }
-  // ┌─┐┬─┐┌─┐┌─┐┌┬┐┌─┐  ┬ ┬┌─┐┌─┐┬─┐
-  // │  ├┬┘├┤ ├─┤ │ ├┤   │ │└─┐├┤ ├┬┘
-  // └─┘┴└─└─┘┴ ┴ ┴ └─┘  └─┘└─┘└─┘┴└─
+
   async create(createUserDto: CreateUserDto): Promise<UserInterface> {
     const user = new this.userModel(createUserDto);
     await this.userService.isEmailUnique(user.email);
@@ -179,9 +185,6 @@ export class AuthService {
     return this.userService.buildRegistrationInfo(user);
   }
 
-  // ┬  ┬┌─┐┬─┐┬┌─┐┬ ┬  ┌─┐┌┬┐┌─┐┬┬
-  // └┐┌┘├┤ ├┬┘│├┤ └┬┘  ├┤ │││├─┤││
-  //  └┘ └─┘┴└─┴└   ┴   └─┘┴ ┴┴ ┴┴┴─┘
   async verifyEmail(reqInfo: any, verifyUuidDto: VerifyUuidDto) {
     const user = await this.userService.findByVerification(
       verifyUuidDto.verification,
@@ -195,9 +198,6 @@ export class AuthService {
     };
   }
 
-  // ┬  ┌─┐┌─┐┬┌┐┌
-  // │  │ ││ ┬││││
-  // ┴─┘└─┘└─┘┴┘└┘
   async login(reqInfo: ReqInfo, loginUserDto: LoginUserDto) {
     const user = await this.userService.findUserByEmail(loginUserDto.email);
     this.userService.isUserBlocked(user);
@@ -211,9 +211,6 @@ export class AuthService {
     };
   }
 
-  // ┬─┐┌─┐┌─┐┬─┐┌─┐┌─┐┬ ┬  ┌─┐┌─┐┌─┐┌─┐┌─┐┌─┐  ┌┬┐┌─┐┬┌─┌─┐┌┐┌
-  // ├┬┘├┤ ├┤ ├┬┘├┤ └─┐├─┤  ├─┤│  │  ├┤ └─┐└─┐   │ │ │├┴┐├┤ │││
-  // ┴└─└─┘└  ┴└─└─┘└─┘┴ ┴  ┴ ┴└─┘└─┘└─┘└─┘└─┘   ┴ └─┘┴ ┴└─┘┘└┘
   async refreshAccessToken(refreshAccessTokenDto: RefreshAccessTokenDto) {
     const userId = await this.findRefreshToken(
       refreshAccessTokenDto.refreshToken,
@@ -227,9 +224,6 @@ export class AuthService {
     };
   }
 
-  // ┌─┐┌─┐┬─┐┌─┐┌─┐┌┬┐  ┌─┐┌─┐┌─┐┌─┐┬ ┬┌─┐┬─┐┌┬┐
-  // ├┤ │ │├┬┘│ ┬│ │ │   ├─┘├─┤└─┐└─┐││││ │├┬┘ ││
-  // └  └─┘┴└─└─┘└─┘ ┴   ┴  ┴ ┴└─┘└─┘└┴┘└─┘┴└──┴┘
   async forgotPassword(
     req: ReqInfo,
     createForgotPasswordDto: CreateForgotPasswordDto,
@@ -242,9 +236,6 @@ export class AuthService {
     };
   }
 
-  // ┌─┐┌─┐┬─┐┌─┐┌─┐┌┬┐  ┌─┐┌─┐┌─┐┌─┐┬ ┬┌─┐┬─┐┌┬┐  ┬  ┬┌─┐┬─┐┬┌─┐┬ ┬
-  // ├┤ │ │├┬┘│ ┬│ │ │   ├─┘├─┤└─┐└─┐││││ │├┬┘ ││  └┐┌┘├┤ ├┬┘│├┤ └┬┘
-  // └  └─┘┴└─└─┘└─┘ ┴   ┴  ┴ ┴└─┘└─┘└┴┘└─┘┴└──┴┘   └┘ └─┘┴└─┴└   ┴
   async forgotPasswordVerify(req: ReqInfo, verifyUuidDto: VerifyUuidDto) {
     const forgotPassword = await this.findForgotPasswordByUuid(verifyUuidDto);
     await this.setForgotPasswordFirstUsed(req, forgotPassword);
@@ -254,9 +245,6 @@ export class AuthService {
     };
   }
 
-  // ┬─┐┌─┐┌─┐┌─┐┌┬┐  ┌─┐┌─┐┌─┐┌─┐┬ ┬┌─┐┬─┐┌┬┐
-  // ├┬┘├┤ └─┐├┤  │   ├─┘├─┤└─┐└─┐││││ │├┬┘ ││
-  // ┴└─└─┘└─┘└─┘ ┴   ┴  ┴ ┴└─┘└─┘└┴┘└─┘┴└──┴┘
   async resetPassword(resetPasswordDto: ResetPasswordDto) {
     const forgotPassword = await this.findForgotPasswordByEmail(
       resetPasswordDto,
@@ -268,4 +256,57 @@ export class AuthService {
       message: 'password successfully changed.',
     };
   }
+
+  private async createAdminRefreshToken(userId: string): Promise<string> {
+    const input: AdminRefreshToken = {
+      userId,
+      refreshToken: v4(),
+    };
+    const refreshToken = await this.adminRefreshTokenService.createRefreshToken(
+      input,
+    );
+    return refreshToken;
+  }
+
+  async adminLogin(email: string, password: string): Promise<LoginInfo> {
+    const user: ManagerUserModel =
+      await this.managerUserService.findUserByEmail(email);
+    await this.managerUserService.checkPassword(password, user);
+    return {
+      fullName: user.fullName,
+      email: user.email,
+      accessToken: await this.createAccessToken(user._id),
+      refreshToken: await this.createAdminRefreshToken(user._id),
+    };
+  }
+
+  async adminLogout(refreshToken: string): Promise<void> {
+    return await this.adminRefreshTokenService.findAndRemoveToken(refreshToken);
+  }
+
+  async adminRefreshAccessToken(refreshToken: string): Promise<string> {
+    const userId = await this.adminRefreshTokenService.findRefreshToken(
+      refreshToken,
+    );
+    const user = await this.managerUserService.findUerById(userId);
+    if (!user) {
+      throw new BadRequestException('Bad request');
+    }
+    return await this.createAccessToken(user._id);
+  }
+
+  async adminResetPassword(email: string, password: string): Promise<void> {
+    return await this.managerUserService.changePassword(email, password);
+  }
+
+  adminVerifyToken = async (token: string): Promise<ManagerUserModel> => {
+    try {
+      const jwtToken = this.jwtExtractor(token);
+      const jwtPayload = this.jwtService.verify(jwtToken);
+      const user = await this.managerUserService.validateUser(jwtPayload);
+      return user;
+    } catch (error) {
+      throw new RpcException(error);
+    }
+  };
 }

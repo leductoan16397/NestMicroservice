@@ -1,4 +1,9 @@
-import { Controller } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Controller,
+  SerializeOptions,
+  UseInterceptors,
+} from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SignUpDto } from './dto/signUp.dto';
 import { AuthService } from './auth.service';
@@ -9,8 +14,15 @@ import { RefreshAccessTokenDto } from './dto/refresh-access-token.dto';
 import { ForgotPasswordPayload } from './interfaces/forgot-password-payload.interface';
 import { ForgotPassVerifyPayload } from './interfaces/forgot-pass-verify-payload.interface';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import {
+  AdminLoginPayload,
+  AdminResetPasswordPayload,
+  LoginInfo,
+} from './interfaces/adminInterface';
+import { AdminUserEntity } from 'manager-user/Entity/user.entity';
 
 @Controller('auth')
+@UseInterceptors(ClassSerializerInterceptor)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -56,5 +68,40 @@ export class AuthController {
   @MessagePattern({ service: 'Auth', action: 'verify-token' })
   verifyToken(@Payload() token: string) {
     return this.authService.verifyToken(token);
+  }
+
+  @MessagePattern({ service: 'Auth', action: 'admin-login' })
+  adminLogin(
+    @Payload() { email, password }: AdminLoginPayload,
+  ): Promise<LoginInfo> {
+    console.log(email);
+    console.log(password);
+    return this.authService.adminLogin(email, password);
+  }
+
+  @MessagePattern({ service: 'Auth', action: 'admin-logout' })
+  adminLogout(@Payload() token: string): Promise<void> {
+    return this.authService.adminLogout(token);
+  }
+
+  @MessagePattern({ service: 'Auth', action: 'admin-refresh-token' })
+  adminRefreshToken(@Payload() token: string): Promise<string> {
+    return this.authService.adminRefreshAccessToken(token);
+  }
+
+  @MessagePattern({ service: 'Auth', action: 'admin-reset-password' })
+  adminResetPassword(
+    @Payload() { email, password }: AdminResetPasswordPayload,
+  ): Promise<void> {
+    return this.authService.adminResetPassword(email, password);
+  }
+
+  @SerializeOptions({
+    excludePrefixes: ['_'],
+  })
+  @MessagePattern({ service: 'Auth', action: 'admin-verify-token' })
+  async verifyAdminToken(@Payload() token: string): Promise<AdminUserEntity> {
+    const user = await this.authService.adminVerifyToken(token);
+    return new AdminUserEntity(user.toJSON());
   }
 }
