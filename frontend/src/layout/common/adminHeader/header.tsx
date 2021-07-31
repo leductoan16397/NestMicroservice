@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import {
   Menu, Row, Col,
@@ -11,9 +12,8 @@ import { Container } from 'reactstrap';
 import './header.scss';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import React from 'react';
-import AuthComponent from 'layout/common/auth/auth';
 import { FormattedMessage } from 'react-intl';
-import SwitchLocale from 'features/locale/Locale';
+import AdminAuthComponent from 'layout/common/auth/admin/adminAuth';
 
 const menu = (
   <Menu mode="vertical">
@@ -58,11 +58,6 @@ const AdminHeader: React.FC = () => (
                 post company
               </Link>
             </Menu.Item>
-            <Menu.Item key="nav3">
-              <Link className="ant-dropdown-link" to={`/${AdminPath}/${LoginPath}`}>
-                login
-              </Link>
-            </Menu.Item>
             <Menu.Item key="nav4">
               <Link className="ant-dropdown-link" to={`/${AdminPath}/${PostRecruiterManagerPath}`}>
                 post Recruiter Manager
@@ -76,9 +71,7 @@ const AdminHeader: React.FC = () => (
           </Menu>
         </Col>
         <Col span={6}>
-          {/* <AuthComponent /> */}
-          <SwitchLocale />
-
+          <AdminAuthComponent />
         </Col>
       </Row>
     </Container>

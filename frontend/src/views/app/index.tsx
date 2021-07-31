@@ -30,7 +30,7 @@ const JobCompanyIndexView = React.lazy(() => import('./jobCompany'));
 const JobSkillIndexView = React.lazy(() => import('./jobSkill'));
 const JobTitleIndexView = React.lazy(() => import('./jobTitle'));
 const CompanyDetailView = React.lazy(() => import('./cpmpanyDetail'));
-const ViewError = React.lazy(() => import('views/error404'));
+const ViewError = React.lazy(() => import('views/app/error404'));
 const ViewUser = React.lazy(() => import('views/app/user'));
 
 const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => {

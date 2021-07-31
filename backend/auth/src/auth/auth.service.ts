@@ -34,7 +34,7 @@ import { RpcException } from '@nestjs/microservices';
 import { ManagerUserService } from 'manager-user/manager-user.service';
 import { AdminRefreshTokenService } from 'admin-refresh-token/admin-refresh-token.service';
 import { AdminRefreshToken } from 'admin-refresh-token/interface/admin-refresh-token.interface';
-import { LoginInfo } from './interfaces/adminInterface';
+import { LoginInfo, RefreshTokenInfo } from './interfaces/adminInterface';
 import { ManagerUserModel } from 'manager-user/schemas/manager-user.schema';
 
 @Injectable()
@@ -275,16 +275,20 @@ export class AuthService {
     return {
       fullName: user.fullName,
       email: user.email,
+      roles: user.roles,
       accessToken: await this.createAccessToken(user._id),
       refreshToken: await this.createAdminRefreshToken(user._id),
+      expires: addHours(new Date(), 1),
     };
   }
 
-  async adminLogout(refreshToken: string): Promise<void> {
+  async adminLogout(refreshToken: string): Promise<any> {
     return await this.adminRefreshTokenService.findAndRemoveToken(refreshToken);
   }
 
-  async adminRefreshAccessToken(refreshToken: string): Promise<string> {
+  async adminRefreshAccessToken(
+    refreshToken: string,
+  ): Promise<RefreshTokenInfo> {
     const userId = await this.adminRefreshTokenService.findRefreshToken(
       refreshToken,
     );
@@ -292,7 +296,10 @@ export class AuthService {
     if (!user) {
       throw new BadRequestException('Bad request');
     }
-    return await this.createAccessToken(user._id);
+    return {
+      accessToken: await this.createAccessToken(user._id),
+      expires: addHours(new Date(), 1),
+    };
   }
 
   async adminResetPassword(email: string, password: string): Promise<void> {

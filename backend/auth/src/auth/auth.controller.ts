@@ -18,6 +18,7 @@ import {
   AdminLoginPayload,
   AdminResetPasswordPayload,
   LoginInfo,
+  RefreshTokenInfo,
 } from './interfaces/adminInterface';
 import { AdminUserEntity } from 'manager-user/Entity/user.entity';
 
@@ -80,12 +81,12 @@ export class AuthController {
   }
 
   @MessagePattern({ service: 'Auth', action: 'admin-logout' })
-  adminLogout(@Payload() token: string): Promise<void> {
+  adminLogout(@Payload() token: string): Promise<any> {
     return this.authService.adminLogout(token);
   }
 
   @MessagePattern({ service: 'Auth', action: 'admin-refresh-token' })
-  adminRefreshToken(@Payload() token: string): Promise<string> {
+  adminRefreshToken(@Payload() token: string): Promise<RefreshTokenInfo> {
     return this.authService.adminRefreshAccessToken(token);
   }
 

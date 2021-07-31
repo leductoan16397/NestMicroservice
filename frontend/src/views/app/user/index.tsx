@@ -9,7 +9,7 @@ import {
 const LoginView = React.lazy(() => import('./login/login'));
 const ForgotPasswordView = React.lazy(() => import('./forgotPassword'));
 const ResetPasswordView = React.lazy(() => import('./resetPassword'));
-const ViewError = React.lazy(() => import('views/error404'));
+const ViewError = React.lazy(() => import('views/app/error404'));
 
 const User: React.FC<RouteComponentProps> = ({ match }) => (
   <Switch>

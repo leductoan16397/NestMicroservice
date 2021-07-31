@@ -42,12 +42,6 @@ export class ManagerUserModel extends Document {
     enum: ['manager', 'recuiter', 'user', 'admin'],
   })
   roles: string[];
-
-  @Prop({
-    type: [String],
-    default: [],
-  })
-  accessToken: string[];
 }
 
 export const ManagerUserSchema = SchemaFactory.createForClass(ManagerUserModel);
@@ -60,7 +54,6 @@ ManagerUserSchema.pre<ManagerUserModel>(
     }
 
     const hashed = hashSync(this['password']);
-    // tslint:disable-next-line:no-string-literal
     this['password'] = hashed;
     return next();
   },

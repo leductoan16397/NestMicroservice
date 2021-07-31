@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { AdminStore } from 'admin/store';
 import { AppStore } from 'app/store';
 
-const ViewError = React.lazy(() => import('views/error404'));
+const ViewError = React.lazy(() => import('views/app/error404'));
 const AdminVew = React.lazy(() => import('views/admin'));
 const ViewApp = React.lazy(() => import('views/app'));
 

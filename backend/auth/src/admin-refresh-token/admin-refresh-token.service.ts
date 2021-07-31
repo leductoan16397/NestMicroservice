@@ -27,7 +27,9 @@ export class AdminRefreshTokenService {
     return refreshToken.userId;
   }
 
-  async findAndRemoveToken(token: string): Promise<void> {
-    await this.adminRefreshTokenModel.findOneAndRemove({ refreshToken: token });
+  async findAndRemoveToken(token: string): Promise<any> {
+    return await this.adminRefreshTokenModel.findOneAndRemove({
+      refreshToken: token,
+    });
   }
 }

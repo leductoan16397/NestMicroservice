@@ -1,16 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-// import userSlice from 'features/user/userSlice';
-import localeSlice from 'features/locale/localeSlice';
+import userSlice from 'admin/features/user/userSlice';
 import createSagaMiddleware from 'redux-saga';
-import counterReducer from '../features/counter/counterSlice';
 import rootSaga from './rootSaga';
 
 const sagaMiddleware = createSagaMiddleware();
 export const AdminStore = configureStore({
   reducer: {
-    counter: counterReducer,
-    locale: localeSlice,
-    // user: userSlice,
+    user: userSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     thunk: true,

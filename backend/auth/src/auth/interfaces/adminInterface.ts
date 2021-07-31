@@ -11,6 +11,12 @@ export interface AdminResetPasswordPayload {
 export interface LoginInfo {
   fullName: string;
   email: string;
+  roles: string[];
   accessToken: string;
   refreshToken: string;
+  expires: Date;
+}
+export interface RefreshTokenInfo {
+  accessToken: string;
+  expires: Date;
 }

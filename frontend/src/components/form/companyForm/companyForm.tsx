@@ -13,6 +13,7 @@ import {
   CompanyInterface, onFinishFailedHandler, onFinishHandler,
 } from './interface';
 import './companyForm.scss';
+import Location from '../common/location/location';
 
 const { Option } = Select;
 
@@ -115,54 +116,7 @@ const CompanyForm: React.FC<CompanyFormPropos> = ({ initialValues, onFinish, onF
               key, name, fieldKey, ...restField
             }) => (
               <Space key={key} align="baseline" className="w-100 nested-group">
-                <Space>
-                  <div className="label">City:</div>
-                  <Form.Item
-                    className="nested-field"
-                    {...restField}
-                    name={[name, 'city']}
-                    fieldKey={[fieldKey, 'city']}
-                    rules={[{ required: true, message: 'Missing first name' }]}
-                  >
-                    <Input placeholder="First Name" />
-                  </Form.Item>
-                </Space>
-                <Space>
-                  <div className="label">District:</div>
-                  <Form.Item
-                    className="nested-field"
-                    {...restField}
-                    name={[name, 'district']}
-                    fieldKey={[fieldKey, 'district']}
-                    rules={[{ required: true, message: 'Missing first name' }]}
-                  >
-                    <Input placeholder="First Name" />
-                  </Form.Item>
-                </Space>
-                <Space>
-                  <div className="label">Ward:</div>
-                  <Form.Item
-                    className="nested-field"
-                    {...restField}
-                    name={[name, 'ward']}
-                    fieldKey={[fieldKey, 'ward']}
-                    rules={[{ required: true, message: 'Missing first name' }]}
-                  >
-                    <Input placeholder="First Name" />
-                  </Form.Item>
-                </Space>
-                <Space>
-                  <div className="label">Address:</div>
-                  <Form.Item
-                    className="nested-field"
-                    {...restField}
-                    name={[name, 'address']}
-                    fieldKey={[fieldKey, 'address']}
-                    rules={[{ required: true, message: 'Missing first name' }]}
-                  >
-                    <Input placeholder="First Name" />
-                  </Form.Item>
-                </Space>
+                <Location name={name} fieldKey={fieldKey} restField={restField} />
                 <MinusCircleOutlined onClick={() => remove(name)} />
               </Space>
             ))}

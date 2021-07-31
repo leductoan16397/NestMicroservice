@@ -4,14 +4,13 @@ import {
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import './login.scss';
+import { useAdminDispatch } from 'admin/hooks';
+import { login, UserLogin } from 'admin/features/user/userSlice';
 
 const LoginAdmin: React.FC<RouteComponentProps> = () => {
-  const onFinish = (values: any): void => {
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed = (errorInfo: any): void => {
-    console.log('Failed:', errorInfo);
+  const dispatch = useAdminDispatch();
+  const onFinish = async (values: UserLogin): Promise<void> => {
+    dispatch(login(values));
   };
 
   return (
@@ -23,13 +22,12 @@ const LoginAdmin: React.FC<RouteComponentProps> = () => {
             name="login"
             labelCol={{ offset: 2, span: 4 }}
             wrapperCol={{ offset: 2, span: 12 }}
-            initialValues={{ remember: true }}
+            initialValues={{ email: 'leductoan16397@gmail.com', password: '1234567890' }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
           >
             <Form.Item
-              label="Username"
-              name="username"
+              label="Email"
+              name="email"
               rules={[{ required: true, message: 'Please input your username!' }]}
             >
               <Input />
