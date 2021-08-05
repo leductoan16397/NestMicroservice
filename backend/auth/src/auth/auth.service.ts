@@ -313,7 +313,7 @@ export class AuthService {
       const user = await this.managerUserService.validateUser(jwtPayload);
       return user;
     } catch (error) {
-      throw new RpcException(error);
+      throw new RpcException(error.message);
     }
   };
 }

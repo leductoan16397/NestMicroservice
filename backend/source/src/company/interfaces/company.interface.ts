@@ -1,3 +1,4 @@
+import { ImageFirebase, Location } from 'common/interface';
 import { DayOfWeek } from 'company/enum/dayOfWeek.enum';
 
 interface WorkTime {
@@ -17,7 +18,6 @@ interface StartNumber {
   four: number;
   five: number;
 }
-
 export interface CompanyInterface {
   companyName: string;
   locations: Location[];
@@ -25,8 +25,8 @@ export interface CompanyInterface {
   companySize: CompanySize;
   originCountry: string;
 
-  avatar?: string;
-  images?: string[];
+  avatar?: ImageFirebase;
+  images?: ImageFirebase[];
   descriptioin?: string;
   ot?: boolean;
 

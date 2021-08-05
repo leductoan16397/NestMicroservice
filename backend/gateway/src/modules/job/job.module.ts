@@ -3,7 +3,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from 'core-modules/core/config/config.service';
 import { CoreModule } from 'core-modules/core/core.module';
 import { JobController } from './job.controller';
-import { JobService } from './job.service';
 
 @Module({
   imports: [
@@ -24,7 +23,6 @@ import { JobService } from './job.service';
     ]),
   ],
   controllers: [JobController],
-  providers: [JobService],
 })
 export class JobModule implements OnModuleInit {
   onModuleInit() {

@@ -1,10 +1,13 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
+  IsArray,
   IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsNumber,
+  IsObject,
+  IsOptional,
   IsString,
   ValidateNested,
 } from 'class-validator';
@@ -37,6 +40,60 @@ class WorkTime {
   @IsEnum(DayOfWeek)
   to: string;
 }
+
+class ImageFirebase {
+  @ApiProperty({
+    example: '',
+    description: 'image url',
+  })
+  @IsString()
+  url: string;
+
+  @ApiProperty({
+    example: '',
+    description: 'image id',
+  })
+  @IsString()
+  uid: string;
+
+  @ApiProperty({
+    example: '',
+    description: 'image name',
+  })
+  @IsString()
+  name: string;
+}
+
+class Location {
+  @ApiProperty({
+    example: '',
+    description: 'City',
+  })
+  @IsString()
+  city: string;
+
+  @ApiProperty({
+    example: '',
+    description: 'district',
+  })
+  @IsString()
+  district: string;
+
+  @ApiProperty({
+    example: '',
+    description: 'ward',
+  })
+  @IsString()
+  ward: string;
+
+  @ApiProperty({
+    example: '',
+    description: 'address',
+  })
+  @IsString()
+  address: string;
+}
+
 class CompanySize {
   @ApiProperty({
     example: 1,
@@ -97,7 +154,7 @@ export class CreateCompanyDto {
   })
   @IsNotEmpty()
   @IsString()
-  readonly name: string;
+  readonly companyName: string;
 
   @ApiPropertyOptional({
     example: 'game',
@@ -111,22 +168,34 @@ export class CreateCompanyDto {
     description: 'company location',
   })
   @IsNotEmpty()
-  @IsString()
-  readonly location: string;
+  @ValidateNested({ each: true })
+  @Type(() => Location)
+  readonly locations: Location[];
 
   @ApiPropertyOptional({
     example: 'acacacac',
     description: 'company logo',
   })
-  @IsString()
-  readonly avater: string;
+  @IsNotEmpty()
+  @IsObject()
+  @ValidateNested()
+  @Type(() => ImageFirebase)
+  readonly avatar: ImageFirebase;
 
   @ApiPropertyOptional({
-    example: ['vng', 'vaafafs'],
+    example: [
+      {
+        url: '',
+        uid: '',
+        name: '',
+      },
+    ],
     description: 'company images',
   })
-  @IsString({ each: true })
-  readonly images: string[];
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => ImageFirebase)
+  readonly images: ImageFirebase[];
 
   @ApiPropertyOptional({
     example: WorkTime,
@@ -163,6 +232,7 @@ export class CreateCompanyDto {
     description: 'total review',
   })
   @IsNumber()
+  @IsOptional()
   readonly totalReview: number;
 
   @ApiPropertyOptional({

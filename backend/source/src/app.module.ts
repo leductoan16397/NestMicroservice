@@ -22,6 +22,7 @@ import { ReviewModule } from './review/review.module';
         useNewUrlParser: true,
         useFindAndModify: false,
         useCreateIndex: true,
+        useUnifiedTopology: true,
       }),
       inject: [ConfigService],
     }),

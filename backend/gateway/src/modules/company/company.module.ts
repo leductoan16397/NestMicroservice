@@ -3,7 +3,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from 'core-modules/core/config/config.service';
 import { CoreModule } from 'core-modules/core/core.module';
 import { CompanyController } from './company.controller';
-import { CompanyService } from './company.service';
 
 @Module({
   imports: [
@@ -24,7 +23,6 @@ import { CompanyService } from './company.service';
     ]),
   ],
   controllers: [CompanyController],
-  providers: [CompanyService],
 })
 export class CompanyModule implements OnModuleInit {
   onModuleInit() {

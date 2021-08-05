@@ -3,7 +3,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from 'core-modules/core/config/config.service';
 import { CoreModule } from 'core-modules/core/core.module';
 import { LanguageController } from './language.controller';
-import { LanguageService } from './language.service';
 
 @Module({
   imports: [
@@ -24,7 +23,6 @@ import { LanguageService } from './language.service';
     ]),
   ],
   controllers: [LanguageController],
-  providers: [LanguageService],
 })
 export class LanguageModule implements OnModuleInit {
   onModuleInit() {

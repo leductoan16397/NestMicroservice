@@ -3,7 +3,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from 'core-modules/core/config/config.service';
 import { CoreModule } from 'core-modules/core/core.module';
 import { SearchController } from './search.controller';
-import { SearchService } from './search.service';
 
 @Module({
   imports: [
@@ -24,7 +23,6 @@ import { SearchService } from './search.service';
     ]),
   ],
   controllers: [SearchController],
-  providers: [SearchService],
 })
 export class SearchModule implements OnModuleInit {
   onModuleInit() {

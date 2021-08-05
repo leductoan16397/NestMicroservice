@@ -1,6 +1,12 @@
-import { Document } from 'mongoose';
+import { Document, HookNextFunction, model, Model } from 'mongoose';
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
 import { DayOfWeek } from 'company/enum/dayOfWeek.enum';
+import {
+  ImageFirebase,
+  imageFirebaseSchema,
+  Location,
+  locationSchema,
+} from 'common/schemas';
 
 @Schema({ _id: false })
 class WorkTime extends Document {
@@ -89,8 +95,10 @@ export class CompanyModel extends Document {
   @Prop({
     type: String,
     required: true,
+    trim: true,
+    unique: true,
   })
-  name: string;
+  companyName: string;
 
   @Prop({
     type: String,
@@ -98,22 +106,21 @@ export class CompanyModel extends Document {
   descriptioin: string;
 
   @Prop({
-    type: String,
+    type: [locationSchema],
     required: true,
   })
-  location: string;
+  locations: Location[];
 
   @Prop({
-    type: String,
-    default: '',
+    type: imageFirebaseSchema,
+    required: true,
   })
-  avatar: string;
+  avatar: ImageFirebase;
 
   @Prop({
-    type: [String],
-    default: [],
+    type: [imageFirebaseSchema],
   })
-  images: string[];
+  images: ImageFirebase[];
 
   @Prop({
     type: WorkTime,
@@ -178,3 +185,21 @@ export class CompanyModel extends Document {
 }
 
 export const CompanySchema = SchemaFactory.createForClass(CompanyModel);
+
+// export const companyModel = model<CompanyModel>(
+//   CompanyModel.name,
+//   CompanySchema,
+// );
+
+// CompanySchema.pre<CompanyModel>(
+//   'save',
+//   async function (next: HookNextFunction) {
+//     const company = await companyModel.find({ companyName: this.companyName });
+
+//     if (company) {
+//       throw new Error('Company already exists');
+//     }
+
+//     return next();
+//   },
+// );
