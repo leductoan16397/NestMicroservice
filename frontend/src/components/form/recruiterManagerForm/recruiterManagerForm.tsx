@@ -1,14 +1,11 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 import {
-  Button, Form, Input, Select,
+  Button, Form, Input, notification, Select,
 } from 'antd';
 import React from 'react';
 import parse from 'html-react-parser';
 import { countries } from 'constants/country';
-import {
-  onFinishFailedHandler, onFinishHandler, RecruiterManagerInterface,
-} from './interface';
 import './recruiterManagerForm.scss';
 
 const { Option } = Select;
@@ -21,16 +18,22 @@ for (let i = 10; i < 36; i += 1) {
     </Option>,
   );
 }
+const initialValues = {
+  email: '',
+  company: '',
+};
 
-interface RecruiterManagerFormPropos {
-  initialValues: RecruiterManagerInterface;
-  onFinish: onFinishHandler;
-  onFinishFailed?: onFinishFailedHandler;
-}
-
-const RecruiterManagerForm: React.FC<RecruiterManagerFormPropos> = ({ initialValues, onFinish, onFinishFailed }) => {
+const RecruiterManagerForm: React.FC = () => {
   const [form] = Form.useForm();
+  const onFinish = (values: any): void => {
+    console.log('Success:', values);
+  };
 
+  const onFinishFailed = (): void => {
+    notification.error({
+      message: 'Validation Failed',
+    });
+  };
   return (
     <Form
       form={form}

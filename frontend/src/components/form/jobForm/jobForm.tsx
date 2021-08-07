@@ -1,10 +1,10 @@
 import {
-  Button, DatePicker, Form, Input, Select, Space,
+  Button, DatePicker, Form, Input, notification, Select, Space,
 } from 'antd';
 import React from 'react';
 import TextEditor from 'components/common/textEditor/textEditor';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { JobFormPropos } from './interface';
+import { LocationField } from 'components/form/common/location/location';
 import './jobForm.scss';
 
 const { Option } = Select;
@@ -18,8 +18,38 @@ for (let i = 10; i < 36; i += 1) {
   );
 }
 
-const JobForm: React.FC<JobFormPropos> = ({ initialValues, onFinish, onFinishFailed }) => {
+const initialValues = {
+  jobName: 'toan le',
+  skill: 'toan le duc',
+  locations: [{
+    city: 'xcz',
+    district: 'ava',
+    ward: '1312',
+    address: '123',
+  }],
+  salary: {
+    min: 0,
+    max: 0,
+  },
+  title: ['cacac'],
+  reason: 'zxvv',
+  why: 'wqq',
+  jobDescription: 'rr',
+  endTime: '',
+};
+
+const JobForm: React.FC = () => {
   const [form] = Form.useForm();
+
+  const onFinish = (values: any): void => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (): void => {
+    notification.error({
+      message: 'Validation Failed',
+    });
+  };
 
   return (
     <Form
@@ -56,54 +86,13 @@ const JobForm: React.FC<JobFormPropos> = ({ initialValues, onFinish, onFinishFai
               key, name, fieldKey, ...restField
             }) => (
               <Space key={key} align="baseline" className="w-100 nested-group">
-                <Space>
-                  <div className="label">City:</div>
-                  <Form.Item
-                    className="nested-field"
-                    {...restField}
-                    name={[name, 'city']}
-                    fieldKey={[fieldKey, 'city']}
-                    rules={[{ required: true, message: 'Missing first name' }]}
-                  >
-                    <Input placeholder="First Name" />
-                  </Form.Item>
-                </Space>
-                <Space>
-                  <div className="label">District:</div>
-                  <Form.Item
-                    className="nested-field"
-                    {...restField}
-                    name={[name, 'district']}
-                    fieldKey={[fieldKey, 'district']}
-                    rules={[{ required: true, message: 'Missing first name' }]}
-                  >
-                    <Input placeholder="First Name" />
-                  </Form.Item>
-                </Space>
-                <Space>
-                  <div className="label">Ward:</div>
-                  <Form.Item
-                    className="nested-field"
-                    {...restField}
-                    name={[name, 'ward']}
-                    fieldKey={[fieldKey, 'ward']}
-                    rules={[{ required: true, message: 'Missing first name' }]}
-                  >
-                    <Input placeholder="First Name" />
-                  </Form.Item>
-                </Space>
-                <Space>
-                  <div className="label">Address:</div>
-                  <Form.Item
-                    className="nested-field"
-                    {...restField}
-                    name={[name, 'address']}
-                    fieldKey={[fieldKey, 'address']}
-                    rules={[{ required: true, message: 'Missing first name' }]}
-                  >
-                    <Input placeholder="First Name" />
-                  </Form.Item>
-                </Space>
+                <LocationField
+                  locations={form.getFieldValue('locations')}
+                  form={form}
+                  name={name}
+                  fieldKey={fieldKey}
+                  restField={restField}
+                />
                 <MinusCircleOutlined onClick={() => remove(name)} />
               </Space>
             ))}

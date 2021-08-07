@@ -1,5 +1,5 @@
 import {
-  Button, Form, Input, Select, Space,
+  Button, Form, Input, InputNumber, notification, Select, Space,
 } from 'antd';
 import React from 'react';
 import parse from 'html-react-parser';
@@ -9,11 +9,13 @@ import {
 } from 'components/customField/costomFilelds';
 import { countries } from 'constants/country';
 import { OptionProp } from 'components/customField/interface';
+import { LocationField } from 'components/form/common/location/location';
+import { addCompany } from 'api/admin/api';
+import { useHistory } from 'react-router-dom';
 import {
-  CompanyInterface, onFinishFailedHandler, onFinishHandler,
+  CompanyInterface, DayOfWeek,
 } from './interface';
 import './companyForm.scss';
-import Location from '../common/location/location';
 
 const { Option } = Select;
 
@@ -26,21 +28,51 @@ for (let i = 10; i < 36; i += 1) {
   );
 }
 
-interface CompanyFormPropos {
-  initialValues: CompanyInterface;
-  onFinish: onFinishHandler;
-  onFinishFailed?: onFinishFailedHandler;
-}
-
 const options: OptionProp[] = [{
   value: true, label: 'Yes',
 }, {
   value: false, label: 'No',
 }];
 
-const CompanyForm: React.FC<CompanyFormPropos> = ({ initialValues, onFinish, onFinishFailed }) => {
-  const [form] = Form.useForm();
+const initialValues: CompanyInterface = {
+  companyName: '',
+  locations: [{
+    city: 'Hồ Chí Minh',
+    district: 'Thành Phố Thủ Đức',
+    ward: 'Phường An Khánh',
+    address: '',
+  }],
+  workTime: {
+    from: DayOfWeek.MONDAY,
+    to: DayOfWeek.FRIDAY,
+  },
+  companySize: {
+    min: 1,
+    max: 50,
+  },
+  originCountry: 'Việt Nam',
 
+  descriptioin: '',
+  ot: true,
+};
+
+const CompanyForm: React.FC = () => {
+  const [form] = Form.useForm();
+  const history = useHistory();
+  const onFinish = async (values: CompanyInterface): Promise<void> => {
+    const Success: boolean = await addCompany(values);
+    if (Success) {
+      form.resetFields();
+      // push('/admin');
+      history.push('/admin');
+    }
+  };
+
+  const onFinishFailed = (): void => {
+    notification.error({
+      message: 'Validation Failed',
+    });
+  };
   return (
     <Form
       form={form}
@@ -54,21 +86,21 @@ const CompanyForm: React.FC<CompanyFormPropos> = ({ initialValues, onFinish, onF
       <Form.Item
         label="Company Name"
         name="companyName"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        rules={[{ required: true, message: 'Please input your Company Name!' }]}
       >
         <Input />
       </Form.Item>
       <Form.Item
         label="Descriptioin"
         name="descriptioin"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        rules={[{ required: true, message: 'Please input your Company Descriptioin!' }]}
       >
         <Input />
       </Form.Item>
       <Form.Item
         label="Origin Country"
         name="originCountry"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        rules={[{ required: true, message: 'Please input your Origin Country!' }]}
       >
         <Select
           showSearch
@@ -86,21 +118,27 @@ const CompanyForm: React.FC<CompanyFormPropos> = ({ initialValues, onFinish, onF
       <Form.Item
         label="Avatar"
         name="avatar"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        rules={[{ required: true, message: 'Please input Avatar!' }]}
       >
-        <PicturesWall maxCount={1} />
+        <PicturesWall
+          maxCount={1}
+          onChange={(val) => form.setFieldsValue({ avatar: val[0] })}
+        />
       </Form.Item>
       <Form.Item
         label="Images"
         name="images"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        rules={[{ required: true, message: 'Please input images!' }]}
       >
-        <PicturesWall multiple />
+        <PicturesWall
+          multiple
+          onChange={(val) => form.setFieldsValue({ images: val })}
+        />
       </Form.Item>
       <Form.Item
         label="OT"
         name="ot"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        rules={[{ required: true, message: 'Please input OT!' }]}
       >
         <CustomSelect
           value={form.getFieldValue('ot')}
@@ -116,7 +154,13 @@ const CompanyForm: React.FC<CompanyFormPropos> = ({ initialValues, onFinish, onF
               key, name, fieldKey, ...restField
             }) => (
               <Space key={key} align="baseline" className="w-100 nested-group">
-                <Location name={name} fieldKey={fieldKey} restField={restField} />
+                <LocationField
+                  locations={form.getFieldValue('locations')}
+                  form={form}
+                  name={name}
+                  fieldKey={fieldKey}
+                  restField={restField}
+                />
                 <MinusCircleOutlined onClick={() => remove(name)} />
               </Space>
             ))}
@@ -172,9 +216,8 @@ const CompanyForm: React.FC<CompanyFormPropos> = ({ initialValues, onFinish, onF
               className="nested-field"
               name={['companySize', 'min']}
             >
-              <Input />
+              <InputNumber min={1} max={10000} />
             </Form.Item>
-
           </Space>
           <Space>
             <div className="label">Max:</div>
@@ -183,7 +226,7 @@ const CompanyForm: React.FC<CompanyFormPropos> = ({ initialValues, onFinish, onF
               className="nested-field"
               name={['companySize', 'max']}
             >
-              <Input />
+              <InputNumber min={1} max={1000} />
             </Form.Item>
           </Space>
         </Space>

@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import { UploadFile } from 'antd/lib/upload/interface';
+
 export interface OptionProp {
     value: string | boolean | number;
     label: string;
@@ -29,4 +31,5 @@ export enum ActionKind {
 export interface PicturesWallProps {
     maxCount?: number;
     multiple?: boolean;
+    onChange: (val: UploadFile[]) => void
 }

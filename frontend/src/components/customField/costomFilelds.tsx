@@ -106,7 +106,9 @@ export const UploadImage: React.FC = () => {
   );
 };
 
-export const PicturesWall: React.FC<PicturesWallProps> = ({ maxCount = 10, multiple }) => {
+export const PicturesWall: React.FC<PicturesWallProps> = ({
+  maxCount = 10, multiple, onChange,
+}) => {
   const [preview, dispatch] = useReducer(previewReducer, {
     previewTitle: '', previewImage: '', previewVisible: false,
   });
@@ -132,8 +134,11 @@ export const PicturesWall: React.FC<PicturesWallProps> = ({ maxCount = 10, multi
         uid: item.uid,
         name: item.name,
       }));
-      console.log(images);
+      if (images.length > 0) {
+        onChange(images);
+      }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileList]);
 
   return (

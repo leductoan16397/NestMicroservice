@@ -12,6 +12,7 @@ export const getUserFromLocalStorage = (): AdminUser | null => {
 export const setLocaleToLocalStorage = (user: AdminUser | null): void => {
   if (user) {
     localStorage.setItem('nest_demo_admin_user', JSON.stringify(user));
+  } else {
+    localStorage.removeItem('nest_demo_admin_user');
   }
-  localStorage.removeItem('nest_demo_admin_user');
 };

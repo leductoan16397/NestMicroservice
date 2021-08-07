@@ -1,15 +1,12 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 import {
-  Button, Form, Input, Select,
+  Button, Form, Input, notification, Select,
 } from 'antd';
 import React from 'react';
 import parse from 'html-react-parser';
 import { countries } from 'constants/country';
 import { OptionProp } from 'components/customField/interface';
-import {
-  onFinishFailedHandler, onFinishHandler, RecruiterInterface,
-} from './interface';
 import './recruiterForm.scss';
 
 const { Option } = Select;
@@ -23,23 +20,28 @@ for (let i = 10; i < 36; i += 1) {
   );
 }
 
-interface RecruiterFormPropos {
-  initialValues: RecruiterInterface;
-  onFinish: onFinishHandler;
-  onFinishFailed?: onFinishFailedHandler;
-}
-
 const options: OptionProp[] = [{
   value: true, label: 'Yes',
 }, {
   value: false, label: 'No',
 }];
-
 console.log(options);
 
-const RecruiterForm: React.FC<RecruiterFormPropos> = ({ initialValues, onFinish, onFinishFailed }) => {
+const initialValues = {
+  email: '',
+  roles: '',
+};
+const RecruiterForm: React.FC = () => {
   const [form] = Form.useForm();
+  const onFinish = (values: any): void => {
+    console.log('Success:', values);
+  };
 
+  const onFinishFailed = (): void => {
+    notification.error({
+      message: 'Validation Failed',
+    });
+  };
   return (
     <Form
       form={form}

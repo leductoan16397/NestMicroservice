@@ -1,4 +1,5 @@
-/* eslint-disable no-unused-vars */
+import { UploadFile } from 'antd/lib/upload/interface';
+
 export interface WorkTime {
     from: DayOfWeek;
     to: DayOfWeek;
@@ -26,9 +27,15 @@ export enum DayOfWeek {
     SUNDAY = 'Sunday',
 }
 
-export const dayOfWeek: DayOfWeek[] = [DayOfWeek.MONDAY,
-  DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY,
-  DayOfWeek.FRIDAY, DayOfWeek.SATURDAY, DayOfWeek.SUNDAY];
+export const dayOfWeek: DayOfWeek[] = [
+  DayOfWeek.MONDAY,
+  DayOfWeek.TUESDAY,
+  DayOfWeek.WEDNESDAY,
+  DayOfWeek.THURSDAY,
+  DayOfWeek.FRIDAY,
+  DayOfWeek.SATURDAY,
+  DayOfWeek.SUNDAY,
+];
 
 export interface Location {
     city: string;
@@ -44,8 +51,8 @@ export interface CompanyInterface {
     companySize: CompanySize;
     originCountry: string;
 
-    avatar?: string;
-    images?: string[];
+    avatar?: UploadFile;
+    images?: UploadFile[];
     descriptioin?: string;
     ot?: boolean;
 

@@ -4,7 +4,7 @@ import {
   LikeTwoTone, DislikeTwoTone, SmileTwoTone, FrownTwoTone,
 } from '@ant-design/icons';
 import {
-  Button, Col, Form, Input, Rate, Row, Space,
+  Button, Col, Form, Input, notification, Rate, Row, Space,
 } from 'antd';
 import React, { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -44,8 +44,10 @@ const ReviewForm: React.FC = () => {
     console.log('Success:', values);
   };
 
-  const onFinishFailed = (errorInfo: any): void => {
-    console.log('Failed:', errorInfo);
+  const onFinishFailed = (): void => {
+    notification.error({
+      message: 'Validation Failed',
+    });
   };
 
   return (

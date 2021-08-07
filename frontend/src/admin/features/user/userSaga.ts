@@ -1,7 +1,6 @@
 import {
   call, put, select, takeLeading,
 } from 'redux-saga/effects';
-// import history from 'admin/history';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { logout, signIn } from 'api/admin/api';
 import {
