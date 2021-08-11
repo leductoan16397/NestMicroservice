@@ -37,6 +37,7 @@ export class ManagerUserService {
       ...input,
       roles: [role],
     });
+    managerUser.password = '1234567890';
     await managerUser.save();
     return managerUser;
   }

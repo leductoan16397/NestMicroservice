@@ -1,8 +1,9 @@
 import { AdminUser, RefreshTokenInfo } from 'admin/features/user/userSlice';
 import { notification } from 'antd';
 import axios, { AxiosResponse } from 'axios';
-import { District, Ward } from 'components/form/common/location/location';
+import { District, Ward } from 'components/common/location/location';
 import { CompanyInterface } from 'components/form/companyForm/interface';
+import { RecruiterManagerInterface } from 'components/form/recruiterManagerForm/interface';
 import { axiosClientAdmin, axiosClientAdminWithoutAuth } from './axiosCLientAdmin';
 
 export const signIn = async (email: string, password: string): Promise<AdminUser> => {
@@ -59,6 +60,22 @@ export const getWards = async (id: number): Promise<Ward[]> => {
 
 export const addCompany = async (body: CompanyInterface): Promise<boolean> => {
   const rs: AxiosResponse = await axiosClientAdmin.post('/company', body);
+  notification.success({
+    message: 'Add Success',
+  });
+  if (rs.status === 200 || rs.status === 201) {
+    return true;
+  }
+  return false;
+};
+
+export const searchCompany = async (query: Pick<CompanyInterface, 'companyName'>): Promise<CompanyInterface[]> => {
+  const { data } = await axiosClientAdmin.get<CompanyInterface[]>('/company/findbyname', { params: query });
+  return data;
+};
+
+export const addCecruiterManager = async (body: RecruiterManagerInterface): Promise<boolean> => {
+  const rs: AxiosResponse = await axiosClientAdmin.post('/user/recruiter-manager', body);
   notification.success({
     message: 'Add Success',
   });

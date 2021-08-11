@@ -1,4 +1,4 @@
-import { HookNextFunction, Document, Query } from 'mongoose';
+import { HookNextFunction, Document, Query, SchemaTypes } from 'mongoose';
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
 import validator from 'validator';
 import { hashSync } from 'bcrypt-nodejs';
@@ -12,7 +12,7 @@ export class ManagerUserModel extends Document {
     type: String,
     minlength: 6,
     maxlength: 255,
-    required: [true, 'NAME_IS_BLANK'],
+    default: 'manager',
   })
   fullName: string;
 
@@ -42,6 +42,13 @@ export class ManagerUserModel extends Document {
     enum: ['manager', 'recuiter', 'user', 'admin'],
   })
   roles: string[];
+
+  @Prop({
+    type: SchemaTypes.ObjectId,
+    ref: 'Company',
+    required: true,
+  })
+  company: string;
 }
 
 export const ManagerUserSchema = SchemaFactory.createForClass(ManagerUserModel);

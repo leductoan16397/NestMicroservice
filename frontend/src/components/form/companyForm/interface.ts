@@ -45,6 +45,8 @@ export interface Location {
 }
 
 export interface CompanyInterface {
+    _id?: string;
+    id?: string;
     companyName: string;
     locations: Location[];
     workTime: WorkTime;

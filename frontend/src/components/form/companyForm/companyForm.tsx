@@ -9,9 +9,9 @@ import {
 } from 'components/customField/costomFilelds';
 import { countries } from 'constants/country';
 import { OptionProp } from 'components/customField/interface';
-import { LocationField } from 'components/form/common/location/location';
+import { LocationField } from 'components/common/location/location';
 import { addCompany } from 'api/admin/api';
-import { useHistory } from 'react-router-dom';
+import { push } from 'connected-react-router';
 import {
   CompanyInterface, DayOfWeek,
 } from './interface';
@@ -58,13 +58,11 @@ const initialValues: CompanyInterface = {
 
 const CompanyForm: React.FC = () => {
   const [form] = Form.useForm();
-  const history = useHistory();
   const onFinish = async (values: CompanyInterface): Promise<void> => {
     const Success: boolean = await addCompany(values);
     if (Success) {
       form.resetFields();
-      // push('/admin');
-      history.push('/admin');
+      push('/admin');
     }
   };
 

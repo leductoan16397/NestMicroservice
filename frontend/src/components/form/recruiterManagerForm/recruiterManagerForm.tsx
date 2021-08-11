@@ -4,9 +4,11 @@ import {
   Button, Form, Input, notification, Select,
 } from 'antd';
 import React from 'react';
-import parse from 'html-react-parser';
-import { countries } from 'constants/country';
 import './recruiterManagerForm.scss';
+import { CompanySelect } from 'components/common/companySelect/companySelect';
+import { push } from 'connected-react-router';
+import { addCecruiterManager } from 'api/admin/api';
+import { RecruiterManagerInterface } from './interface';
 
 const { Option } = Select;
 
@@ -18,15 +20,19 @@ for (let i = 10; i < 36; i += 1) {
     </Option>,
   );
 }
-const initialValues = {
+const initialValues:RecruiterManagerInterface = {
   email: '',
   company: '',
 };
 
 const RecruiterManagerForm: React.FC = () => {
   const [form] = Form.useForm();
-  const onFinish = (values: any): void => {
-    console.log('Success:', values);
+  const onFinish = async (values: RecruiterManagerInterface): Promise<void> => {
+    const Success: boolean = await addCecruiterManager(values);
+    if (Success) {
+      form.resetFields();
+      push('/admin');
+    }
   };
 
   const onFinishFailed = (): void => {
@@ -56,18 +62,10 @@ const RecruiterManagerForm: React.FC = () => {
         name="company"
         rules={[{ required: true, message: 'Please input your username!' }]}
       >
-        <Select
-          showSearch
-          placeholder="Select a country"
-          optionFilterProp="children"
-        >
-          {countries.map((item, index) => (
-            <Option key={`country_${index + 1}`} value={item.name}>
-              {parse(item.flag)}
-              {item.name}
-            </Option>
-          ))}
-        </Select>
+        <CompanySelect
+          value={form.getFieldValue('company')}
+          onChange={(val) => form.setFieldsValue({ company: val })}
+        />
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 11, span: 4 }}>

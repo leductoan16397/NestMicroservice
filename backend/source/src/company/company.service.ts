@@ -14,21 +14,33 @@ export class CompanyService {
 
   findAll = async (): Promise<CompanyModel[]> => {
     try {
-      const companys = await this.companyModel.find();
-      return companys;
+      const companies = await this.companyModel.find();
+      return companies;
     } catch (error) {
       throw new RpcException(error);
     }
   };
 
+  findByCompanyName = async (companyName: string): Promise<CompanyModel[]> => {
+    const reg = new RegExp(companyName, 'i');
+    const companies = await this.companyModel
+      .find({
+        companyName: { $regex: reg },
+      })
+      .limit(50);
+    return companies;
+  };
+
   create = async (data: CompanyInterface): Promise<CompanyModel> => {
-    try {
-      const company = new this.companyModel(data);
-      await company.save();
-      return company;
-    } catch (error) {
-      throw new RpcException(error);
+    const exist = await this.companyModel.findOne({
+      companyName: data.companyName,
+    });
+    if (exist) {
+      throw new RpcException('company is exist');
     }
+    const company = new this.companyModel(data);
+    await company.save();
+    return company;
   };
 
   findById = async (id: string): Promise<any> => {

@@ -75,8 +75,6 @@ export class AuthController {
   adminLogin(
     @Payload() { email, password }: AdminLoginPayload,
   ): Promise<LoginInfo> {
-    console.log(email);
-    console.log(password);
     return this.authService.adminLogin(email, password);
   }
 

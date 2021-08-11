@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { ConfigService } from 'core/config/config.service';
@@ -16,6 +17,13 @@ async function bootstrap() {
         )}:${new ConfigService().get('redis_port')}`,
       },
     },
+  );
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      // exceptionFactory: ExceptionFactory,
+    }),
   );
   await app.listen();
 }

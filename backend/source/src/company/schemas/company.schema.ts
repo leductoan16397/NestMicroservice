@@ -185,21 +185,3 @@ export class CompanyModel extends Document {
 }
 
 export const CompanySchema = SchemaFactory.createForClass(CompanyModel);
-
-// export const companyModel = model<CompanyModel>(
-//   CompanyModel.name,
-//   CompanySchema,
-// );
-
-// CompanySchema.pre<CompanyModel>(
-//   'save',
-//   async function (next: HookNextFunction) {
-//     const company = await companyModel.find({ companyName: this.companyName });
-
-//     if (company) {
-//       throw new Error('Company already exists');
-//     }
-
-//     return next();
-//   },
-// );

@@ -10,6 +10,7 @@ import {
   Param,
   Inject,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import {
@@ -25,7 +26,9 @@ import { AdminRolesGuard } from 'admin/auth/guards/roles.guard';
 import { MessagePatternInterface } from 'interface/messageParten.interface';
 import { SERVICE } from 'interface/service.enum';
 import { CreateCompanyDto } from './dto/create-company.dto';
+import { QueryCompayNameDto } from './dto/query-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
+import { lastValueFrom } from 'rxjs';
 
 @ApiTags('Admin Company')
 @Controller('')
@@ -35,7 +38,7 @@ export class CompanyController {
 
   @Get()
   @ApiBearerAuth()
-  @AdminRoles('user')
+  @AdminRoles('user', 'admin')
   @ApiOperation({ summary: 'A private route for check the auth' })
   @ApiHeader({
     name: 'Bearer',
@@ -49,6 +52,27 @@ export class CompanyController {
       action: 'findAll',
     };
     return this.CompanyService.send(message, {});
+  }
+
+  @Get('findbyname')
+  @ApiBearerAuth()
+  @AdminRoles('user', 'admin')
+  @ApiOperation({ summary: 'A private route for check the auth' })
+  @ApiHeader({
+    name: 'Bearer',
+    description: 'the token we need for auth.',
+  })
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse({})
+  async findByCompanyName(@Query() query: QueryCompayNameDto) {
+    const message: MessagePatternInterface = {
+      service: SERVICE.COMPANY,
+      action: 'findByCompanyName',
+    };
+    const a = await lastValueFrom(
+      this.CompanyService.send(message, query.companyName),
+    );
+    return a;
   }
 
   @Post()

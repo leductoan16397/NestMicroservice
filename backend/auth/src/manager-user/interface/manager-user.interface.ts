@@ -8,9 +8,8 @@ export interface ManagerUserInterface {
 }
 
 export class AddManagerUser {
-  readonly fullName: string;
+  readonly company: string;
   readonly email: string;
-  readonly password: string;
 }
 
 export interface UpdateManagerUser {

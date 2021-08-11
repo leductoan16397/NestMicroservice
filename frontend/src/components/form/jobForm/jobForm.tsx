@@ -4,7 +4,7 @@ import {
 import React from 'react';
 import TextEditor from 'components/common/textEditor/textEditor';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { LocationField } from 'components/form/common/location/location';
+import { LocationField } from 'components/common/location/location';
 import './jobForm.scss';
 
 const { Option } = Select;

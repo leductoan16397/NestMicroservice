@@ -10,6 +10,10 @@ export class CompanyController {
   findAll() {
     return this.companyService.findAll();
   }
+  @MessagePattern({ service: 'Company', action: 'findByCompanyName' })
+  findByCompanyName(@Payload() companyName: string) {
+    return this.companyService.findByCompanyName(companyName);
+  }
 
   @MessagePattern({ service: 'Company', action: 'create' })
   create(@Payload() data: any) {

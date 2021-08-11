@@ -3,6 +3,7 @@ import {
 } from 'redux-saga/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { logout, signIn } from 'api/admin/api';
+import { push } from 'connected-react-router';
 import {
   AdminUser,
   login,
@@ -17,6 +18,7 @@ function* signOutHandler(): any {
     const user: AdminUser = yield select(selectAdminUser);
     yield call(logout, user.refreshToken);
     yield put(signOutSuccess());
+    yield call(push, '/admin');
   } catch (error) {
     yield put(signOutFailed(error as string));
   }
