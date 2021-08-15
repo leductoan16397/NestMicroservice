@@ -14,10 +14,21 @@ export class JobService {
     @InjectModel(JobModel.name) private readonly jobModel: Model<JobModel>,
   ) {}
 
-  findAll = async (): Promise<JobModel[]> => {
+  findAll = async (): Promise<any> => {
     try {
-      const jobs = await this.jobModel.find().populate('author');
-      return jobs;
+      // const jobs = await this.jobModel.find().populate('author');
+      const total = await this.jobModel.count();
+      const jobs = await this.jobModel
+        .find()
+        .populate('company')
+        .sort({ updatedAt: -1 })
+        .limit(10)
+        .skip(0 * 10);
+      return {
+        total,
+        currentPage: 1,
+        jobs,
+      };
     } catch (error) {
       throw new RpcException(error);
     }

@@ -2,6 +2,7 @@ import { Document, SchemaTypes } from 'mongoose';
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
 import { UserModel } from 'user/schemas/user.schema';
 import { CompanyModel } from 'company/schemas/company.schema';
+import { Location, locationSchema } from 'common/schemas';
 
 @Schema({ _id: false })
 class Salary extends Document {
@@ -28,7 +29,7 @@ class Salary extends Document {
   max: number;
 }
 @Schema({
-  timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
+  timestamps: true,
   collection: 'jobs',
 })
 export class JobModel extends Document {
@@ -39,28 +40,18 @@ export class JobModel extends Document {
   salary: Salary;
 
   @Prop({
-    type: Date,
-  })
-  createdAt: Date;
-
-  @Prop({
-    type: Date,
-  })
-  updatedAt: Date;
-
-  @Prop({
     type: String,
     minlength: 6,
     maxlength: 255,
     required: [true, 'NAME_IS_BLANK'],
   })
-  name: string;
+  jobName: string;
 
   @Prop({
-    type: String,
-    required: [true, 'EMAIL_IS_BLANK'],
+    type: [locationSchema],
+    required: true,
   })
-  location: string;
+  locations: Location[];
 
   @Prop({
     type: Date,
@@ -105,11 +96,10 @@ export class JobModel extends Document {
   company: CompanyModel;
 
   @Prop({
-    type: SchemaTypes.ObjectId,
-    ref: 'UserModel',
+    type: String,
     required: [true, 'author is required'],
   })
-  author: UserModel;
+  author: string;
 }
 
 export const JobSchema = SchemaFactory.createForClass(JobModel);

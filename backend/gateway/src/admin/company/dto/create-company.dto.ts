@@ -1,4 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Location } from 'admin/common/dto/location.dto';
 import { Type } from 'class-transformer';
 import {
   IsArray,
@@ -62,36 +63,6 @@ class ImageFirebase {
   })
   @IsString()
   name: string;
-}
-
-class Location {
-  @ApiProperty({
-    example: '',
-    description: 'City',
-  })
-  @IsString()
-  city: string;
-
-  @ApiProperty({
-    example: '',
-    description: 'district',
-  })
-  @IsString()
-  district: string;
-
-  @ApiProperty({
-    example: '',
-    description: 'ward',
-  })
-  @IsString()
-  ward: string;
-
-  @ApiProperty({
-    example: '',
-    description: 'address',
-  })
-  @IsString()
-  address: string;
 }
 
 class CompanySize {

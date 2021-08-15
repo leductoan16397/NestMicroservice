@@ -12,7 +12,7 @@ export interface JobInterface {
   skill: string;
   endTime: Date;
   salary: Salary;
-  author: UserModel;
+  author: string;
 
   title?: string[];
   reason?: string;

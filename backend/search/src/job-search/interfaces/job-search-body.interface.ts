@@ -1,3 +1,4 @@
+import { Location } from 'common/interface';
 import { ElasticsearchBody } from 'search/interfaces/search.service.interface';
 
 interface Salary {
@@ -6,11 +7,12 @@ interface Salary {
 }
 export interface JobSearchBody extends ElasticsearchBody {
   id: string;
-  name: string;
-  location: string;
+  jobName: string;
+  locations: Location[];
   salary: Salary;
   title: string[];
   skill: string;
   avatar: string;
   createdAt: Date;
+  updatedAt: Date;
 }

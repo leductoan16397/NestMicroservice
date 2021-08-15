@@ -9,9 +9,11 @@ import {
   ValidateNested,
   Min,
   IsInt,
+  IsOptional,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
+import { Location } from 'admin/common/dto/location.dto';
 
 class Salary {
   @ApiProperty({
@@ -47,15 +49,16 @@ export class CreateJobDto {
   @MinLength(5)
   @MaxLength(255)
   @IsString()
-  readonly name: string;
+  readonly jobName: string;
 
   @ApiPropertyOptional({
     example: 'TPHCM',
     description: 'Job location',
   })
   @IsNotEmpty()
-  @IsString()
-  readonly location: string;
+  @ValidateNested({ each: true })
+  @Type(() => Location)
+  readonly locations: Location[];
 
   @ApiPropertyOptional({
     example: Date.now,
@@ -132,12 +135,13 @@ General requirements:
   })
   @ValidateNested()
   @Type(() => Salary)
-  readonly companySize: Salary;
+  readonly salary: Salary;
 
   @ApiPropertyOptional({
     example: ['60d60362495f1c00ef75d8cc', '60d5f9aa9fcc9f003d429773'],
     description: 'users applied',
   })
+  @IsOptional()
   @IsMongoId({ each: true })
   @MinLength(24, { each: true })
   readonly apply: string[];
@@ -146,6 +150,7 @@ General requirements:
     example: '60dad5c2f3798301c8637285',
     description: 'company',
   })
+  @IsOptional()
   @IsNotEmpty()
   @IsMongoId()
   readonly company: string;
@@ -154,6 +159,7 @@ General requirements:
     example: '60d60362495f1c00ef75d8cc',
     description: 'author',
   })
+  @IsOptional()
   @IsNotEmpty()
   @IsMongoId()
   readonly author: string;

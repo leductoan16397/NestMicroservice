@@ -12,13 +12,14 @@ export class JobSearchService {
   private convertModelToSearchBodyJob = (job: JobModel): JobSearchBody => {
     return {
       id: job.id,
-      name: job.name,
+      jobName: job.jobName,
       salary: job.salary,
-      location: job.location,
+      locations: job.locations,
       title: job.title,
       skill: job.skill,
-      avatar: job.company.avatar,
+      avatar: job.company.avatar.url,
       createdAt: job.createdAt,
+      updatedAt: job.updatedAt,
     };
   };
 
@@ -31,9 +32,10 @@ export class JobSearchService {
     return await this.searchService.getAll(this.index);
   };
 
-  search = async (text: string): Promise<any> => {
+  search = async (text = 'a'): Promise<any> => {
+    console.log('text: ', text);
     return await this.searchService.search(this.index, text, [
-      'name',
+      'jobName',
       'title',
       'skill',
     ]);

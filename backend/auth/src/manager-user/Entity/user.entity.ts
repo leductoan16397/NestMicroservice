@@ -1,4 +1,4 @@
-import { Exclude, Expose } from 'class-transformer';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import { Types } from 'mongoose';
 
 export class AdminUserEntity {
@@ -14,6 +14,9 @@ export class AdminUserEntity {
   get id(): string {
     return this._id.toString();
   }
+
+  @Transform(({ value }) => value.toString())
+  company: string;
 
   constructor(partial: Partial<AdminUserEntity>) {
     Object.assign(this, partial);

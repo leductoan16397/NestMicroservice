@@ -26,6 +26,6 @@ export class SearchController {
       service: SERVICE.JOBSEARCH,
       action: 'search',
     };
-    return this.SearchClientService.send<string>(message, text);
+    return this.SearchClientService.send<string>(message, text || ' ');
   }
 }
