@@ -163,7 +163,17 @@ const CompanyForm: React.FC = () => {
               </Space>
             ))}
             <Form.Item>
-              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+              <Button
+                type="dashed"
+                onClick={() => add({
+                  city: 'Hồ Chí Minh',
+                  district: 'Thành Phố Thủ Đức',
+                  ward: 'Phường An Khánh',
+                  address: '',
+                })}
+                block
+                icon={<PlusOutlined />}
+              >
                 Add location
               </Button>
             </Form.Item>

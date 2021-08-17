@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import userSlice from 'features/user/userSlice';
-import localeSlice from 'features/locale/localeSlice';
+import userReducer from 'features/user/userSlice';
+import localeReducer from 'features/locale/localeSlice';
+import searchReducer from 'features/search/searchSlice';
 import createSagaMiddleware from 'redux-saga';
 import counterReducer from 'features/counter/counterSlice';
 import rootSaga from './rootSaga';
@@ -9,8 +10,9 @@ const sagaMiddleware = createSagaMiddleware();
 export const AppStore = configureStore({
   reducer: {
     counter: counterReducer,
-    locale: localeSlice,
-    user: userSlice,
+    locale: localeReducer,
+    user: userReducer,
+    search: searchReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     thunk: true,

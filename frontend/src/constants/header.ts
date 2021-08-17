@@ -19,11 +19,6 @@ export const Locations = [
     name: 'Da Nang',
     value: 'DN',
   },
-  {
-    id: 'other',
-    name: 'Other',
-    value: 'other',
-  },
 ];
 
 export const JobSkills = [

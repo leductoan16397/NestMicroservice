@@ -50,6 +50,7 @@ export const LocationField: React.FC<LocationProps> = ({
     const id: number | undefined = cities.find((item) => item.ProvinceName === value)?.ProvinceID;
     const rs = await getDistricts(id as number);
     setDistricts(rs);
+    locations[name].city = value;
     locations[name].district = '';
     locations[name].ward = '';
     locations[name].address = '';
@@ -61,6 +62,7 @@ export const LocationField: React.FC<LocationProps> = ({
       .find((item) => item.DistrictName === value)?.DistrictID;
     const rs = await getWards(id as number);
     setWards(rs);
+    locations[name].district = value;
     locations[name].ward = '';
     locations[name].address = '';
     form.setFieldsValue({ locations });

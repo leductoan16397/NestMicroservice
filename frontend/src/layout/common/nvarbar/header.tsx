@@ -78,7 +78,7 @@ const menu = (
 );
 
 const IHeader: React.FC = () => (
-  <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+  <Header style={{ position: 'fixed', zIndex: 999, width: '100%' }}>
     <Container>
       <Row justify="space-between">
         <Col span={2}>

@@ -1,14 +1,13 @@
 import {
   Card, Col, Row, Image, Tooltip, Button, Space, Pagination,
 } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import JobTitleComponet from 'components/job/jobTitle/jobTitle';
 import Salary from 'components/job/salary/salary';
 import './jobCard.scss';
 import JobCreatedTime from 'components/job/jobTime/jobTime';
 import { JobLocations } from 'components/job/jobLocation/jobLocation';
-
-const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+import { Location } from 'components/form/companyForm/interface';
 
 interface JobCardProps {
   jobName: string;
@@ -18,19 +17,21 @@ interface JobCardProps {
   createdAt: string | Date;
   isShowImage?: boolean;
   isShowFeature?: boolean;
+  companyLogo?: string;
+  onClick?: () => void;
 }
 
 export const JobCard: React.FC<JobCardProps> = ({
-  jobName, salary, locations, jobTitles, createdAt, isShowImage = true, isShowFeature = true,
+  jobName, salary, locations, jobTitles, createdAt, isShowImage = true, isShowFeature = true, companyLogo = 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png', onClick,
 }) => (
-  <Row className="job-item" justify="space-around">
+  <Row className="job-item" justify="space-around" onClick={onClick}>
     {isShowImage && (
       <Col span={4} className="company-image d-flex align-items-center">
         <Tooltip placement="bottom" title="toan le" trigger="hover">
           <Image
             width={80}
             preview={false}
-            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            src={companyLogo}
           />
         </Tooltip>
       </Col>
@@ -61,23 +62,34 @@ export const JobCard: React.FC<JobCardProps> = ({
 
 interface JobListProps {
   pagination?: boolean;
-  title: string;
+  title?: string;
+  jobs?: any;
+  total?: number;
+  currentPage?: number;
 }
 
-const JobList: React.FC<JobListProps> = ({ title, pagination = true }) => {
+const JobList: React.FC<JobListProps> = ({
+  title, pagination = true, jobs, total, currentPage,
+}) => {
+  const [selected, setSelected] = useState<number>(0);
   const onChange = (page: any): void => {
     console.log(page);
   };
+  const changeSelected = (index: number): void => {
+    setSelected(index);
+  };
   return (
     <Card title={title}>
-      {arr.map((item, index) => (
-        <Card.Grid className={`job-item ${index === 5 && 'selected'}`} key={`job_${index + 1}`}>
+      {jobs.map((item: any, index: number) => (
+        <Card.Grid className={`job-item ${index === selected && 'selected'}`} key={`job_${index + 1}`}>
           <JobCard
-            jobName="Backend Nodejs"
-            salary="1000$"
-            locations={['Other', 'Ha Noi', 'Ho Chi Minh']}
-            jobTitles={['NodeJs', 'PHP', 'Python']}
-            createdAt="12m"
+            onClick={() => changeSelected(index)}
+            jobName={item.jobName}
+            salary={`${item.salary.min}-${item.salary.max}`}
+            locations={item.locations.map((i: Location) => i.city)}
+            jobTitles={item.title}
+            createdAt={item.updatedAt}
+            companyLogo={item.company?.avatar?.url}
           />
         </Card.Grid>
       ))}
@@ -86,9 +98,9 @@ const JobList: React.FC<JobListProps> = ({ title, pagination = true }) => {
           <Card.Grid className="job-list-pagination" hoverable={false}>
             <Pagination
               pageSize={10}
-              defaultCurrent={1}
+              current={currentPage}
               hideOnSinglePage
-              total={arr.length}
+              total={total}
               showSizeChanger={false}
               showQuickJumper={false}
               showLessItems

@@ -54,15 +54,6 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => {
       <AppLayout>
         <Switch>
           <Route
-            exact
-            path={[`${match.url}/`, `${match.url}/${HomePath}/`]}
-            render={(props) => (
-              <Suspense fallback={<SpinComponent />}>
-                <HomeView {...props} />
-              </Suspense>
-            )}
-          />
-          <Route
             path={[`/${AllJobPath}`, `${match.url}/${AllJobPath}`]}
             render={(props) => (
               <Suspense fallback={<SpinComponent />}>
@@ -87,7 +78,7 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => {
             )}
           />
           <Route
-            exact
+            // exact
             path={[`/${JobCompanyPath}`, `${match.url}/${JobCompanyPath}`]}
             render={(props) => (
               <Suspense fallback={<SpinComponent />}>
@@ -112,7 +103,7 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => {
             )}
           />
           <Route
-            exact
+            // exact
             path={[`/${JobSkillPath}`, `${match.url}/${JobSkillPath}`]}
             render={(props) => (
               <Suspense fallback={<SpinComponent />}>
@@ -121,7 +112,7 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => {
             )}
           />
           <Route
-            exact
+            // exact
             path={[`/${JobTitlePath}`, `${match.url}/${JobTitlePath}`]}
             render={(props) => (
               <Suspense fallback={<SpinComponent />}>
@@ -134,6 +125,16 @@ const App: React.FC<RouteComponentProps> = ({ match }): ReactElement => {
             render={(props) => (
               <Suspense fallback={<SpinComponent />}>
                 <ViewUser {...props} />
+              </Suspense>
+            )}
+          />
+          <Route
+            // exact
+            // strict
+            path={[`${HomePath}`, `${match.url}/${HomePath}`]}
+            render={(props) => (
+              <Suspense fallback={<SpinComponent />}>
+                <HomeView {...props} />
               </Suspense>
             )}
           />

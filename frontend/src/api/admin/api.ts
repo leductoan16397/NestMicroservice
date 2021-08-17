@@ -3,6 +3,7 @@ import { notification } from 'antd';
 import axios, { AxiosResponse } from 'axios';
 import { District, Ward } from 'components/common/location/location';
 import { CompanyInterface } from 'components/form/companyForm/interface';
+import { Job } from 'components/form/jobForm/interface';
 import { RecruiterManagerInterface } from 'components/form/recruiterManagerForm/interface';
 import { axiosClientAdmin, axiosClientAdminWithoutAuth } from './axiosCLientAdmin';
 
@@ -76,6 +77,17 @@ export const searchCompany = async (query: Pick<CompanyInterface, 'companyName'>
 
 export const addCecruiterManager = async (body: RecruiterManagerInterface): Promise<boolean> => {
   const rs: AxiosResponse = await axiosClientAdmin.post('/user/recruiter-manager', body);
+  notification.success({
+    message: 'Add Success',
+  });
+  if (rs.status === 200 || rs.status === 201) {
+    return true;
+  }
+  return false;
+};
+
+export const addJob = async (body: Job): Promise<boolean> => {
+  const rs: AxiosResponse = await axiosClientAdmin.post('/job', body);
   notification.success({
     message: 'Add Success',
   });

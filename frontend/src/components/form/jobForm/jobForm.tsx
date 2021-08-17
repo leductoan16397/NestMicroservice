@@ -1,48 +1,57 @@
 import {
-  Button, DatePicker, Form, Input, notification, Select, Space,
+  Button, DatePicker, Form, Input, InputNumber, notification, Select, Space,
 } from 'antd';
 import React from 'react';
 import TextEditor from 'components/common/textEditor/textEditor';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { LocationField } from 'components/common/location/location';
 import './jobForm.scss';
+import { JobSkills } from 'constants/header';
+// import { push } from 'connected-react-router';
+import { addJob } from 'api/admin/api';
+import { Job } from './interface';
 
 const { Option } = Select;
 
 const children: any[] = [];
-for (let i = 10; i < 36; i += 1) {
+// eslint-disable-next-line array-callback-return
+JobSkills.map((item, index) => {
   children.push(
-    <Option key={i.toString(36) + i} value={i.toString(36) + i}>
-      {i.toString(36) + i}
+    <Option key={`job_${index + 1}`} value={item}>
+      {item}
     </Option>,
   );
-}
+});
 
-const initialValues = {
-  jobName: 'toan le',
-  skill: 'toan le duc',
+const initialValues: Job = {
+  jobName: '',
+  skill: '',
   locations: [{
-    city: 'xcz',
-    district: 'ava',
-    ward: '1312',
-    address: '123',
+    city: 'Hồ Chí Minh',
+    district: 'Thành Phố Thủ Đức',
+    ward: 'Phường An Khánh',
+    address: '',
   }],
   salary: {
-    min: 0,
-    max: 0,
+    min: 500,
+    max: 5000,
   },
-  title: ['cacac'],
-  reason: 'zxvv',
-  why: 'wqq',
-  jobDescription: 'rr',
+  title: [],
+  reason: '',
+  why: '',
+  jobDescription: '',
   endTime: '',
 };
 
 const JobForm: React.FC = () => {
   const [form] = Form.useForm();
 
-  const onFinish = (values: any): void => {
-    console.log('Success:', values);
+  const onFinish = async (values: Job): Promise<void> => {
+    const Success: boolean = await addJob(values);
+    if (Success) {
+      form.resetFields();
+      // push('/admin');
+    }
   };
 
   const onFinishFailed = (): void => {
@@ -64,14 +73,55 @@ const JobForm: React.FC = () => {
       <Form.Item
         label="Job Name"
         name="jobName"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        rules={[{ required: true, message: 'Please input job name!' }]}
       >
         <Input />
       </Form.Item>
+
+      <Form.Item
+        label="Title"
+        name="title"
+        rules={[{
+          required: true, message: 'Please input job Title!', type: 'array', min: 1,
+        }]}
+      >
+        <Select
+          mode="tags"
+          size="middle"
+          placeholder="Please select"
+          style={{ width: '100%' }}
+          allowClear
+        >
+          {children}
+        </Select>
+      </Form.Item>
+
+      <Form.Item
+        label="Top 3 Reasons To Join Us"
+        name="reason"
+        rules={[{ required: true, message: 'Please input Top 3 Reasons To Join Us!' }]}
+      >
+        <TextEditor
+          value={form.getFieldValue('reason')}
+          onChange={(val) => form.setFieldsValue({ reason: val })}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Job Description"
+        name="jobDescription"
+        rules={[{ required: true, message: 'Please input Job Description!' }]}
+      >
+        <TextEditor
+          value={form.getFieldValue('jobDescription')}
+          onChange={(val) => form.setFieldsValue({ jobDescription: val })}
+        />
+      </Form.Item>
+
       <Form.Item
         label="Skills and Experience "
         name="skill"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        rules={[{ required: true, message: 'Please input Skills and Experience!' }]}
       >
         <TextEditor
           value={form.getFieldValue('skill')}
@@ -97,7 +147,17 @@ const JobForm: React.FC = () => {
               </Space>
             ))}
             <Form.Item>
-              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+              <Button
+                type="dashed"
+                onClick={() => add({
+                  city: 'Hồ Chí Minh',
+                  district: 'Thành Phố Thủ Đức',
+                  ward: 'Phường An Khánh',
+                  address: '',
+                })}
+                block
+                icon={<PlusOutlined />}
+              >
                 Add location
               </Button>
             </Form.Item>
@@ -113,8 +173,9 @@ const JobForm: React.FC = () => {
             <Form.Item
               className="nested-field"
               name={['salary', 'min']}
+              rules={[{ required: true, type: 'integer' }]}
             >
-              <Input />
+              <InputNumber min={1} max={10000} />
             </Form.Item>
 
           </Space>
@@ -124,44 +185,18 @@ const JobForm: React.FC = () => {
             <Form.Item
               className="nested-field"
               name={['salary', 'max']}
+              rules={[{ required: true, type: 'integer' }]}
             >
-              <Input />
+              <InputNumber min={1} max={10000} />
             </Form.Item>
           </Space>
         </Space>
       </Space>
 
       <Form.Item
-        label="Title"
-        name="title"
-        rules={[{ required: true, message: 'Please input your username!' }]}
-      >
-        <Select
-          mode="tags"
-          size="middle"
-          placeholder="Please select"
-          style={{ width: '100%' }}
-          allowClear
-        >
-          {children}
-        </Select>
-      </Form.Item>
-
-      <Form.Item
-        label="Top 3 Reasons To Join Us"
-        name="reason"
-        rules={[{ required: true, message: 'Please input your username!' }]}
-      >
-        <TextEditor
-          value={form.getFieldValue('reason')}
-          onChange={(val) => form.setFieldsValue({ reason: val })}
-        />
-      </Form.Item>
-
-      <Form.Item
         label="Why You'll Love Working Here"
         name="why"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        rules={[{ required: true, message: "Please input Why You'll Love Working Here! " }]}
       >
         <TextEditor
           value={form.getFieldValue('why')}
@@ -170,20 +205,9 @@ const JobForm: React.FC = () => {
       </Form.Item>
 
       <Form.Item
-        label="Job Description"
-        name="jobDescription"
-        rules={[{ required: true, message: 'Please input your username!' }]}
-      >
-        <TextEditor
-          value={form.getFieldValue('jobDescription')}
-          onChange={(val) => form.setFieldsValue({ jobDescription: val })}
-        />
-      </Form.Item>
-
-      <Form.Item
         label="End Time"
         name="endTime"
-        rules={[{ required: true, message: 'Please input your password!' }]}
+        rules={[{ required: true, message: 'Please input End Time!', type: 'date' }]}
       >
         <DatePicker inputReadOnly />
       </Form.Item>

@@ -43,9 +43,11 @@ const getFirebaseToken = async (): Promise<string | null | undefined> => {
 axiosClient.interceptors.request.use(
   async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> => {
     const newConfig = { ...config };
-    const token = await getFirebaseToken();
-    if (token) newConfig.headers.Authorization = `Bearer ${token}`;
-    return newConfig;
+    return getFirebaseToken().then((token) => {
+      if (token) newConfig.headers.Authorization = `Bearer ${token}`;
+      return newConfig;
+    })
+      .catch(() => newConfig);
   },
 );
 
