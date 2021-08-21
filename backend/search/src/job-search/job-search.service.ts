@@ -14,7 +14,16 @@ export class JobSearchService {
       id: job.id,
       jobName: job.jobName,
       salary: job.salary,
-      locations: job.locations,
+      locations: job.locations.map((item) => ({
+        address: item.address,
+        city: item.city,
+        district: item.district,
+        ward: item.ward,
+      })),
+      locationsString: job.locations.map(
+        (item) =>
+          `${item.address} - ${item.ward} - ${item.district} - ${item.city}`,
+      ),
       title: job.title,
       skill: job.skill,
       avatar: job.company.avatar.url,
@@ -32,13 +41,42 @@ export class JobSearchService {
     return await this.searchService.getAll(this.index);
   };
 
-  search = async (text = 'a'): Promise<any> => {
-    console.log('text: ', text);
-    return await this.searchService.search(this.index, text, [
-      'jobName',
-      'title',
-      'skill',
-    ]);
+  count = async (): Promise<any> => {
+    return await this.searchService.count(this.index);
+  };
+
+  search = async (
+    page = 1,
+    jobTitle: string,
+    city: string,
+    size = 10,
+  ): Promise<any> => {
+    const searchs = [];
+    jobTitle &&
+      searchs.push({ text: jobTitle, fields: ['jobName', 'title', 'skill'] });
+    city && searchs.push({ text: city, fields: ['locationsString'] });
+
+    if (city) {
+      const a = await this.searchService.searchByJobAndCity(
+        this.index,
+        searchs,
+        (page - 1) * size,
+      );
+      return {
+        total: a.total,
+        currentPage: page,
+        jobs: a.items,
+      };
+    }
+    return {
+      total: await this.searchService.count(this.index, searchs),
+      currentPage: page,
+      jobs: await this.searchService.search(
+        this.index,
+        searchs,
+        (page - 1) * size,
+      ),
+    };
   };
 
   update = async (job: JobModel): Promise<any> => {

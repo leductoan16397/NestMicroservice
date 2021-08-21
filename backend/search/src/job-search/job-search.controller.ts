@@ -17,8 +17,8 @@ export class JobSearchController {
   }
 
   @MessagePattern({ service: 'JobSearch', action: 'search' })
-  search(@Payload() data: any) {
-    return this.jobSearchService.search(data);
+  search(@Payload() data: { page: number; jobTitle: string; city: string }) {
+    return this.jobSearchService.search(data.page, data.jobTitle, data.city);
   }
 
   @MessagePattern({ service: 'JobSearch', action: 'delete' })

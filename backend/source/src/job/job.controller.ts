@@ -2,13 +2,16 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { JobService } from './job.service';
 
+interface QueryParams {
+  page: number;
+}
 @Controller('job')
 export class JobController {
   constructor(private readonly jobService: JobService) {}
 
   @MessagePattern({ service: 'Job', action: 'findAll' })
-  findAll() {
-    return this.jobService.findAll();
+  findAll(@Payload() data: QueryParams) {
+    return this.jobService.findAll(data.page);
   }
 
   @MessagePattern({ service: 'Job', action: 'create' })

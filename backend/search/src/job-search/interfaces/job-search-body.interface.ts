@@ -9,6 +9,7 @@ export interface JobSearchBody extends ElasticsearchBody {
   id: string;
   jobName: string;
   locations: Location[];
+  locationsString: string[];
   salary: Salary;
   title: string[];
   skill: string;

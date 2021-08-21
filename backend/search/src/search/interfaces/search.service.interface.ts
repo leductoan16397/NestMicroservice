@@ -5,7 +5,12 @@ export interface SearchServiceInterface<T> {
 
   updateById(index: string, data: any): Promise<T>;
 
-  search(index: string, text: string, fields: string[]): Promise<T>;
+  search(
+    index: string,
+    searchs: [{ text: string; fields: string[] }],
+    from: number,
+    size: number,
+  ): Promise<T>;
 
   deleteAll(index: string): Promise<T>;
 

@@ -14,7 +14,7 @@ export class JobService {
     @InjectModel(JobModel.name) private readonly jobModel: Model<JobModel>,
   ) {}
 
-  findAll = async (): Promise<any> => {
+  findAll = async (page = 1): Promise<any> => {
     try {
       // const jobs = await this.jobModel.find().populate('author');
       const total = await this.jobModel.count();
@@ -23,10 +23,10 @@ export class JobService {
         .populate('company')
         .sort({ updatedAt: -1 })
         .limit(10)
-        .skip(0 * 10);
+        .skip((page - 1) * 10);
       return {
         total,
-        currentPage: 1,
+        currentPage: page,
         jobs,
       };
     } catch (error) {
@@ -51,7 +51,7 @@ export class JobService {
 
   findById = async (id: string): Promise<JobModel> => {
     try {
-      const job = await this.jobModel.findById(id);
+      const job = await this.jobModel.findById(id).populate('company');
       return job;
     } catch (error) {
       throw new RpcException(error);
